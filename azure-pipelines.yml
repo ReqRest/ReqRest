@@ -1,0 +1,88 @@
+trigger:
+- master
+
+name: $(SourceBranchName)_$(Date:yyyy-MM-dd)_$(Rev:.r)
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  buildConfiguration: 'Release'
+  buildDir: 'src'
+
+steps:
+- task: DotNetCoreInstaller@1
+  displayName: Install .NET Core 3.0
+  inputs:
+    packageType: 'sdk'
+    includePreviewVersions: true
+    version: '3.0.x'
+
+- task: DotNetCoreCLI@2
+  displayName: NuGet Restore
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- script: dotnet build $(buildDir) -c $(buildConfiguration)
+  displayName: Build
+
+- task: DotNetCoreCLI@2
+  displayName: Run Tests
+  inputs:
+    command: test
+    projects: '**/*.csproj'
+    configuration: $(buildConfiguration)
+    nobuild: true
+
+- task: DotNetCoreInstaller@1
+  displayName: Install .NET Core 2.1 for InheritDoc
+  inputs:
+    packageType: 'sdk'
+    version: '2.1.x'
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    )
+
+- script: dotnet tool install -g InheritDocTool
+  displayName: Install InheritDoc
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    )
+
+- script: InheritDoc -o
+  displayName: Run InheritDoc
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranch'], 'refs/heads/master')
+    )
+
+- script: dotnet pack src --no-build --output $(Build.ArtifactStagingDirectory) -c $(buildConfiguration)
+  displayName: NuGet - Pack Projects
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+      eq(variables['system.pullrequest.isfork'], false)
+    )
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: 'NuGet Packages'
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+      eq(variables['system.pullrequest.isfork'], false)
+    )
