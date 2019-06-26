@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Config", ".Config", "{BF738A1B-E2CA-4887-98B4-6DD4746FB41E}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		CA.ruleset = CA.ruleset
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
