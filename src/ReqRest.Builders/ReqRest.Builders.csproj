@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ReqRest</RootNamespace>
+
+    <Description>
+ReqRest is a .NET library dealing with RESTful HTTP APIs.
+At its core, it provides the means for creating a fully typed wrapper for a RESTful API with minimal effort.
+
+This package provides a large set of members applying the builder pattern for conveniently building
+objects like HttpRequestMessage, HttpResponseMessage or Uri.
+
+This package is completely independent and can be used by any software that wants to benefit from
+fluent HTTP object building.
+    </Description>
   </PropertyGroup>
 
   <ItemGroup>

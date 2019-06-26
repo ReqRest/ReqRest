@@ -1,8 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>ReqRest</RootNamespace>
+    
+    <Description>
+ReqRest is a .NET library dealing with RESTful HTTP APIs.
+At its core, it provides the means for creating a fully typed wrapper for a RESTful API with minimal effort.
+
+This package provides basic foundational HTTP specific members that are used across the libraries.
+    </Description>
   </PropertyGroup>
 
   <ItemGroup>
