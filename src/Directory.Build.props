@@ -1,0 +1,39 @@
+<Project>
+
+  <!-- Default C# Project properties that are expected for all sub-projects. -->
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <NullableReferenceTypes>true</NullableReferenceTypes>
+    <NullableContextOptions>enable</NullableContextOptions>
+    
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <!-- Don't allow warnings in release builds. -->
+  <PropertyGroup Condition=" $(Configuration) == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
+    <CodeAnalysisRuleSet>../CA.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  
+  <ItemGroup Condition=" !$(IsTestProject) ">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!-- Certain warnings make no sense in test projects. -->
+  <PropertyGroup Condition=" $(IsTestProject) ">
+    <NullableReferenceTypes>false</NullableReferenceTypes>
+    <NullableContextOptions>disable</NullableContextOptions>
+    <NoWarn>
+      $(NoWarn);
+      CS1573; <!-- No matching XML comment for parameter -->
+      CA2007  <!-- ConfigureAwait(false) leads to cluttered tests. -->
+    </NoWarn>
+  </PropertyGroup>
+  
+</Project>
