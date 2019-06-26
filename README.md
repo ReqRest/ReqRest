@@ -1,4 +1,4 @@
-_Please note that this repository's default branch is the `dev` branch. Be sure to read this document on the `master` branch to read the description of the current release._
+_Please note that this repository's default branch is the `dev` branch. Switch to the `master` branch to read the description of the current release._
 
 # ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master)
 
