@@ -96,7 +96,7 @@
             this T builder, Func<HttpRequestMessage, HttpRequestMessage> setRequest) where T : IHttpRequestMessageBuilder
         {
             _ = setRequest ?? throw new ArgumentNullException(nameof(setRequest));
-            return builder.Configure(() => builder.HttpRequestMessage = setRequest(builder.HttpRequestMessage));
+            return builder.Configure(_ =>builder.HttpRequestMessage = setRequest(builder.HttpRequestMessage));
         }
 
         /// <summary>
@@ -116,7 +116,7 @@
             where T : IHttpRequestMessageBuilder
         {
             _ = httpRequestMessage ?? throw new ArgumentNullException(nameof(httpRequestMessage));
-            return builder.Configure(() => builder.HttpRequestMessage = httpRequestMessage);
+            return builder.Configure(_ =>builder.HttpRequestMessage = httpRequestMessage);
         }
 
     }
