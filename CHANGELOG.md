@@ -1,8 +1,13 @@
 # Changelog
 
-## v0.2.2
+## v0.2.3
 
 * **[Breaking]** Removed `SetJsonFormContent`.
+* Fixed the `UriBuilder` being created with the wrong `Uri` in the `ApiClient`.
+
+
+## v0.2.2
+
 * Added `SetFormUrlEncodedContent` methods.
 
 
