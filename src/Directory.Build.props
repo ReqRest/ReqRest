@@ -5,12 +5,15 @@
     <LangVersion>8.0</LangVersion>
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <NullableContextOptions>enable</NullableContextOptions>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>../key.snk</AssemblyOriginatorKeyFile>
     
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
     
-    <Version Condition=" $(Version) == '' ">0.2.0</Version>
+    <Version Condition=" $(Version) == '' ">0.2.1</Version>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>
