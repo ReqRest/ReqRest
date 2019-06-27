@@ -17,7 +17,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/manuelroemer/ReqRest</RepositoryUrl>
     <PackageProjectUrl>https://github.com/manuelroemer/ReqRest</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/manuelroemer/ReqRest/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <!-- Don't allow warnings in release builds. -->

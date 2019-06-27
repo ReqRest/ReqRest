@@ -25,17 +25,20 @@ steps:
     version: '2.1.x'
 
 - task: Bash@3
+  displayName: Build
   inputs:
     filePath: 'build.sh'
     failOnStderr: true
 
 - task: PublishTestResults@2
+  displayName: Publish Test Results
   inputs:
     testResultsFormat: 'VSTest'
     testResultsFiles: '.artifacts/tests/*.trx'
     failTaskOnFailedTests: true
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish NuGet Package Artifacts
   inputs:
     pathToPublish: .artifacts/packages/*.nupkg
     artifactName: 'NuGet Packages'
