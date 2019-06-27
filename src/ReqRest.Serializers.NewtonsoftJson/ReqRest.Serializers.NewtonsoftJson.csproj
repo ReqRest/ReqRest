@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -17,7 +17,7 @@ This package provides a JSON serializer based on the Newtonsoft.Json library.
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReqRest.Api\ReqRest.Api.csproj" />
+    <ProjectReference Include="..\ReqRest.Client\ReqRest.Client.csproj" />
     <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
   </ItemGroup>
 

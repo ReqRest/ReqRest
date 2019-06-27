@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Api.Tests.StatusCodeRangeExtensions
+﻿namespace ReqRest.Client.Tests.StatusCodeRangeExtensions
 {
     using FluentAssertions;
     using Xunit;
