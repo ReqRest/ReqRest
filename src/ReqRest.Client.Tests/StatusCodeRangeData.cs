@@ -1,5 +1,6 @@
 ﻿namespace ReqRest.Client.Tests
 {
+    using ReqRest.Http;
     using Xunit;
 
     /// <summary>

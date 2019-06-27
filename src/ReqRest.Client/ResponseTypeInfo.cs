@@ -1,10 +1,12 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net.Http;
-    using ReqRest.Resources;
+    using ReqRest.Http;
+    using ReqRest.Client.Resources;
+    using ReqRest.Serializers;
 
     /// <summary>
     ///     Contains information about which .NET type a RESTful HTTP API returns for a given set of

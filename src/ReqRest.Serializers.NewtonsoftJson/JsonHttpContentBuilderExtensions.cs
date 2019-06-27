@@ -1,8 +1,10 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
     using System.Net.Http;
     using System.Text;
+    using ReqRest.Builders;
+    using ReqRest.Http;
 
     /// <summary>
     ///     Extends the <see cref="IHttpRequestMessageBuilder"/> interface with methods for dealing

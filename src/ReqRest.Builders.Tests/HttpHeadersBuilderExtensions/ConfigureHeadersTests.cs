@@ -2,7 +2,7 @@
 {
     using System;
     using System.Net.Http.Headers;
-    using ReqRest;
+    using ReqRest.Builders;
     using ReqRest.Builders.Tests.HeaderTestBase;
 
     public class ConfigureHeadersTests : ConfigureHeadersTestBase<HttpHeaders>

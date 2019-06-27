@@ -1,11 +1,12 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.Linq;
-    using ReqRest.Resources;
+    using ReqRest.Http;
+    using ReqRest.Client.Resources;
 
     /// <summary>
     ///     A collection of <see cref="ResponseTypeInfo"/> instances which ensures that

@@ -1,8 +1,8 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers
 {
     using System;
     using System.Runtime.Serialization;
-    using ReqRest.Resources;
+    using ReqRest.Serializers.Resources;
 
     /// <summary>
     ///     An exception that gets thrown by various members inside the library when an

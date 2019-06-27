@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Client.Tests.StatusCodeRangeExtensions
 {
     using FluentAssertions;
+    using ReqRest.Http;
     using Xunit;
 
     public class IsMoreSpecificThanTests

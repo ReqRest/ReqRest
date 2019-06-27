@@ -2,7 +2,7 @@
 {
     using System.Net.Http;
     using FluentAssertions;
-    using ReqRest;
+    using ReqRest.Builders;
     using Xunit;
 
     public class ConstructorTests

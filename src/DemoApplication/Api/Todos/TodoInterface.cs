@@ -1,7 +1,8 @@
 ﻿namespace DemoApplication.Api.Todos
 {
     using System;
-    using ReqRest;
+    using ReqRest.Builders;
+    using ReqRest.Client;
 
     public class TodoInterface : ApiInterface
     {

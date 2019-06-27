@@ -2,7 +2,6 @@
 {
     using System;
     using FluentAssertions;
-    using ReqRest;
     using Xunit;
 
     public class HttpResponseMessageTests

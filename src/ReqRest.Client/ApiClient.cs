@@ -1,6 +1,7 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
+    using ReqRest.Builders;
 
     /// <summary>
     ///     An abstract base class for any client which consumes a RESTful HTTP API by statically

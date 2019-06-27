@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
     using System.IO;
@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
+    using ReqRest.Http;
 
     /// <summary>
     ///     An <see cref="HttpContent"/> (de-)serializer which uses the <c>Newtonsoft.Json</c>

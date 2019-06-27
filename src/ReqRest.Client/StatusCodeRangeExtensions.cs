@@ -1,6 +1,7 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
-    using static ReqRest.StatusCode;
+    using ReqRest.Http;
+    using static ReqRest.Http.StatusCode;
 
     /// <summary>
     ///    Extends the <see cref="StatusCodeRange"/> struct with utility methods required by members

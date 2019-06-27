@@ -1,6 +1,7 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
+    using ReqRest.Builders;
 
     /// <summary>
     ///     Defines a base class for wrapping an interface of a RESTful HTTP API.
@@ -11,7 +12,7 @@
         private readonly Lazy<Uri> _urlLazy;
 
         /// <summary>
-        ///     Gets the <see cref="ReqRest.ApiClient"/> which ultimately manages (or rather "contains")
+        ///     Gets the <see cref="ApiClient"/> which ultimately manages (or rather "contains")
         ///     this interface.
         ///     This client's configuration is supposed to be used when building requests.
         /// </summary>

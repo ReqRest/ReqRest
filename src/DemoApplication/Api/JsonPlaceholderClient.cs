@@ -2,7 +2,7 @@
 {
     using System;
     using DemoApplication.Api.Todos;
-    using ReqRest;
+    using ReqRest.Client;
 
     public class JsonPlaceholderClient : ApiClient
     {

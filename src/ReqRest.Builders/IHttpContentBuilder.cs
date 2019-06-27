@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
-    using ReqRest.Resources;
+    using ReqRest.Builders.Resources;
 
     /// <summary>
     ///     Represents a builder for an object which provides an <see cref="HttpContent"/>.

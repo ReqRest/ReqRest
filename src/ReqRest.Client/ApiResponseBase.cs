@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,9 @@
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
-    using ReqRest.Resources;
+    using ReqRest.Builders;
+    using ReqRest.Client.Resources;
+    using ReqRest.Serializers;
 
     /// <summary>
     ///     Defines the shared members of a response which was returned by a RESTful HTTP API

@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using ReqRest;
+    using ReqRest.Builders;
     using ReqRest.Builders.Tests.HeaderTestBase;
 
     public class AddContentHeaderTests : AddHeaderTestBase<HttpContentHeaders>

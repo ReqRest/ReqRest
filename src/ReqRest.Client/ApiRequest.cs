@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Diagnostics;
@@ -6,6 +6,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using NCommons.Monads;
+    using ReqRest.Serializers;
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
 

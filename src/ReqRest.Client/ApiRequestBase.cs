@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using ReqRest.Builders;
 
     /// <summary>
     ///     Defines the shared members of a request builder abstraction for a RESTful HTTP API.
