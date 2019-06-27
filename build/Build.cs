@@ -32,8 +32,9 @@ class Build : NukeBuild
         .Before(Restore)
         .Executes(() =>
         {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            DotNetClean(s => s .SetProject(Solution));
             EnsureCleanDirectory(ArtifactsDirectory);
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
         });
 
     Target Restore => _ => _
@@ -44,7 +45,7 @@ class Build : NukeBuild
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore)
+        .DependsOn(Clean, Restore)
         .Executes(() =>
         {
             DotNetBuild(s => s
@@ -67,7 +68,40 @@ class Build : NukeBuild
                 .SetResultsDirectory(ArtifactsDirectory / "tests"));
         });
 
+    Target InstallInheritDoc => _ => _
+        .Executes(() => 
+        {
+            // "dotnet tool update" will install if the tool is not found.
+            // Not using "dotnet tool install", because that would return a non-zero exit code if the
+            // tool is already installed.
+            DotNetToolUpdate(s => s
+                .EnableGlobal()
+                .SetArgumentConfigurator(c => c.Add("--ignore-failed-sources"))
+                .SetPackageName("InheritDocTool"));
+        });
+
+    Target RunInheritDoc => _ => _
+        .DependsOn(InstallInheritDoc, Compile)
+        .Executes(() => 
+        {
+            ProcessTasks
+                .StartProcess("InheritDoc", arguments: $"--overwrite --base {Solution.Directory}")
+                .AssertZeroExitCode();
+        });
+
+    Target Pack => _=> _
+        .DependsOn(Test, RunInheritDoc)
+        .Executes(() =>
+        {
+            DotNetPack(s => s
+                .SetProject(Solution)
+                .SetConfiguration(Configuration)
+                .EnableNoBuild()
+                .EnableNoRestore()
+                .SetOutputDirectory(ArtifactsDirectory / "packages"));
+        });
+
     Target FullBuild => _ => _
-        .DependsOn(Test);
+        .DependsOn(Pack);
 
 }
