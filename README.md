@@ -49,8 +49,10 @@ I recommend to look at the following files (in order) and then just follow the c
 
 ## Versioning
 
-As long as the library is still in the initial development (i.e. on version `0.x.x`) any minor
+As long as the library is still in the initial development (i.e. on version `0.x.x`) any
 version increment may signify a breaking change.
+Large changes will definitly lead to a minor version increment.
+Small breaking changes may only increment the patch number though.
 
 As soon as the library reaches version `1.0.0` it will follow Semantic Versioning.
 
