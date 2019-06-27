@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
     using DemoApplication.Api;
     using Newtonsoft.Json;
-    using ReqRest;
     using static System.Console;
 
     public static class Program

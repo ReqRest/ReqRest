@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Collections.Generic;
@@ -144,7 +144,7 @@
             this T builder, Action<IDictionary<string, object?>> configureProperties) where T : IHttpRequestPropertiesBuilder
         {
             _ = configureProperties ?? throw new ArgumentNullException(nameof(configureProperties));
-            return builder.Configure(() => configureProperties(builder.Properties));
+            return builder.Configure(_ =>configureProperties(builder.Properties));
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Collections.Generic;
@@ -139,7 +139,7 @@
             this T builder, Action<HttpHeaders> configureHeaders) where T : IHttpHeadersBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(() => configureHeaders(builder.Headers));
+            return builder.Configure(_ =>configureHeaders(builder.Headers));
         }
 
     }

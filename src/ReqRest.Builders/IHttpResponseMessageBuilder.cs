@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Net.Http;
@@ -101,7 +101,7 @@
             this T builder, Func<HttpResponseMessage, HttpResponseMessage> setResponse) where T : IHttpResponseMessageBuilder
         {
             _ = setResponse ?? throw new ArgumentNullException(nameof(setResponse));
-            return builder.Configure(() => builder.HttpResponseMessage = setResponse(builder.HttpResponseMessage));
+            return builder.Configure(_ =>builder.HttpResponseMessage = setResponse(builder.HttpResponseMessage));
         }
 
         /// <summary>
@@ -122,7 +122,7 @@
             where T : IHttpResponseMessageBuilder
         {
             _ = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
-            return builder.Configure(() => builder.HttpResponseMessage = httpResponseMessage);
+            return builder.Configure(_ =>builder.HttpResponseMessage = httpResponseMessage);
         }
 
     }

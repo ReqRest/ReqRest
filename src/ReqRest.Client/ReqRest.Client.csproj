@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>
+ReqRest is a .NET library dealing with RESTful HTTP APIs. 
+At its core, it provides the means for creating a fully typed wrapper for a RESTful API with minimal effort.
+
+This package provides the members for creating a custom REST API Client using the full power of
+the ReqRest libraries.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NCommons.Monads" Version="1.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReqRest.Builders\ReqRest.Builders.csproj" />
+    <ProjectReference Include="..\ReqRest.Http\ReqRest.Http.csproj" />
+    <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ExceptionStrings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExceptionStrings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ExceptionStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExceptionStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

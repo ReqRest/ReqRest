@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReqRest.Api\ReqRest.Api.csproj" />
+    <ProjectReference Include="..\ReqRest.Client\ReqRest.Client.csproj" />
     <ProjectReference Include="..\ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj" />
   </ItemGroup>
 

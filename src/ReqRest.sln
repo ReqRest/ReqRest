@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Api", "ReqRest.Api\ReqRest.Api.csproj", "{CF7DACBF-CB3A-47F3-9E87-FFC53926CF90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Client", "ReqRest.Client\ReqRest.Client.csproj", "{CF7DACBF-CB3A-47F3-9E87-FFC53926CF90}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Config", ".Config", "{BF738A1B-E2CA-4887-98B4-6DD4746FB41E}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{B093
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{0BD3FFFC-B0E1-4D39-855F-1F9846858930}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Api.Tests", "ReqRest.Api.Tests\ReqRest.Api.Tests.csproj", "{BDCFDFAC-92C2-456D-8560-B53F07831968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Client.Tests", "ReqRest.Client.Tests\ReqRest.Client.Tests.csproj", "{BDCFDFAC-92C2-456D-8560-B53F07831968}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Builders", "ReqRest.Builders\ReqRest.Builders.csproj", "{3F9BE8D5-F8A6-45B1-A223-38F2F55417CD}"
 EndProject

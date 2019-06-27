@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ReqRest.Resources {
+namespace ReqRest.Http.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ReqRest.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ReqRest.Resources.ExceptionStrings", typeof(ExceptionStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ReqRest.Http.Resources.ExceptionStrings", typeof(ExceptionStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

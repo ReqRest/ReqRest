@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Http
 {
 
     /// <summary>

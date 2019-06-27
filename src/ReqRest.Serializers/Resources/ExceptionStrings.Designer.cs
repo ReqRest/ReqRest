@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ReqRest.Resources {
+namespace ReqRest.Serializers.Resources {
     using System;
     
     

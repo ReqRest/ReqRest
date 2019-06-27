@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using ReqRest;
+    using ReqRest.Client;
+    using ReqRest.Builders;
+    using ReqRest.Serializers.NewtonsoftJson;
 
     public class TodosInterface : ApiInterface
     {
