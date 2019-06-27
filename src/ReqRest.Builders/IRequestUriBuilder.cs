@@ -57,7 +57,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetRequestUri<T>(this T builder, Uri? requestUri) where T : IRequestUriBuilder =>
-            builder.Configure(() => builder.RequestUri = requestUri);
+            builder.Configure(_ =>builder.RequestUri = requestUri);
 
     }
 

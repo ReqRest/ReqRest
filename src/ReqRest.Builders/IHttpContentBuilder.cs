@@ -120,7 +120,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetContent<T>(this T builder, HttpContent content) where T : IHttpContentBuilder =>
-            builder.Configure(() => builder.Content = content);
+            builder.Configure(_ =>builder.Content = content);
 
         #endregion
 
@@ -306,7 +306,7 @@
             this T builder, Action<HttpContentHeaders> configureHeaders) where T : IHttpContentBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(() =>
+            return builder.Configure(_ =>
             {
                 // There may not always be an HttpContent. There is nothing we can/should do. Fail here.
                 if (builder.Content is null)

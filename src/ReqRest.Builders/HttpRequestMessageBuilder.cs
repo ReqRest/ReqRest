@@ -11,6 +11,7 @@
     ///     <see cref="System.Net.Http.HttpRequestMessage"/> objects.
     /// </summary>
     public class HttpRequestMessageBuilder : 
+        IBuilder,
         IHttpRequestMessageBuilder,
         IHttpHeadersBuilder,
         IHttpRequestPropertiesBuilder,

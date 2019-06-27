@@ -50,7 +50,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetStatusCode<T>(this T builder, HttpStatusCode statusCode) where T : IHttpStatusCodeBuilder =>
-            builder.Configure(() => builder.StatusCode = statusCode);
+            builder.Configure(_ =>builder.StatusCode = statusCode);
 
     }
 

@@ -35,7 +35,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetVersion<T>(this T builder, Version version) where T : IHttpProtocolVersionBuilder =>
-            builder.Configure(() => builder.Version = version);
+            builder.Configure(_ =>builder.Version = version);
 
     }
 
