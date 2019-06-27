@@ -2,8 +2,8 @@
 
 ## v0.2.2
 
-* Fixed `SetJsonFormContent` to not have `encoding` as an optional parameter.
-* Fixed XML doc.
+* **[Breaking]** Removed `SetJsonFormContent`.
+* Added `SetFormUrlEncodedContent` methods.
 
 
 ## v0.2.1
