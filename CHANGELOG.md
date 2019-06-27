@@ -2,7 +2,6 @@
 
 ## v0.2.2
 
-* **[Breaking]** Removed `SetJsonFormContent`.
 * Added `SetFormUrlEncodedContent` methods.
 
 
