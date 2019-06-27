@@ -35,8 +35,8 @@
         UriBuilder IUrlProvider.GetUrlBuilder()
         {
             var builder = Configuration.BaseUrl is null
-                ? new UriBuilder(Configuration.BaseUrl)
-                : new UriBuilder();
+                ? new UriBuilder()
+                : new UriBuilder(Configuration.BaseUrl);
 
             // UriBuilder may automagically set the port to the corresponding scheme default.
             // For example, https may lead to a port of 443.
