@@ -36,7 +36,7 @@
         public static T SetJsonFormContent<T>(
             this T builder,
             object? content,
-            Encoding? encoding,
+            Encoding? encoding = null,
             JsonHttpContentSerializer? serializer = null) where T : IHttpContentBuilder
         {
             return builder

@@ -4,7 +4,7 @@
     using System.Net.Http;
 
     /// <summary>
-    ///     Defines the basic configuration values for an <see cref="ApiClient{TConfig}"/>.
+    ///     Defines the basic configuration values for an <see cref="ApiClient"/>.
     ///     This configuration can be extended by specific client implementations.
     /// </summary>
     public class ApiClientConfiguration
