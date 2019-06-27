@@ -31,8 +31,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Http", "ReqRest.Htt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Serializers", "ReqRest.Serializers\ReqRest.Serializers.csproj", "{0E966311-66C7-4953-9359-2C0CAE5CA06A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Build", "..\build\Build.csproj", "{40F3EAB6-FE9C-4737-949B-6AA044C25931}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,8 +41,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{40F3EAB6-FE9C-4737-949B-6AA044C25931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{40F3EAB6-FE9C-4737-949B-6AA044C25931}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF7DACBF-CB3A-47F3-9E87-FFC53926CF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CF7DACBF-CB3A-47F3-9E87-FFC53926CF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF7DACBF-CB3A-47F3-9E87-FFC53926CF90}.Debug|x64.ActiveCfg = Debug|Any CPU
