@@ -1,7 +1,9 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System;
     using System.Collections.Generic;
+    using ReqRest.Http;
+    using ReqRest.Serializers;
 
     /// <summary>
     ///     A builder which gets returned by an <see cref="ApiRequest"/> (or one of its generic variants)

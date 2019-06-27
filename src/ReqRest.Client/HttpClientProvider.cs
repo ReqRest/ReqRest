@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System.Net.Http;
 

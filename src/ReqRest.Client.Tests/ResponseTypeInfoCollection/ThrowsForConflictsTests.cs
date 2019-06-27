@@ -4,7 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
-    using ReqRest;
+    using ReqRest.Client;
+    using ReqRest.Http;
     using Xunit;
 
     public class ThrowsForConflictsTests

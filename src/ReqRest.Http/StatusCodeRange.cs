@@ -1,8 +1,8 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Http
 {
     using System;
     using System.ComponentModel;
-    using ReqRest.Resources;
+    using ReqRest.Http.Resources;
 
     /// <summary>
     ///     Represents a range between two HTTP status codes and provides methods for determining

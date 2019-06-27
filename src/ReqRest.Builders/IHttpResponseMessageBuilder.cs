@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Net.Http;

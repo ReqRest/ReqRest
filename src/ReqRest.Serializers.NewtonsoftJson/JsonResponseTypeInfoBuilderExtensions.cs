@@ -1,8 +1,10 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
+    using ReqRest.Client;
+    using ReqRest.Http;
 
     /// <summary>
     ///     Extends the <see cref="ResponseTypeInfoBuilder{TRequest}"/> class with methods for

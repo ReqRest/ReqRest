@@ -4,7 +4,6 @@
     using System.Net.Http;
     using FluentAssertions;
     using Xunit;
-    using ReqRest;
 
     public class ConfigureRequestTests : HttpRequestBuilderTestBase
     {

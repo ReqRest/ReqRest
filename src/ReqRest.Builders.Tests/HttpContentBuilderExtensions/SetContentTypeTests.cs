@@ -4,7 +4,7 @@
     using System.Net.Http.Headers;
     using System.Text;
     using FluentAssertions;
-    using ReqRest;
+    using ReqRest.Http;
     using Xunit;
 
     public class SetContentTypeTests : HttpRequestBuilderTestBase

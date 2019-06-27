@@ -1,6 +1,7 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Client
 {
     using System.Collections.Generic;
+    using ReqRest.Http;
 
     /// <summary>
     ///     A special comparer for <see cref="StatusCodeRange"/> instances which orders them
