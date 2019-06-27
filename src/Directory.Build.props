@@ -10,7 +10,7 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
     
-    <Version Condition=" $(Version) == '' ">0.1.0</Version>
+    <Version Condition=" $(Version) == '' ">0.2.0</Version>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>
