@@ -23,12 +23,6 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '2.1.x'
-  condition: |
-    and
-    (
-      succeeded(),
-      eq(variables['Build.SourceBranch'], 'refs/heads/master')
-    )
 
 - task: DotNetCoreCLI@2
   displayName: NuGet Restore
