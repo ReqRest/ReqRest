@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Api.Tests.ResponseTypeInfoCollection
+﻿namespace ReqRest.Client.Tests.ResponseTypeInfoCollection
 {
     using System;
     using System.Collections.Generic;

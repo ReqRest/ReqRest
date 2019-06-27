@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Api.Tests.StatusCodeRangeSpecificnessComparer
+﻿namespace ReqRest.Client.Tests.StatusCodeRangeSpecificnessComparer
 {
     using FluentAssertions;
     using ReqRest;

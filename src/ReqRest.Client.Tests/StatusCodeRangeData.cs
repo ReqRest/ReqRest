@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Api.Tests
+﻿namespace ReqRest.Client.Tests
 {
     using Xunit;
 
