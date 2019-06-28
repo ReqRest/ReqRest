@@ -26,6 +26,9 @@
     ///             Throwing an <see cref="HttpContentSerializationException"/> if 
     ///             (de-)serialization fails.
     ///         </item>
+    ///         <item>
+    ///             Handling the <see cref="NoContent"/> type during (de-)serialization.
+    ///         </item>
     ///     </list>
     /// </remarks>
     public abstract class HttpContentSerializer : IHttpContentSerializer, IHttpContentDeserializer
@@ -41,6 +44,23 @@
 
         /// <inheritdoc/>
         public virtual HttpContent Serialize(object? content, Encoding? encoding)
+        {
+            if (content is NoContent)
+            {
+                return SerializeNoContent();
+            }
+            else
+            {
+                return SerializeDefault(content, encoding);
+            }
+        }
+
+        private HttpContent SerializeNoContent()
+        {
+            return new ByteArrayContent(Array.Empty<byte>());
+        }
+
+        private HttpContent SerializeDefault(object? content, Encoding? encoding)
         {
             try
             {
@@ -76,6 +96,23 @@
             _ = httpContent ?? throw new ArgumentNullException(nameof(httpContent));
             _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
 
+            if (contentType == typeof(NoContent))
+            {
+                return DeserializeNoContent();
+            }
+            else
+            {
+                return await DeserializeDefault(httpContent, contentType).ConfigureAwait(false);
+            }
+        }
+
+        private NoContent DeserializeNoContent()
+        {
+            return NoContent.Default;
+        }
+
+        private async Task<object?> DeserializeDefault(HttpContent httpContent, Type contentType)
+        {
             try
             {
                 return await DeserializeCore(httpContent, contentType).ConfigureAwait(false);
