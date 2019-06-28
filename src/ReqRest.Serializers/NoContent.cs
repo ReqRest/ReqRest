@@ -42,7 +42,7 @@
         ///     <see langword="true"/>.
         /// </returns>
         public bool Equals(NoContent other) =>
-            true;
+            !(other is null);
 
         /// <summary>
         ///     Returns a hash code for this instance.
@@ -51,11 +51,11 @@
         public override int GetHashCode() =>
             1;
 
-        public static bool operator ==(NoContent a, NoContent b) =>
-            true;
+        public static bool operator ==(NoContent? a, NoContent? b) =>
+            Equals(a, b);
 
-        public static bool operator !=(NoContent a, NoContent b) =>
-            false;
+        public static bool operator !=(NoContent? a, NoContent? b) =>
+            !(a == b);
 
     }
 
