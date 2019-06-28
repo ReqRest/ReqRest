@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.4
+
+* Added and integrated the special `NoContent` type into/to the serializers. 
+
+
 ## v0.2.3
 
 * **[Breaking]** Removed `SetJsonFormContent`.
