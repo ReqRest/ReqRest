@@ -80,7 +80,7 @@
         protected abstract UriBuilder BuildUrl(UriBuilder baseUrl);
 
         /// <summary>
-        ///     Returns a new <see cref="ApiRequestBase"/> instance which can be used
+        ///     Returns a new <see cref="ApiRequest"/> instance which can be used
         ///     to build a specific request against this interface.
         ///     
         ///     The request is preconfigured with the default configuration of the <see cref="Client"/>
