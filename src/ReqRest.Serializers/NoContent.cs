@@ -21,7 +21,7 @@
         /// <summary>
         ///     Initializes a new <see cref="NoContent"/> instance-
         /// </summary>
-        public NoContent() { }
+        private NoContent() { }
 
         /// <summary>
         ///     Returns a value indicating whether this object equals <paramref name="obj"/>.

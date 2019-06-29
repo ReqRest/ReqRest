@@ -50,6 +50,13 @@
         /// <returns>
         ///     The api request instance with which this class was initialized.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="responseDeserializerFactory"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public TRequest Build(
             Func<IHttpContentDeserializer> responseDeserializerFactory, 
             IEnumerable<StatusCodeRange> forStatusCodes)

@@ -123,6 +123,9 @@
   <data name="ApiResponse_NoResponseTypeInfoForResponse" xml:space="preserve">
     <value>There is no ResponseTypeInfo element which can be associated with the response's status code.</value>
   </data>
+  <data name="NoContentSerializer_CanOnlySerializeNoContentType" xml:space="preserve">
+    <value>The NoContentSerializer can only (de-)serialize the NoContent type.</value>
+  </data>
   <data name="ResponseTypeInfoCollection_ConflictingStatusCodeRanges" xml:space="preserve">
     <value>Some status code ranges have conflicting values. When defining the possible response types of an API request, ensure that the status code ranges don't cover the same status codes (except in combination with wildcards).
 

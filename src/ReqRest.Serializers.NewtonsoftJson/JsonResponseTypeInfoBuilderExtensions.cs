@@ -25,6 +25,13 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(this ResponseTypeInfoBuilder<T> builder, params StatusCodeRange[] forStatusCodes) 
             where T : ApiRequestBase
         {
@@ -46,6 +53,13 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(
             this ResponseTypeInfoBuilder<T> builder,
             IEnumerable<StatusCodeRange> forStatusCodes,
@@ -72,6 +86,14 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        ///     * <paramref name="jsonHttpContentDeserializerFactory"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(
             this ResponseTypeInfoBuilder<T> builder, 
             IEnumerable<StatusCodeRange> forStatusCodes,
