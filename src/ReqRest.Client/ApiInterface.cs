@@ -27,6 +27,11 @@
         protected IUrlProvider BaseUrlProvider { get; }
 
         /// <summary>
+        ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
+        /// </summary>
+        protected Uri Url => _urlLazy.Value;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
         ///     depends on another <see cref="IUrlProvider"/>.
         /// </summary>
@@ -93,8 +98,15 @@
         {
             var httpClient = Client.Configuration.HttpClientProvider.Invoke();
             return new ApiRequest(httpClient)
-                .SetRequestUri(_urlLazy.Value);
+                .SetRequestUri(Url);
         }
+
+        /// <summary>
+        ///     Returns a string representing the interface's URL.
+        /// </summary>
+        /// <returns>A string representing the interface's URL.</returns>
+        public override string ToString() =>
+            Url.ToString();
 
     }
 
