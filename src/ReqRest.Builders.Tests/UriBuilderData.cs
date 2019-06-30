@@ -42,6 +42,42 @@
                 { "one//", new[] { "//two" }, "one///two" },
                 { "one//", new[] { "/" }, "one//" },
             };
+        
+        public static TheoryData<string, IEnumerable<string>, string> SingleQueryParameterData { get; } =
+            new TheoryData<string, IEnumerable<string>, string>()
+            {
+                { "", new [] { "x=y" }, "?x=y" },
+                { "", new [] { "&x=y" }, "?x=y" },
+                { "", new [] { "&&x=y" }, "?x=y" },
+                { "&", new [] { "x=y" }, "?x=y" },
+                { "a=b", new [] { "x=y" }, "?a=b&x=y" },
+                { "a=b&", new [] { "x=y" }, "?a=b&x=y" },
+                { "a=b", new [] { "&x=y" }, "?a=b&x=y" },
+                { "a=b&", new [] { "&x=y" }, "?a=b&x=y" },
+                { "a=b&&", new [] { "&&x=y" }, "?a=b&x=y" },
+                { "&a=b", new [] { "x=y" }, "?&a=b&x=y" },
+                { "&a=b&", new [] { "x=y" }, "?&a=b&x=y" },
+                { "&a=b", new [] { "&x=y" }, "?&a=b&x=y" },
+                { "&a=b&", new [] { "&x=y" }, "?&a=b&x=y" },
+                { "&a=b&&", new [] { "&&x=y" }, "?&a=b&x=y" },
+                { "x=y", new string [] {  }, "?x=y" },
+                { "x=y", new [] { "" }, "?x=y" },
+            };
+        
+        public static TheoryData<string, string, string, string> KeyValueQueryParameterData { get; } =
+            new TheoryData<string, string, string, string>()
+            {
+                { "", "x", "y", "?x=y" },
+                { "&", "x", "y", "?x=y" },
+                { "a=b", "x", "y", "?a=b&x=y" },
+                { "a=b&", "x", "y", "?a=b&x=y" },
+                { "a=b&&", "x", "y", "?a=b&x=y" },
+                { "&a=b", "x", "y", "?&a=b&x=y" },
+                { "&a=b&", "x", "y", "?&a=b&x=y" },
+                { "&a=b&&", "x", "y", "?&a=b&x=y" },
+                { "x=y", "", "", "?x=y" },
+                { "x=y", null, null, "?x=y" },
+            };
 
     }
 

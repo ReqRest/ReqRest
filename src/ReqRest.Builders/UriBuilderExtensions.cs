@@ -388,7 +388,14 @@
             var query = builder.Query.TrimEnd(trimChars);
             parameter = parameter.TrimStart(trimChars);
 
-            return builder.SetQuery($"{query}&{parameter}");
+            if (query.Length == 0 || query == "?")
+            {
+                return builder.SetQuery(parameter);
+            }
+            else
+            {
+                return builder.SetQuery($"{query}&{parameter}");
+            }
         }
 
         /// <summary>

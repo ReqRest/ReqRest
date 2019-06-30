@@ -1,37 +1,33 @@
-﻿namespace ReqRest.Builders.Tests.UrlBuilder
+﻿namespace ReqRest.Builders.Tests.UriBuilderExtensions
 {
-    using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
-    using Xunit;
-    using ReqRest.Builders;
     using FluentAssertions;
+    using Xunit;
 
-    public class AndOperatorTests
+    public class AppendQueryParameterTests : UriBuilderExtensionsTestBase
     {
 
         [Theory]
         [MemberData(nameof(UriBuilderData.SingleQueryParameterData), MemberType = typeof(UriBuilderData))]
         public void Single_Appends_Query_String(string initialQuery, IEnumerable<string> parameters, string expected)
         {
-            var builder = new UrlBuilder().SetQuery(initialQuery);
-            
+            Builder.SetQuery(initialQuery);
+
             foreach (var param in parameters)
             {
-                builder = builder & param;
+                Builder.AppendQueryParameter(param);
             }
 
-            builder.Query.Should().Be(expected);
+            Builder.Query.Should().Be(expected);
         }
 
         [Theory]
         [MemberData(nameof(UriBuilderData.KeyValueQueryParameterData), MemberType = typeof(UriBuilderData))]
         public void Key_Value_Appends_Query_String(string initialQuery, string key, string value, string expected)
         {
-            var builder = new UrlBuilder().SetQuery(initialQuery);
-            builder = builder & (key, value);
-            builder.Query.Should().Be(expected);
+            Builder.SetQuery(initialQuery);
+            Builder.AppendQueryParameter(key, value);
+            Builder.Query.Should().Be(expected);
         }
 
     }
