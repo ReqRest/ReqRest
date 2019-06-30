@@ -1,6 +1,5 @@
 ﻿namespace DemoApplication.Api.Todos
 {
-    using System;
     using ReqRest.Builders;
     using ReqRest.Client;
 

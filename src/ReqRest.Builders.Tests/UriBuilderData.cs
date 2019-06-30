@@ -1,9 +1,6 @@
 ﻿namespace ReqRest.Builders.Tests
 {
-    using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
     using Xunit;
 
     public static class UriBuilderData

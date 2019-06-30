@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using ReqRest.Builders.Resources;
 
     /// <summary>
     ///     Extends the <see cref="UriBuilder"/> class with fluent extension methods.
