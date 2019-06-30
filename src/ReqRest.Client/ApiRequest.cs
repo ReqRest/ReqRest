@@ -1,11 +1,13 @@
 ﻿namespace ReqRest.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
     using NCommons.Monads;
+    using ReqRest.Http;
     using ReqRest.Serializers;
 
 #pragma warning disable CA2000 // Dispose objects before losing scope
@@ -34,6 +36,54 @@
         /// </exception>
         public ApiRequest(HttpClient httpClient, HttpRequestMessage? httpRequestMessage = null)
             : base(httpClient, httpRequestMessage) { }
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T"/>.
@@ -96,6 +146,54 @@
         /// </exception>
         public ApiRequest(ApiRequest request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T2"/>.
@@ -196,6 +294,54 @@
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
+
+        /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T3"/>.
         ///     This returns a builder instance which requires you to specify additional information about
         ///     the possible response (for example, for which status codes the type is a possible result).
@@ -293,6 +439,54 @@
         /// </exception>
         public ApiRequest(ApiRequest<T1, T2> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, T3, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T4"/>.
@@ -395,6 +589,54 @@
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, T3, T4, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
+
+        /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T5"/>.
         ///     This returns a builder instance which requires you to specify additional information about
         ///     the possible response (for example, for which status codes the type is a possible result).
@@ -494,6 +736,54 @@
         /// </exception>
         public ApiRequest(ApiRequest<T1, T2, T3, T4> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, T3, T4, T5, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T6"/>.
@@ -598,6 +888,54 @@
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
+
+        /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T7"/>.
         ///     This returns a builder instance which requires you to specify additional information about
         ///     the possible response (for example, for which status codes the type is a possible result).
@@ -699,6 +1037,54 @@
         /// </exception>
         public ApiRequest(ApiRequest<T1, T2, T3, T4, T5, T6> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content when
+        ///     receiving a response with status code <c>204 No Content</c>.
+        /// </summary>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, T7, NoContent> ReceiveNoContent() =>
+            ReceiveNoContent(StatusCode.NoContent);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, T7, NoContent> ReceiveNoContent(params StatusCodeRange[] forStatusCodes) =>
+            ReceiveNoContent((IEnumerable<StatusCodeRange>)forStatusCodes);
+
+        /// <summary>
+        ///     Declares that the response to this request may have an empty HTTP content, represented
+        ///     through the <see cref="NoContent"/> type.
+        /// </summary>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which no content is received.
+        /// </param>
+        /// <returns>
+        ///     An <see cref="ApiRequestBase"/>, upgraded with the <see cref="NoContent"/> type.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public ApiRequest<T1, T2, T3, T4, T5, T6, T7, NoContent> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
+            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="T8"/>.

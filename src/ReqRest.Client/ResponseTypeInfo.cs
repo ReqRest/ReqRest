@@ -35,39 +35,47 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="ResponseTypeInfo"/> class
         ///     which specifies that an API returns an object of type <paramref name="responseType"/>
-        ///     for the given <paramref name="applicableStatusCodes"/>.
+        ///     for the given <paramref name="statusCodes"/>.
         /// </summary>
         /// <param name="responseType">
         ///     The .NET type representation of the result that the API returns for the status
         ///     codes defined by <see cref="StatusCodes"/>.
         /// </param>
-        /// <param name="applicableStatusCodes">
+        /// <param name="statusCodes">
         ///     A set of status codes for which the <see cref="ResponseType"/> is the result.
         /// </param>
         /// <param name="responseDeserializerFactory">
         ///     A function which returns an <see cref="IHttpContentDeserializer"/> that must
         ///     be used to deserialize the .NET object from an HTTP response.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="responseType"/>
+        ///     * <paramref name="statusCodes"/>
+        ///     * <paramref name="responseDeserializerFactory"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="statusCodes"/> is empty.
+        /// </exception>
         public ResponseTypeInfo(
             Type responseType,
-            IEnumerable<StatusCodeRange> applicableStatusCodes,
+            IEnumerable<StatusCodeRange> statusCodes,
             Func<IHttpContentDeserializer> responseDeserializerFactory)
         {
             _ = responseType ?? throw new ArgumentNullException(nameof(responseType));
-            _ = applicableStatusCodes ?? throw new ArgumentNullException(nameof(applicableStatusCodes));
+            _ = statusCodes ?? throw new ArgumentNullException(nameof(statusCodes));
             _ = responseDeserializerFactory ?? throw new ArgumentNullException(nameof(responseDeserializerFactory));
 
-            if (!applicableStatusCodes.Any())
+            if (!statusCodes.Any())
             {
                 throw new ArgumentException(
                     ExceptionStrings.ResponseTypeInfo_MustProvideAtLeastOneStatusCode,
-                    nameof(applicableStatusCodes)
+                    nameof(statusCodes)
                 );
             }
 
             ResponseType = responseType;
             ResponseDeserializerFactory = responseDeserializerFactory;
-            StatusCodes = new HashSet<StatusCodeRange>(applicableStatusCodes);
+            StatusCodes = new HashSet<StatusCodeRange>(statusCodes);
         }
 
         /// <summary>

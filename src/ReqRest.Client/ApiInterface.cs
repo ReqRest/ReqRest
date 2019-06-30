@@ -27,6 +27,11 @@
         protected IUrlProvider BaseUrlProvider { get; }
 
         /// <summary>
+        ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
+        /// </summary>
+        protected Uri Url => _urlLazy.Value;
+
+        /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
         ///     depends on another <see cref="IUrlProvider"/>.
         /// </summary>
@@ -53,17 +58,17 @@
         }
 
         /// <inheritdoc/>
-        UriBuilder IUrlProvider.GetUrlBuilder()
+        UrlBuilder IUrlProvider.GetUrlBuilder()
         {
-            var baseUriBuilder = BaseUrlProvider.GetUrlBuilder();
-            return BuildUrl(baseUriBuilder);
+            var baseUrlBuilder = BaseUrlProvider.GetUrlBuilder();
+            return BuildUrl(baseUrlBuilder);
         }
 
         /// <summary>
-        ///     Builds the full URL of this interface by using the specified <see cref="UriBuilder"/>.
+        ///     Builds the full URL of this interface by using the specified <see cref="UrlBuilder"/>.
         /// </summary>
         /// <param name="baseUrl">
-        ///     An <see cref="UriBuilder"/> which was created by this interface's parent.
+        ///     An <see cref="UrlBuilder"/> which was created by this interface's parent.
         ///     This builder most likely holds some kind of base URL which can be extended
         ///     with this interface's information.
         ///     
@@ -73,18 +78,18 @@
         ///     <c>/items/2</c> or <c>?limit=10</c>.
         /// </param>
         /// <returns>
-        ///     The final <see cref="UriBuilder"/> which holds the parts of this interface's URL.
+        ///     The final <see cref="UrlBuilder"/> which holds the parts of this interface's URL.
         ///     This should usually be the incoming <paramref name="baseUrl"/> builder instance,
         ///     but can, for special cases, also be an entirely different instance.
         /// </returns>
-        protected abstract UriBuilder BuildUrl(UriBuilder baseUrl);
+        protected abstract UrlBuilder BuildUrl(UrlBuilder baseUrl);
 
         /// <summary>
-        ///     Returns a new <see cref="ApiRequestBase"/> instance which can be used
+        ///     Returns a new <see cref="ApiRequest"/> instance which can be used
         ///     to build a specific request against this interface.
         ///     
         ///     The request is preconfigured with the default configuration of the <see cref="Client"/>
-        ///     and the URL of this interface which was created via <see cref="BuildUrl(UriBuilder)"/>.
+        ///     and the URL of this interface which was created via <see cref="BuildUrl(UrlBuilder)"/>.
         /// </summary>
         /// <returns>
         ///     A new <see cref="ApiRequestBase"/> instance.
@@ -93,8 +98,15 @@
         {
             var httpClient = Client.Configuration.HttpClientProvider.Invoke();
             return new ApiRequest(httpClient)
-                .SetRequestUri(_urlLazy.Value);
+                .SetRequestUri(Url);
         }
+
+        /// <summary>
+        ///     Returns a string representing the interface's URL.
+        /// </summary>
+        /// <returns>A string representing the interface's URL.</returns>
+        public override string ToString() =>
+            Url.ToString();
 
     }
 

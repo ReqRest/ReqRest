@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Client
 {
     using System;
+    using ReqRest.Builders;
 
     /// <summary>
     ///     Represents a member which is able to provide a full URL.
@@ -9,14 +10,14 @@
     {
 
         /// <summary>
-        ///     Creates and returns a new <see cref="UriBuilder"/> instance which is configured
+        ///     Creates and returns a new <see cref="UrlBuilder"/> instance which is configured
         ///     with this member's current URL information.
         /// </summary>
         /// <returns>
-        ///     A new <see cref="UriBuilder"/> instance which is already configured with the
+        ///     A new <see cref="UrlBuilder"/> instance which is already configured with the
         ///     URL information that this member has.
         /// </returns>
-        UriBuilder GetUrlBuilder();
+        UrlBuilder GetUrlBuilder();
 
     }
 

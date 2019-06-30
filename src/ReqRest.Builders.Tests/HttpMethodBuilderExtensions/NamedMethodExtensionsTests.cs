@@ -27,6 +27,7 @@
                 { HttpMethod.Options.Method, builder => builder.Options() },
                 { HttpMethod.Trace.Method, builder => builder.Trace() },
                 { HttpMethod.Head.Method, builder => builder.Head() },
+                { "PATCH", builder => builder.Patch() }
             };
 
     }
