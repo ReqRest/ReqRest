@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.5
+
+* **[Breaking]** Made `NoContent` a struct and removed the `Default` property.
+* Added a custom `UrlBuilder`, extending the `System.UriBuilder` with convenience operators.
+* Added `IHttpHeadersBuilder.SetHeader` methods.
+* Added a `IHttpMethodBuilder.Patch` method.
+* Added `AppendPath` and `AppendQueryParameter` methods.
+* Added `ToString` overrides in various classes for debugging convenience.
+* Added `ReceiveNoContent` method in `ApiRequest` variations.
+* XML documentation updates and fixes.
+
+
 ## v0.2.4
 
 * Added and integrated the special `NoContent` type into/to the serializers. 
