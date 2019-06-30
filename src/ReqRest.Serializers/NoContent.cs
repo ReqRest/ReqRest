@@ -10,18 +10,8 @@
     ///     Use <see cref="Default"/> for accessing an instance of this class.
     /// </summary>
     [Serializable]
-    public sealed class NoContent : IEquatable<NoContent>
+    public struct NoContent : IEquatable<NoContent>
     {
-
-        /// <summary>
-        ///     Gets a default <see cref="NoContent"/> instance.
-        /// </summary>
-        public static NoContent Default { get; } = new NoContent();
-
-        /// <summary>
-        ///     Initializes a new <see cref="NoContent"/> instance-
-        /// </summary>
-        private NoContent() { }
 
         /// <summary>
         ///     Returns a value indicating whether this object equals <paramref name="obj"/>.
@@ -42,7 +32,7 @@
         ///     <see langword="true"/>.
         /// </returns>
         public bool Equals(NoContent other) =>
-            !(other is null);
+            true;
 
         /// <summary>
         ///     Returns a hash code for this instance.
