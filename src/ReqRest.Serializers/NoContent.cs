@@ -6,22 +6,10 @@
     ///     A special type which should be used to represent an empty content of an HTTP response.
     ///     This class is treated with special logic during (de-)serialization and is thus the preferred
     ///     way for representing an empty HTTP response content.
-    ///     
-    ///     Use <see cref="Default"/> for accessing an instance of this class.
     /// </summary>
     [Serializable]
-    public sealed class NoContent : IEquatable<NoContent>
+    public struct NoContent : IEquatable<NoContent>
     {
-
-        /// <summary>
-        ///     Gets a default <see cref="NoContent"/> instance.
-        /// </summary>
-        public static NoContent Default { get; } = new NoContent();
-
-        /// <summary>
-        ///     Initializes a new <see cref="NoContent"/> instance-
-        /// </summary>
-        public NoContent() { }
 
         /// <summary>
         ///     Returns a value indicating whether this object equals <paramref name="obj"/>.
@@ -42,7 +30,7 @@
         ///     <see langword="true"/>.
         /// </returns>
         public bool Equals(NoContent other) =>
-            !(other is null);
+            true;
 
         /// <summary>
         ///     Returns a hash code for this instance.

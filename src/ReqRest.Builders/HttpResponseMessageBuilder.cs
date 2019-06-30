@@ -77,6 +77,16 @@
             _httpResponseMessage = httpResponseMessage ?? new HttpResponseMessage();
         }
 
+        /// <summary>
+        ///     Returns a string representing the values of the underlying
+        ///     <see cref="HttpResponseMessage"/>.
+        /// </summary>
+        /// <returns>
+        ///     A string representing the values of the underlying <see cref="HttpResponseMessage"/>.
+        /// </returns>
+        public override string ToString() =>
+            HttpResponseMessage.ToString();
+
     }
 
 }

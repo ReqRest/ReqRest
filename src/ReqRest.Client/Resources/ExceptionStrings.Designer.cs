@@ -79,6 +79,15 @@ namespace ReqRest.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The NoContentSerializer can only (de-)serialize the NoContent type..
+        /// </summary>
+        internal static string NoContentSerializer_CanOnlySerializeNoContentType {
+            get {
+                return ResourceManager.GetString("NoContentSerializer_CanOnlySerializeNoContentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At least one status code or status code range must be provided..
         /// </summary>
         internal static string ResponseTypeInfo_MustProvideAtLeastOneStatusCode {

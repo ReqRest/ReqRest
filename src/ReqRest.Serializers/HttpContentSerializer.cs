@@ -108,7 +108,7 @@
 
         private NoContent DeserializeNoContent()
         {
-            return NoContent.Default;
+            return new NoContent();
         }
 
         private async Task<object?> DeserializeDefault(HttpContent httpContent, Type contentType)
