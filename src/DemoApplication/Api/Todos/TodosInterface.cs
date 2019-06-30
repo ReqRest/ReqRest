@@ -12,8 +12,8 @@
         public TodosInterface(ApiClient apiClient) 
             : base(apiClient) { }
 
-        protected override UriBuilder BuildUrl(UriBuilder baseUrl) =>
-            baseUrl.AppendPath("todos");
+        protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+            baseUrl / "todos";
 
         public ApiRequest<IEnumerable<TodoItem>> Get() =>
             BuildRequest()

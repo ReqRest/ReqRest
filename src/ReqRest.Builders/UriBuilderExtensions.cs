@@ -1,7 +1,10 @@
 ﻿namespace ReqRest.Builders
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
+    using ReqRest.Builders.Resources;
 
     /// <summary>
     ///     Extends the <see cref="UriBuilder"/> class with fluent extension methods.
@@ -187,6 +190,204 @@
         }
 
         /// <summary>
+        ///     Formats the specified parameters consisting of a key and value into
+        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     end of the <see cref="UriBuilder.Query"/> string.
+        ///     
+        ///     If the query ends with or if the final parameters starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameters.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="parameters">
+        ///     A set of query parameters consisting of a key and value which should 
+        ///     be appended to the query.
+        ///     This can be <see langword="null"/>.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, params (string? Key, string? Value)[]? parameters)
+            where T : UriBuilder
+        {
+            return builder.AppendQueryParameter((IEnumerable<(string?, string?)>?)parameters);
+        }
+
+        /// <summary>
+        ///     Formats the specified parameters consisting of a key and value into
+        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     end of the <see cref="UriBuilder.Query"/> string.
+        ///     
+        ///     If the query ends with or if the final parameters starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameters.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="parameters">
+        ///     A set of query parameters consisting of a key and value which should 
+        ///     be appended to the query.
+        ///     This can be <see langword="null"/>.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, params KeyValuePair<string?, string?>[]? parameters)
+            where T : UriBuilder
+        {
+            return builder.AppendQueryParameter((IEnumerable<KeyValuePair<string?, string?>>?)parameters);
+        }
+
+        /// <summary>
+        ///     Formats the specified parameters consisting of a key and value into
+        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     end of the <see cref="UriBuilder.Query"/> string.
+        ///     
+        ///     If the query ends with or if the final parameters starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameters.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="parameters">
+        ///     A set of query parameters consisting of a key and value which should 
+        ///     be appended to the query.
+        ///     This can be <see langword="null"/>.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, IEnumerable<(string? Key, string? Value)>? parameters)
+            where T : UriBuilder
+        {
+            return builder.AppendQueryParameter(
+                parameters?.Select(p => new KeyValuePair<string?, string?>(p.Key, p.Value))
+            );
+        }
+
+        /// <summary>
+        ///     Formats the specified parameters consisting of a key and value into
+        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     end of the <see cref="UriBuilder.Query"/> string.
+        ///     
+        ///     If the query ends with or if the final parameters starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameters.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="parameters">
+        ///     A set of query parameters consisting of a key and value which should 
+        ///     be appended to the query.
+        ///     This can be <see langword="null"/>.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, IEnumerable<KeyValuePair<string?, string?>>? parameters)
+            where T : UriBuilder
+        {
+            if (parameters is null)
+            {
+                return builder;
+            }
+
+            foreach (var param in parameters)
+            {
+                builder.AppendQueryParameter(param.Key, param.Value);
+            }
+
+            return builder;
+        }
+
+        /// <summary>
+        ///     Formats the specified <paramref name="key"/> and <paramref name="value"/> into
+        ///     a query parameter (similar to <c>&amp;key=value)</c> and appends it at the end
+        ///     of the <see cref="UriBuilder.Query"/> string.
+        ///     
+        ///     If the query ends with or if the final parameter starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameter.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="key">
+        ///     The key of the query parameter.
+        ///     This can be <see langword="null"/>. If so, it is treated as an empty string.
+        ///     
+        ///     If both <paramref name="key"/> and <paramref name="value"/> are 
+        ///     <see langword="null"/> or empty, nothing gets appended.
+        /// </param>
+        /// <param name="value">
+        ///     The value of the query parameter.
+        ///     This can be <see langword="null"/>. If so, it is treated as an empty string.
+        ///     
+        ///     If both <paramref name="key"/> and <paramref name="value"/> are 
+        ///     <see langword="null"/> or empty, nothing gets appended.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, string? key, string? value)
+            where T : UriBuilder
+        {
+            if (string.IsNullOrEmpty(key) && string.IsNullOrEmpty(value))
+            {
+                return builder;
+            }
+
+            return builder.AppendQueryParameter($"{key}={value}");
+        }
+
+        /// <summary>
+        ///     Appends the specified <paramref name="parameter"/> at the end of the
+        ///     <see cref="UriBuilder.Query"/>.
+        ///     
+        ///     If the query ends with or if the <paramref name="parameter"/> starts with one or
+        ///     more <c>"&amp;"</c> characters, they are trimmed, so that there is only a single
+        ///     <c>"&amp;"</c> between the old query and the new parameter.
+        /// </summary>
+        /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="parameter">
+        ///     The query parameter to be appeneded to the query.
+        ///     
+        ///     This can be <see langword="null"/>. If so (or if empty), nothing gets appended.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T AppendQueryParameter<T>(this T builder, string? parameter)
+            where T : UriBuilder
+        {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+
+            if (string.IsNullOrEmpty(parameter))
+            {
+                return builder;
+            }
+
+            var trimChars = new char[] { '&' };
+            var query = builder.Query.TrimEnd(trimChars);
+            parameter = parameter.TrimStart(trimChars);
+
+            return builder.SetQuery($"{query}&{parameter}");
+        }
+
+        /// <summary>
         ///     Executes the specified <paramref name="configure"/> function to configure or modify
         ///     this builder instance.
         /// </summary>
@@ -201,7 +402,7 @@
         ///     * <paramref name="configure"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T Configure<T>(this T builder, Action<UriBuilder> configure) where T : UriBuilder
+        private static T Configure<T>(this T builder, Action<UriBuilder> configure) where T : UriBuilder
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = configure ?? throw new ArgumentNullException(nameof(configure));

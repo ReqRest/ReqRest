@@ -6,8 +6,6 @@
     ///     A special type which should be used to represent an empty content of an HTTP response.
     ///     This class is treated with special logic during (de-)serialization and is thus the preferred
     ///     way for representing an empty HTTP response content.
-    ///     
-    ///     Use <see cref="Default"/> for accessing an instance of this class.
     /// </summary>
     [Serializable]
     public struct NoContent : IEquatable<NoContent>
