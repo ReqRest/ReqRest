@@ -64,13 +64,19 @@
         /// <summary>
         ///     Appends the specified <paramref name="pathSegment"/> to the builder's
         ///     <see cref="UriBuilder.Path"/> and returns the same builder instance.
+        ///     
+        ///     If the existing path ends with a single slash, or if the <paramref name="segment"/>
+        ///     starts with a single slash, the slashes are stripped, so that the resulting path
+        ///     only has a single slash between the two concatenated parts.
+        ///     
+        ///     If the existing path starts with multiple slashes, or if the <paramref name="segment"/> 
+        ///     starts with multiple slashes, they are kept and appended to each other.
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="pathSegment">
         ///     The segment to be appended to the builder's path.
         ///     
-        ///     If <see langword="null"/> or empty, a single slash is appended instead,
-        ///     resulting in a double slash <c>//</c>.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <returns>The specified <paramref name="builder"/>.</returns>
         public static UrlBuilder operator /(UrlBuilder builder, string? pathSegment) =>

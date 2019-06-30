@@ -151,42 +151,46 @@
         /// <summary>
         ///     Appends the specified path <paramref name="segment"/> to the builder's
         ///     <see cref="UriBuilder.Path"/> and returns the same builder instance.
+        ///     
+        ///     If the existing path ends with a single slash, or if the <paramref name="segment"/>
+        ///     starts with a single slash, the slashes are stripped, so that the resulting path
+        ///     only has a single slash between the two concatenated parts.
+        ///     
+        ///     If the existing path starts with multiple slashes, or if the <paramref name="segment"/> 
+        ///     starts with multiple slashes, one slash is removed, but the rest are kept.
+        ///     
+        ///     One additional slash gets added between the two parts in any case.
         /// </summary>
         /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
         /// <param name="builder">The builder.</param>
         /// <param name="segment">
         ///     The segment to be appended to the builder's path.
-        ///     
-        ///     If <see langword="null"/> or empty, a single slash is appended instead,
-        ///     resulting in a double slash <c>//</c>.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T AppendPath<T>(this T builder, string? segment) where T : UriBuilder
         {
             var path = builder.Path;
-            
-            if (!path.EndsWith("/", StringComparison.OrdinalIgnoreCase))
-            {
-                path += "/";
-            }
-
-            // If the segment starts with a single /, that may be unintended.
-            // In this case, strip the leading /.
-            // If the segment is only a single slash, or multiple in a row, that is considered
-            // intentional.
-            // In this case, simply keep these slashes.
-            if (segment != null && segment.Length > 1 && segment[0] == '/' && segment[1] != '/')
-            {
-                segment = segment.TrimStart(new char[] { '/' });
-            }
 
             if (string.IsNullOrEmpty(segment))
             {
-                segment = "/";
+                return builder.SetPath($"{path}/");
             }
+            else
+            {
+                if (segment.StartsWith("/", StringComparison.Ordinal))
+                {
+                    segment = segment.Substring(1, segment.Length - 1);
+                }
 
-            return builder.SetPath(path + segment);
+                if (path.EndsWith("/", StringComparison.Ordinal))
+                {
+                    path = path.Substring(0, path.Length - 1);
+                }
+
+                return builder.SetPath($"{path}/{segment}");
+            }
         }
 
         /// <summary>
