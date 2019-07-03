@@ -25,6 +25,8 @@
     public static class HttpMethodBuilderExtensions
     {
 
+        private static readonly HttpMethod PatchMethod = new HttpMethod("PATCH");
+
         /// <summary>
         ///     Sets the <see cref="HttpMethod"/> to the HTTP <c>GET</c> method.
         /// </summary>
@@ -115,6 +117,19 @@
         [DebuggerStepThrough]
         public static T Head<T>(this T builder) where T : IHttpMethodBuilder =>
             builder.SetMethod(HttpMethod.Head);
+
+        /// <summary>
+        ///     Sets the <see cref="HttpMethod"/> to the HTTP <c>PATCH</c> method.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T Patch<T>(this T builder) where T : IHttpMethodBuilder =>
+            builder.SetMethod(PatchMethod);
 
         /// <summary>
         ///     Sets the <see cref="HttpMethod"/> which is being built.

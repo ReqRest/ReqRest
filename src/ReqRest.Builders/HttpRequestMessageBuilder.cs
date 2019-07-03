@@ -85,6 +85,16 @@
 #pragma warning restore CA2000 // Dispose objects before losing scope
         }
 
+        /// <summary>
+        ///     Returns a string representing the values of the underlying
+        ///     <see cref="HttpRequestMessage"/>.
+        /// </summary>
+        /// <returns>
+        ///     A string representing the values of the underlying <see cref="HttpRequestMessage"/>.
+        /// </returns>
+        public override string ToString() =>
+            HttpRequestMessage.ToString();
+
     }
 
 }

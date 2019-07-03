@@ -1,6 +1,5 @@
 ﻿namespace DemoApplication.Api.Todos
 {
-    using System;
     using System.Collections.Generic;
     using ReqRest.Client;
     using ReqRest.Builders;
@@ -12,8 +11,8 @@
         public TodosInterface(ApiClient apiClient) 
             : base(apiClient) { }
 
-        protected override UriBuilder BuildUrl(UriBuilder baseUrl) =>
-            baseUrl.AppendPath("todos");
+        protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+            baseUrl / "todos";
 
         public ApiRequest<IEnumerable<TodoItem>> Get() =>
             BuildRequest()

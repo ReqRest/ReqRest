@@ -32,11 +32,11 @@
         ///     Returns a new <see cref="UriBuilder"/> which starts building on the configured
         ///     <see cref="ApiClientConfiguration.BaseUrl"/>.
         /// </summary>
-        UriBuilder IUrlProvider.GetUrlBuilder()
+        UrlBuilder IUrlProvider.GetUrlBuilder()
         {
             var builder = Configuration.BaseUrl is null
-                ? new UriBuilder()
-                : new UriBuilder(Configuration.BaseUrl);
+                ? new UrlBuilder()
+                : new UrlBuilder(Configuration.BaseUrl);
 
             // UriBuilder may automagically set the port to the corresponding scheme default.
             // For example, https may lead to a port of 443.
