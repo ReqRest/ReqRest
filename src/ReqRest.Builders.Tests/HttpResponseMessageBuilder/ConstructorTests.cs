@@ -1,7 +1,8 @@
-﻿namespace ReqRest.Builders.Tests.HttpResponseBuilder
+﻿namespace ReqRest.Builders.Tests.HttpResponseMessageBuilder
 {
     using System.Net.Http;
     using FluentAssertions;
+    using ReqRest.Builders;
     using Xunit;
 
     public class ConstructorTests 
