@@ -9,6 +9,7 @@
 
         [Theory]
         [InlineData(null, null, "*")]
+        [InlineData(200, 200, "200")]
         [InlineData(null, 200, "*-200")]
         [InlineData(200, null, "200-*")]
         [InlineData(200, 300, "200-300")]
