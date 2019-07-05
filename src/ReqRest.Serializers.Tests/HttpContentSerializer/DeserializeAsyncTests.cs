@@ -1,15 +1,13 @@
 ﻿namespace ReqRest.Serializers.Tests.HttpContentSerializer
 {
     using System;
-    using System.Collections.Generic;
+    using System.Net.Http;
     using System.Threading.Tasks;
-    using System.Linq;
+    using FluentAssertions;
     using ReqRest.Serializers;
     using Xunit;
-    using FluentAssertions;
-    using System.Net.Http;
 
-    public class DeserializeTests
+    public class DeserializeAsyncTests
     {
 
         [Fact]

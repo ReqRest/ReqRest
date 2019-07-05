@@ -47,17 +47,12 @@
         {
             if (content is NoContent)
             {
-                return SerializeNoContent();
+                return new ByteArrayContent(Array.Empty<byte>());
             }
             else
             {
                 return SerializeDefault(content, encoding);
             }
-        }
-
-        private HttpContent SerializeNoContent()
-        {
-            return new ByteArrayContent(Array.Empty<byte>());
         }
 
         private HttpContent SerializeDefault(object? content, Encoding? encoding)
@@ -98,17 +93,12 @@
 
             if (contentType == typeof(NoContent))
             {
-                return DeserializeNoContent();
+                return new NoContent();
             }
             else
             {
                 return await DeserializeDefault(httpContent, contentType).ConfigureAwait(false);
             }
-        }
-
-        private NoContent DeserializeNoContent()
-        {
-            return new NoContent();
         }
 
         private async Task<object?> DeserializeDefault(HttpContent httpContent, Type contentType)
