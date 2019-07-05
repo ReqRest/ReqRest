@@ -66,7 +66,7 @@
             {
                 return SerializeCore(content, encoding ?? DefaultEncoding);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 throw new HttpContentSerializationException(null, ex);
             }
@@ -117,7 +117,7 @@
             {
                 return await DeserializeCore(httpContent, contentType).ConfigureAwait(false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 throw new HttpContentSerializationException(null, ex);
             }
