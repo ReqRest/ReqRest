@@ -11,7 +11,7 @@
     ///     This builder allows enhancing the possible response type with information like which
     ///     status codes are required for receiving that response content type.
     /// </summary>
-    /// <typeparam name="TRequest">The request being upgraded.</typeparam>
+    /// <typeparam name="TRequest">The request type which gets returned after upgrading.</typeparam>
     public sealed class ResponseTypeInfoBuilder<TRequest> where TRequest : ApiRequestBase
     {
 
