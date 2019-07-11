@@ -46,10 +46,7 @@
         private static class DefaultValues
         {
 
-            private static Lazy<HttpClient> s_httpClientLazy = new Lazy<HttpClient>(
-                () => new HttpClient(),
-                LazyThreadSafetyMode.ExecutionAndPublication
-            );
+            private static readonly Lazy<HttpClient> s_httpClientLazy = new Lazy<HttpClient>(() => new HttpClient());
 
             public static Func<HttpClient> HttpClientProvider { get; } = () => s_httpClientLazy.Value;
 
