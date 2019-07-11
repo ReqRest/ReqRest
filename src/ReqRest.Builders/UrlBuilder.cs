@@ -101,7 +101,7 @@
         ///     * <paramref name="builder"/>
         /// </exception>
         public static UrlBuilder operator &(UrlBuilder builder, (string? Key, string? Value) queryParameter) =>
-            builder.AppendQueryParameter(queryParameter);
+            builder.AppendQueryParameter(queryParameter.Key, queryParameter.Value);
 
         /// <summary>
         ///     Formats the specified parameter consisting of a key and value into
@@ -122,7 +122,7 @@
         ///     * <paramref name="builder"/>
         /// </exception>
         public static UrlBuilder operator &(UrlBuilder builder, KeyValuePair<string?, string?> queryParameter) =>
-            builder.AppendQueryParameter(queryParameter);
+            builder.AppendQueryParameter(queryParameter.Key, queryParameter.Value);
 
         /// <summary>
         ///     Appends the specified <paramref name="queryParameter"/> at the end of the
