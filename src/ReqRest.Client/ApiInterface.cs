@@ -96,8 +96,7 @@
         /// </returns>
         protected virtual ApiRequest BuildRequest()
         {
-            var httpClient = Client.Configuration.HttpClientProvider.Invoke();
-            return new ApiRequest(httpClient)
+            return new ApiRequest(Client.Configuration.HttpClientProvider)
                 .SetRequestUri(Url);
         }
 

@@ -79,6 +79,15 @@ namespace ReqRest.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The configured HttpClient provider function returned null. Ensure that the function returns a valid HttpClient instance..
+        /// </summary>
+        internal static string HttpClientProvider_Returned_Null {
+            get {
+                return ResourceManager.GetString("HttpClientProvider_Returned_Null", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The NoContentSerializer can only (de-)serialize the NoContent type..
         /// </summary>
         internal static string NoContentSerializer_CanOnlySerializeNoContentType {

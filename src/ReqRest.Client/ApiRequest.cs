@@ -22,20 +22,20 @@
         ///     Initializes a new <see cref="ApiRequestBase"/> instance with the specified
         ///     initial property values.
         /// </summary>
-        /// <param name="httpClient">
-        ///     An <see cref="System.Net.Http.HttpClient"/> instance which will
-        ///     ultimately be used to send the <see cref="HttpRequestMessage"/> for executing
-        ///     the API request.
+        /// <param name="httpClientProvider">
+        ///     A function which returns an <see cref="HttpClient"/> instance
+        ///     which will ultimately be used to send the <see cref="HttpRequestMessage"/> for
+        ///     executing the API request.
         /// </param>
         /// <param name="httpRequestMessage">
         ///     The request from which the builder starts building.
         ///     If <see langword="null"/>, a new instance is created instead.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="httpClient"/>
+        ///     * <paramref name="httpClientProvider"/>
         /// </exception>
-        public ApiRequest(HttpClient httpClient, HttpRequestMessage? httpRequestMessage = null)
-            : base(httpClient, httpRequestMessage) { }
+        public ApiRequest(Func<HttpClient> httpClientProvider, HttpRequestMessage? httpRequestMessage = null)
+            : base(httpClientProvider, httpRequestMessage) { }
 
         /// <summary>
         ///     Declares that the response to this request may have an empty HTTP content when
@@ -102,7 +102,7 @@
                 new ApiRequest<T>(this), typeof(T));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -212,7 +212,7 @@
                 new ApiRequest<T1, T2>(this), typeof(T2));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -238,7 +238,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -358,7 +358,7 @@
                 new ApiRequest<T1, T2, T3>(this), typeof(T3));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -384,7 +384,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -505,7 +505,7 @@
                 new ApiRequest<T1, T2, T3, T4>(this), typeof(T4));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -531,7 +531,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -653,7 +653,7 @@
                 new ApiRequest<T1, T2, T3, T4, T5>(this), typeof(T5));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3, T4}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -679,7 +679,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -802,7 +802,7 @@
                 new ApiRequest<T1, T2, T3, T4, T5, T6>(this), typeof(T6));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3, T4, T5}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -828,7 +828,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -952,7 +952,7 @@
                 new ApiRequest<T1, T2, T3, T4, T5, T6, T7>(this), typeof(T7));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3, T4, T5, T6}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -978,7 +978,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -1103,7 +1103,7 @@
                 new ApiRequest<T1, T2, T3, T4, T5, T6, T7, T8>(this), typeof(T8));
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3, T4, T5, T6, T7}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -1129,7 +1129,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
@@ -1191,7 +1191,7 @@
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/> and
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/> and
         ///     returns the response returned by the server as an <see cref="ApiResponse{T1, T2, T3, T4, T5, T6, T7, T8}"/>.
         /// </summary>
         /// <param name="completionOption">
@@ -1217,7 +1217,7 @@
         }
 
         /// <summary>
-        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClient"/>.
+        ///     Makes this request via the associated <see cref="ApiRequestBase.HttpClientProvider"/>.
         ///     Afterwards, deserializes the content of the underlying HTTP content depending
         ///     on the response's HTTP status code.
         ///     This returns a variant which will hold one of the possible generic types or no value if
