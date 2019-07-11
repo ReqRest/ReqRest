@@ -144,7 +144,7 @@
             {
                 return await deserializer.DeserializeAsync<T>(HttpResponseMessage.Content).ConfigureAwait(false);
             }
-            catch (Exception ex) when(!(ex is HttpContentSerializationException))
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 // Ideally, the deserializer throws this exception by himself, but we cannot count on that.
                 throw new HttpContentSerializationException(null, ex);
