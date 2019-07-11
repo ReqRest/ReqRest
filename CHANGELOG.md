@@ -1,9 +1,14 @@
 # Changelog
 
-## v0.x.x
+## v0.3.0
 
 * **[Breaking]** Removed HttpClientProvider in the configuration and replaced it with a `Func<HttpClient>` for simplicity.
+* **[Breaking]** The `ApiRequestBase` and derived classes now expect a `Func<HttpClient>` aswell. No `HttpClient` gets passed around directly.
+* **[Breaking]** The `ApiRequestBase.SetHttpClient` method was renamed to `SetHttpClientProvider` and now accepts a `Func<HttpClient>` (in addition to an `HttpClient`).
+* The `ApiInterface`'s inherited methods (e.g. `ToString` and `GetHashCode`) are now hidden from IntelliSense, so that consumers of such an API can focus on the relevant members.
 * Added additional, pre-defined status code ranges like `Informational` or `ClientErrors` to `StatusCodeRange`.
+* XML documentation updates and fixes.
+* On another note, the library is now mostly covered by unit tests.
 
 
 ## v0.2.5
