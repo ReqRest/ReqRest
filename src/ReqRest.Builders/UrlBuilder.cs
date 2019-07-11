@@ -134,7 +134,7 @@
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="queryParameter">
-        ///     The query parameter to be appeneded to the query.
+        ///     The query parameter to be appended to the query.
         ///     
         ///     This can be <see langword="null"/>. If so (or if empty), nothing gets appended.
         /// </param>
