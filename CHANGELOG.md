@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.x.x
+
+* Added additional, pre-defined status code ranges like `Informational` or `ClientErrors` to `StatusCodeRange`.
+
+
 ## v0.2.5
 
 * **[Breaking]** Made `NoContent` a struct and removed the `Default` property.
