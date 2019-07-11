@@ -43,12 +43,11 @@
         /// <summary>
         ///     Gets a <see cref="ResponseTypeInfo"/> from the <see cref="PossibleResponseTypes"/>
         ///     set which is the most appropriate one for the response's status code.
-        ///     Deriving classes can perform deserialization logic based on this information.
         ///     
-        ///     By default, this is <see langword="null"/> if the <see cref="PossibleResponseTypes"/>
+        ///     This is <see langword="null"/> if the <see cref="PossibleResponseTypes"/>
         ///     property doesn't contain any information which matches the response's status code.
         /// </summary>
-        protected virtual ResponseTypeInfo? CurrentResponseTypeInfo { get; }
+        protected ResponseTypeInfo? CurrentResponseTypeInfo { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiResponseBase"/> instance with the specified values.
