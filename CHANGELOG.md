@@ -2,6 +2,7 @@
 
 ## v0.x.x
 
+* **[Breaking]** Removed HttpClientProvider in the configuration and replaced it with a `Func<HttpClient>` for simplicity.
 * Added additional, pre-defined status code ranges like `Informational` or `ClientErrors` to `StatusCodeRange`.
 
 
