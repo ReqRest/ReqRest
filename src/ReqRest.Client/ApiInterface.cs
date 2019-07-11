@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Client
 {
     using System;
+    using System.ComponentModel;
     using ReqRest.Builders;
 
     /// <summary>
@@ -9,7 +10,7 @@
     public abstract class ApiInterface : IUrlProvider
     {
 
-        private readonly Lazy<Uri> _urlLazy;
+        private Uri? _url;
 
         /// <summary>
         ///     Gets the <see cref="ApiClient"/> which ultimately manages (or rather "contains")
@@ -29,7 +30,7 @@
         /// <summary>
         ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
         /// </summary>
-        protected Uri Url => _urlLazy.Value;
+        protected Uri Url => _url ?? (_url = this.GetUrl());
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
@@ -54,7 +55,6 @@
         {
             Client = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
             BaseUrlProvider = baseUrlProvider ?? apiClient;
-            _urlLazy = new Lazy<Uri>(() => this.GetUrl(), isThreadSafe: false);
         }
 
         /// <inheritdoc/>
@@ -101,10 +101,59 @@
                 .SetRequestUri(Url);
         }
 
+        // The following methods are overridden/shadowed, so that the EditorBrowsable Attribute
+        // can be applied.
+        // While I myself consider hiding members bad practice, I will do it in this case,
+        // because consumers of an API built via ApiInterfaces should, in my opinion,
+        // only see an IntelliSense window with the API's actual members, i.e. something like this:
+        //  ________                        _______________
+        // | Get    |                      | Get           |
+        // | Post   |   instead of this:   | GetHashCode   |
+        // | Items  |                      | GetType       |
+        // |________|                      | Post          |
+        //                                 | ...           |
+        //                                 |_______________|
+        //
+        // It appears that this doesn't work for GetType(), but we will still keep it here,
+        // for consistency. Furthermore, it may work as intended in SOME editors. Who knows.
+        // Let's try to get the most out of it.
+
+        /// <summary>
+        ///     Gets the <see cref="Type"/> of the current instance.
+        ///     This method calls the <see cref="object.GetType"/> method and returns its result.
+        /// </summary>
+        /// <returns>The exact runtime type of the current instance.</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Type GetType() =>
+            base.GetType();
+
+        /// <summary>
+        ///     Determines whether the specified object is equal to the current object.
+        ///     This method calls the <see cref="object.Equals(object)"/> method and returns its result.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>
+        ///     <see langword="true"/> if the specified object is equal to the current object;
+        ///     otherwise, <see langword="false"/>.
+        /// </returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj) =>
+            base.Equals(obj);
+
+        /// <summary>
+        ///     Serves as the default hash function.
+        ///     This method calls the <see cref="object.GetHashCode"/> method and returns its result.
+        /// </summary>
+        /// <returns>A hash code for the current object.</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode() =>
+            base.GetHashCode();
+
         /// <summary>
         ///     Returns a string representing the interface's URL.
         /// </summary>
         /// <returns>A string representing the interface's URL.</returns>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString() =>
             Url.ToString();
 
