@@ -2,7 +2,6 @@
 {
     using System;
     using System.Net.Http;
-    using System.Threading;
 
     /// <summary>
     ///     Defines the basic configuration values for an <see cref="ApiClient"/>.
