@@ -121,7 +121,7 @@
     <value>The IHttpContentDeserializer factory for the current response type returned null instead of a deserializer instance.</value>
   </data>
   <data name="ApiResponse_NoResponseTypeInfoForResponse" xml:space="preserve">
-    <value>There is no ResponseTypeInfo element which can be associated with the response's status code.</value>
+    <value>The response had a status code which was not configured. When building a request via the ApiRequest API, ensure that you declare a possible response for this status code via the "Receive()" method chain, so that a response to the request knows which type to deserialize for the given status code.</value>
   </data>
   <data name="HttpClientProvider_Returned_Null" xml:space="preserve">
     <value>The configured HttpClient provider function returned null. Ensure that the function returns a valid HttpClient instance.</value>

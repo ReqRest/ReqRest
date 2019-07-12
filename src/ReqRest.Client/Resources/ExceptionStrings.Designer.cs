@@ -70,7 +70,7 @@ namespace ReqRest.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is no ResponseTypeInfo element which can be associated with the response&apos;s status code..
+        ///   Looks up a localized string similar to The response had a status code which was not configured. When building a request via the ApiRequest API, ensure that you declare a possible response for this status code via the &quot;Receive()&quot; method chain, so that a response to the request knows which type to deserialize for the given status code..
         /// </summary>
         internal static string ApiResponse_NoResponseTypeInfoForResponse {
             get {
