@@ -17,7 +17,7 @@
         ///     this interface.
         ///     This client's configuration is supposed to be used when building requests.
         /// </summary>
-        protected ApiClient Client { get; }
+        protected internal ApiClient Client { get; }
 
         /// <summary>
         ///     Gets an <see cref="IUrlProvider"/> which is the logical parent of this
@@ -25,12 +25,12 @@
         ///     The URL which is returned by this <see cref="IUrlProvider"/> is used as this
         ///     interface's base url.
         /// </summary>
-        protected IUrlProvider BaseUrlProvider { get; }
+        protected internal IUrlProvider BaseUrlProvider { get; }
 
         /// <summary>
         ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
         /// </summary>
-        protected Uri Url => _url ?? (_url = this.GetUrl());
+        protected internal Uri Url => _url ?? (_url = this.GetUrl());
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
@@ -82,7 +82,7 @@
         ///     This should usually be the incoming <paramref name="baseUrl"/> builder instance,
         ///     but can, for special cases, also be an entirely different instance.
         /// </returns>
-        protected abstract UrlBuilder BuildUrl(UrlBuilder baseUrl);
+        protected internal abstract UrlBuilder BuildUrl(UrlBuilder baseUrl);
 
         /// <summary>
         ///     Returns a new <see cref="ApiRequest"/> instance which can be used
@@ -94,7 +94,7 @@
         /// <returns>
         ///     A new <see cref="ApiRequestBase"/> instance.
         /// </returns>
-        protected virtual ApiRequest BuildRequest()
+        protected internal virtual ApiRequest BuildRequest()
         {
             return new ApiRequest(Client.Configuration.HttpClientProvider)
                 .SetRequestUri(Url);
@@ -105,13 +105,13 @@
         // While I myself consider hiding members bad practice, I will do it in this case,
         // because consumers of an API built via ApiInterfaces should, in my opinion,
         // only see an IntelliSense window with the API's actual members, i.e. something like this:
-        //  ________                        _______________
-        // | Get    |                      | Get           |
-        // | Post   |   instead of this:   | GetHashCode   |
-        // | Items  |                      | GetType       |
-        // |________|                      | Post          |
-        //                                 | ...           |
-        //                                 |_______________|
+        //  ________                        ______________
+        // | Get    |                      | Get          |
+        // | Post   |   instead of this:   | GetHashCode  |
+        // | Items  |                      | GetType      |
+        // |________|                      | Post         |
+        //                                 | ...          |
+        //                                 |______________|
         //
         // It appears that this doesn't work for GetType(), but we will still keep it here,
         // for consistency. Furthermore, it may work as intended in SOME editors. Who knows.
@@ -176,7 +176,7 @@
         ///     this interface.
         ///     This client's configuration is supposed to be used when building requests.
         /// </summary>
-        protected new TClient Client => (TClient)base.Client;
+        protected internal new TClient Client => (TClient)base.Client;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
