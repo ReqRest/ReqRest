@@ -98,23 +98,8 @@
         ///     <see langword="false"/> if not.
         /// </returns>
         private protected virtual bool CanDeserializeResource<T>() =>
-            CanDeserializeResource(typeof(T));
-
-        /// <summary>
-        ///     Returns a value indicating whether a resource of the specified <paramref name="resourceType"/>
-        ///     can be deserialized from this response's content.
-        ///     The value is determined based on <see cref="CurrentResponseTypeInfo"/>.
-        /// </summary>
-        /// <param name="resourceType">
-        ///     The type of the resource to be deserialized.
-        /// </param>
-        /// <returns>
-        ///     <see langword="true"/> if a resource of the specified type can be deserialized;
-        ///     <see langword="false"/> if not.
-        /// </returns>
-        private protected virtual bool CanDeserializeResource(Type resourceType) =>
             CurrentResponseTypeInfo != null &&
-            resourceType.IsAssignableFrom(CurrentResponseTypeInfo.ResponseType);
+            typeof(T).IsAssignableFrom(CurrentResponseTypeInfo.ResponseType);
 
         /// <summary>
         ///     Attempts to deserialize the response to the specified type <typeparamref name="T"/>
