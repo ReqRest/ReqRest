@@ -67,7 +67,7 @@
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage)
         {
-            PossibleResponseTypes = possibleResponseTypes ?? Enumerable.Empty<ResponseTypeInfo>();
+            PossibleResponseTypes = possibleResponseTypes?.ToList() ?? Enumerable.Empty<ResponseTypeInfo>();
             CurrentResponseTypeInfo = FindMostAppropriateResponseTypeInfo();
         }
 
