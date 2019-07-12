@@ -72,6 +72,8 @@
         private protected ApiRequestBase(ApiRequestBase request)
             : this(request.HttpClientProvider, request.HttpRequestMessage)
         {
+            // Must use ToList() here, so that we get a new copy. The response types should not be
+            // modifiable from the outside.
             var responseTypes = request.PossibleResponseTypes.ToList();
             PossibleResponseTypesInternal = new ResponseTypeInfoCollection(responseTypes);
         }
