@@ -67,7 +67,7 @@
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance which re-uses the properties
         ///     from the specified request.
-        ///     Used internally to wrap an upgraded request,
+        ///     Used internally to wrap an upgraded request.
         /// </summary>
         private protected ApiRequestBase(ApiRequestBase request)
             : this(request.HttpClientProvider, request.HttpRequestMessage)
