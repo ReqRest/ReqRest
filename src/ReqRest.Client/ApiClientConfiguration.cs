@@ -28,8 +28,8 @@
         ///     Gets or sets a function which returns an <see cref="HttpClient"/> instance that
         ///     should be used for making requests created by the client.
         ///     
-        ///     This returns a default <see cref="HttpClient"/> factory that uses a single
-        ///     static <see cref="HttpClient"/> instance by default.
+        ///     By default, this returns a default <see cref="HttpClient"/> factory that uses a single
+        ///     static <see cref="HttpClient"/> instance.
         /// </summary>
         public Func<HttpClient> HttpClientProvider
         {
