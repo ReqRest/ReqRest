@@ -1,5 +1,6 @@
 tools
 .vscode
+.idea
 .tmp
 .artifacts
 

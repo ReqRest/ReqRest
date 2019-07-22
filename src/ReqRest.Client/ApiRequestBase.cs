@@ -7,6 +7,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using ReqRest.Builders;
+    using ReqRest.Client.Resources;
 
     /// <summary>
     ///     Defines the shared members of a request builder abstraction for a RESTful HTTP API.
@@ -14,18 +15,18 @@
     public abstract class ApiRequestBase : HttpRequestMessageBuilder
     {
         
-        private HttpClient _httpClient;
+        private Func<HttpClient> _httpClientProvider;
 
         /// <summary>
-        ///     Gets or sets an <see cref="System.Net.Http.HttpClient"/> instance which will
-        ///     ultimately be used to send the <see cref="HttpRequestMessage"/> for executing
-        ///     the API request.
+        ///     Gets or sets a function which returns an <see cref="HttpClient"/> instance
+        ///     which will ultimately be used to send the <see cref="HttpRequestMessage"/> for
+        ///     executing the API request.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
-        public HttpClient HttpClient
+        public Func<HttpClient> HttpClientProvider
         {
-            get => _httpClient;
-            set => _httpClient = value ?? throw new ArgumentNullException(nameof(value));
+            get => _httpClientProvider;
+            set => _httpClientProvider = value ?? throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -44,33 +45,34 @@
         ///     Initializes a new <see cref="ApiRequestBase"/> instance with the specified
         ///     initial property values.
         /// </summary>
-        /// <param name="httpClient">
-        ///     An <see cref="System.Net.Http.HttpClient"/> instance which will
-        ///     ultimately be used to send the <see cref="HttpRequestMessage"/> for executing
-        ///     the API request.
+        /// <param name="httpClientProvider">
+        ///     A function which returns an <see cref="HttpClient"/> instance
+        ///     which will ultimately be used to send the <see cref="HttpRequestMessage"/> for
+        ///     executing the API request.
         /// </param>
         /// <param name="httpRequestMessage">
         ///     The request from which the builder starts building.
         ///     If <see langword="null"/>, a new instance is created instead.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="httpClient"/>
+        ///     * <paramref name="httpClientProvider"/>
         /// </exception>
-        public ApiRequestBase(HttpClient httpClient, HttpRequestMessage? httpRequestMessage = null)
+        public ApiRequestBase(Func<HttpClient> httpClientProvider, HttpRequestMessage? httpRequestMessage = null)
             : base(httpRequestMessage)
         {
-            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
             PossibleResponseTypesInternal = new ResponseTypeInfoCollection();
         }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance which re-uses the properties
         ///     from the specified request.
-        ///     Used internally to wrap an upgraded request,
+        ///     Used internally to wrap an upgraded request.
         /// </summary>
         private protected ApiRequestBase(ApiRequestBase request)
-            : this(request.HttpClient, request.HttpRequestMessage)
+            : this(request.HttpClientProvider, request.HttpRequestMessage)
         {
+            // Must use ToList() here. The response types infos should not be modifiable from the outside.
             var responseTypes = request.PossibleResponseTypes.ToList();
             PossibleResponseTypesInternal = new ResponseTypeInfoCollection(responseTypes);
         }
@@ -82,7 +84,8 @@
             HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
             CancellationToken cancellationToken = default)
         {
-            return HttpClient.SendAsync(HttpRequestMessage, completionOption, cancellationToken);
+            var httpClient = HttpClientProvider() ?? throw new InvalidOperationException(ExceptionStrings.HttpClientProvider_Returned_Null);
+            return httpClient.SendAsync(HttpRequestMessage, completionOption, cancellationToken);
         }
 
     }

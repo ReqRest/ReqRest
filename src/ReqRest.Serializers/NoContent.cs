@@ -8,7 +8,7 @@
     ///     way for representing an empty HTTP response content.
     /// </summary>
     [Serializable]
-    public struct NoContent : IEquatable<NoContent>
+    public readonly struct NoContent : IEquatable<NoContent>
     {
 
         /// <summary>
@@ -39,11 +39,20 @@
         public override int GetHashCode() =>
             1;
 
-        public static bool operator ==(NoContent? a, NoContent? b) =>
+        /// <see cref="Equals(NoContent)"/>
+        public static bool operator ==(NoContent a, NoContent b) =>
             Equals(a, b);
 
-        public static bool operator !=(NoContent? a, NoContent? b) =>
+        /// <see cref="Equals(NoContent)"/>
+        public static bool operator !=(NoContent a, NoContent b) =>
             !(a == b);
+
+        /// <summary>
+        ///     Returns a string similar to <c>No Content</c>.
+        /// </summary>
+        /// <returns>A string similar to <c>No Content</c>.</returns>
+        public override string ToString() =>
+            "No Content";
 
     }
 

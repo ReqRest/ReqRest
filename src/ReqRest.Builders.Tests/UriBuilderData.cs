@@ -75,6 +75,18 @@
                 { "x=y", "", "", "?x=y" },
                 { "x=y", null, null, "?x=y" },
             };
+        
+        public static TheoryData<string, IEnumerable<(string, string)>, string> MultipleKeyValueQueryParameterData { get; } =
+            new TheoryData<string, IEnumerable<(string, string)>, string>()
+            {
+                { "", new [] { ("a", "1") }, "?a=1" },
+                { "", new [] { ("a", "1"), ("b", "2") }, "?a=1&b=2" },
+                { "", new [] { ("a", "1"), ("b", "2"), ("c", "3") }, "?a=1&b=2&c=3" },
+                { "", new [] { ("a", "1"), ("b", "2"), ("c", "3") }, "?a=1&b=2&c=3" },
+                { "", new [] { ("a", "1"), ("b", ""), ("c", "3") }, "?a=1&b=&c=3" },
+            };
+
+
 
     }
 

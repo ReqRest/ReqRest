@@ -364,7 +364,7 @@
         /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
         /// <param name="builder">The builder.</param>
         /// <param name="parameter">
-        ///     The query parameter to be appeneded to the query.
+        ///     The query parameter to be appended to the query.
         ///     
         ///     This can be <see langword="null"/>. If so (or if empty), nothing gets appended.
         /// </param>
