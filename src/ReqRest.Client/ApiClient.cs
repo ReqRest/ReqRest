@@ -10,22 +10,31 @@
     public abstract class ApiClient : IUrlProvider
     {
 
+        private ApiClientConfiguration _configuration;
+
         /// <summary>
-        ///     Gets the configuration for this client instance.
+        ///     Gets or sets the configuration for this client instance.
         /// </summary>
-        public ApiClientConfiguration Configuration { get; }
+        /// <exception cref="ArgumentNullException"/>
+        public ApiClientConfiguration Configuration
+        {
+            get => _configuration;
+            set => _configuration = value ?? throw new ArgumentNullException(nameof(value));
+        }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiClient"/> instance which uses the specified
         ///     <paramref name="configuration"/>.
         /// </summary>
-        /// <param name="configuration">The configuration for this client instance.</param>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="configuration"/>
-        /// </exception>
-        public ApiClient(ApiClientConfiguration configuration)
+        /// <param name="configuration">
+        ///     The configuration for this client instance.
+        ///     
+        ///     This can be <see langword="null"/>. In this case, a new 
+        ///     <see cref="ApiClientConfiguration"/> is created and used instead.
+        /// </param>
+        public ApiClient(ApiClientConfiguration? configuration)
         {
-            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _configuration = configuration ?? new ApiClientConfiguration();
         }
 
         /// <summary>
@@ -34,15 +43,9 @@
         /// </summary>
         UrlBuilder IUrlProvider.GetUrlBuilder()
         {
-            var builder = Configuration.BaseUrl is null
+            return Configuration.BaseUrl is null
                 ? new UrlBuilder()
                 : new UrlBuilder(Configuration.BaseUrl);
-
-            // UriBuilder may automagically set the port to the corresponding scheme default.
-            // For example, https may lead to a port of 443.
-            //
-            // This is, imo, mostly unwanted. -> Reset the port manually, just to be safe.
-            return builder.SetPort(null);
         }
 
     }
@@ -55,24 +58,31 @@
     ///     A custom <see cref="ApiClientConfiguration"/> type which is used by the deriving client.
     /// </typeparam>
     public abstract class ApiClient<TConfig> : ApiClient
-        where TConfig : ApiClientConfiguration
+        where TConfig : ApiClientConfiguration, new()
     {
 
         /// <summary>
-        ///     Gets the configuration for this client instance.
+        ///     Gets or sets the configuration for this client instance.
         /// </summary>
-        public new TConfig Configuration => (TConfig)base.Configuration;
+        /// <exception cref="ArgumentNullException"/>
+        public new TConfig Configuration
+        {
+            get => (TConfig)base.Configuration;
+            set => base.Configuration = value; // Does ANE validation.
+        }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiClient"/> instance which uses the specified
         ///     <paramref name="configuration"/>.
         /// </summary>
-        /// <param name="configuration">The configuration for this client instance.</param>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="configuration"/>
-        /// </exception>
-        public ApiClient(TConfig configuration)
-            : base(configuration) { }
+        /// <param name="configuration">
+        ///     The configuration for this client instance.
+        ///     
+        ///     This can be <see langword="null"/>. In this case, a new 
+        ///     <typeparamref name="TConfig"/> is created and used instead.
+        /// </param>
+        public ApiClient(TConfig? configuration)
+            : base(configuration ?? new TConfig()) { }
 
     }
 

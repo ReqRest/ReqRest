@@ -62,7 +62,7 @@ As soon as the library reaches version `1.0.0` it will follow Semantic Versionin
 Any kind of contribution is welcome! Be sure to submit bugs and feature requests via GitHub issues.
 
 Before starting to write code for a (larger) Pull Request, be sure to talk about the changes that
-you are going to make, so that we can ensure that the changes are going to have achance of being 
+you are going to make, so that we can ensure that the changes are going to have a chance of being 
 accepted.
 
 

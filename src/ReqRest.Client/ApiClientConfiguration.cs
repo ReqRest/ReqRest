@@ -10,7 +10,7 @@
     public class ApiClientConfiguration
     {
 
-        private HttpClientProvider? _httpClientProvider;
+        private Func<HttpClient>? _httpClientProvider;
 
         /// <summary>
         ///     Gets or sets an <see cref="Uri"/> which forms the base URL for any request
@@ -28,12 +28,12 @@
         ///     Gets or sets a function which returns an <see cref="HttpClient"/> instance that
         ///     should be used for making requests created by the client.
         ///     
-        ///     This returns a default <see cref="HttpClient"/> factory that uses a single
-        ///     static <see cref="HttpClient"/> instance by default.
+        ///     By default, this returns a default <see cref="HttpClient"/> factory that uses a single
+        ///     static <see cref="HttpClient"/> instance.
         /// </summary>
-        public HttpClientProvider HttpClientProvider
+        public Func<HttpClient> HttpClientProvider
         {
-            get => _httpClientProvider ?? DefaultHttpClientProvider.GetHttpClient;
+            get => _httpClientProvider ?? DefaultValues.HttpClientProvider;
             set => _httpClientProvider = value;
         }
 
@@ -41,6 +41,15 @@
         ///     Initializes a new <see cref="ApiClientConfiguration"/> with default values.
         /// </summary>
         public ApiClientConfiguration() { }
+
+        private static class DefaultValues
+        {
+
+            private static readonly Lazy<HttpClient> s_httpClientLazy = new Lazy<HttpClient>(() => new HttpClient());
+
+            public static Func<HttpClient> HttpClientProvider { get; } = () => s_httpClientLazy.Value;
+
+        }
 
     }
 
