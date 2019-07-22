@@ -1,7 +1,7 @@
 ﻿namespace DemoApplication.Api.Todos
 {
-    using System;
-    using ReqRest;
+    using ReqRest.Builders;
+    using ReqRest.Client;
 
     public class TodoInterface : ApiInterface
     {
@@ -14,8 +14,8 @@
             _id = id;
         }
 
-        protected override UriBuilder BuildUrl(UriBuilder baseUrl) =>
-            baseUrl.AppendPath($"todos/{_id}");
+        protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+            baseUrl / "todos" / $"{_id}";
 
         //public ApiRequestBase<TodoItem> Get() =>
         //    BuildRequest()

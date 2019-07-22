@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Diagnostics;
@@ -36,7 +36,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetReasonPhrase<T>(this T builder, string? reasonPhrase) where T : IHttpResponseReasonPhraseBuilder =>
-            builder.Configure(() => builder.ReasonPhrase = reasonPhrase);
+            builder.Configure(_ =>builder.ReasonPhrase = reasonPhrase);
 
     }
 

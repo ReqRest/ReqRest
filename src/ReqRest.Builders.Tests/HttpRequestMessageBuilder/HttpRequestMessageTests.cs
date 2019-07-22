@@ -10,7 +10,7 @@
         [Fact]
         public void Throws_ArgumentNullException()
         {
-            var builder = new ReqRest.HttpRequestMessageBuilder();
+            var builder = new ReqRest.Builders.HttpRequestMessageBuilder();
             Action testCode = () => builder.HttpRequestMessage = null;
             testCode.Should().Throw<ArgumentNullException>();
         }

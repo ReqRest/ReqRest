@@ -1,8 +1,11 @@
 ﻿namespace DemoApplication.Api.Todos
 {
-    using System;
     using System.Collections.Generic;
-    using ReqRest;
+    using ReqRest.Client;
+    using ReqRest.Builders;
+    using ReqRest.Serializers.NewtonsoftJson;
+    using System;
+    using ReqRest.Http;
 
     // This file contains a standard ApiInterface for the /todos interface of the API.
     //
@@ -28,7 +31,7 @@
     // a different interface within the context of ReqRest.
     // This can easily be seen by the supported methods: GET /todos/123 supports GET, PUT, POST, DELETE.
     // This is not the case for /todos.
-    
+
 
     // When wrapping an interface, you simply need to create a class which derives from ApiInterface.
     // Ideally, you give the class the name of the API interface.
@@ -57,8 +60,8 @@
         // builder below.
         // If we simply append the /todos path, we get the full request URL without having
         // to make any assumption about other interfaces.
-        protected override UriBuilder BuildUrl(UriBuilder baseUrl) =>
-            baseUrl.AppendPath("todos");
+        protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+            baseUrl / "todos";
 
         // Now comes the interesting part - how to create requests.
         // I believe that the code is going to be clearer than any comments here.

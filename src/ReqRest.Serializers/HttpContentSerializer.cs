@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers
 {
     using System;
     using System.Net.Http;
@@ -26,6 +26,9 @@
     ///             Throwing an <see cref="HttpContentSerializationException"/> if 
     ///             (de-)serialization fails.
     ///         </item>
+    ///         <item>
+    ///             Handling the <see cref="NoContent"/> type during (de-)serialization.
+    ///         </item>
     ///     </list>
     /// </remarks>
     public abstract class HttpContentSerializer : IHttpContentSerializer, IHttpContentDeserializer
@@ -42,11 +45,23 @@
         /// <inheritdoc/>
         public virtual HttpContent Serialize(object? content, Encoding? encoding)
         {
+            if (content is NoContent)
+            {
+                return new ByteArrayContent(Array.Empty<byte>());
+            }
+            else
+            {
+                return SerializeDefault(content, encoding);
+            }
+        }
+
+        private HttpContent SerializeDefault(object? content, Encoding? encoding)
+        {
             try
             {
                 return SerializeCore(content, encoding ?? DefaultEncoding);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 throw new HttpContentSerializationException(null, ex);
             }
@@ -76,11 +91,23 @@
             _ = httpContent ?? throw new ArgumentNullException(nameof(httpContent));
             _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
 
+            if (contentType == typeof(NoContent))
+            {
+                return new NoContent();
+            }
+            else
+            {
+                return await DeserializeDefault(httpContent, contentType).ConfigureAwait(false);
+            }
+        }
+
+        private async Task<object?> DeserializeDefault(HttpContent httpContent, Type contentType)
+        {
             try
             {
                 return await DeserializeCore(httpContent, contentType).ConfigureAwait(false);
             }
-            catch (Exception ex)
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 throw new HttpContentSerializationException(null, ex);
             }

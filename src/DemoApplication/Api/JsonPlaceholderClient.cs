@@ -2,7 +2,7 @@
 {
     using System;
     using DemoApplication.Api.Todos;
-    using ReqRest;
+    using ReqRest.Client;
 
     /// <summary>
     ///     The REST client for the Json Placeholder API (https://jsonplaceholder.typicode.com).

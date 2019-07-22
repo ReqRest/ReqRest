@@ -3,6 +3,7 @@
     using System;
     using System.Net.Http;
     using FluentAssertions;
+    using ReqRest.Builders;
     using Xunit;
 
     public class SetResponseTests : HttpResponseBuilderTestBase

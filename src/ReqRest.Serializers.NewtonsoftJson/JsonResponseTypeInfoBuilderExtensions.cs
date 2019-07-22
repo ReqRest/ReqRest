@@ -1,8 +1,10 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
+    using ReqRest.Client;
+    using ReqRest.Http;
 
     /// <summary>
     ///     Extends the <see cref="ResponseTypeInfoBuilder{TRequest}"/> class with methods for
@@ -23,6 +25,13 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(this ResponseTypeInfoBuilder<T> builder, params StatusCodeRange[] forStatusCodes) 
             where T : ApiRequestBase
         {
@@ -44,6 +53,13 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(
             this ResponseTypeInfoBuilder<T> builder,
             IEnumerable<StatusCodeRange> forStatusCodes,
@@ -70,6 +86,14 @@
         /// <returns>
         ///     An generic <see cref="ApiRequest"/> variation.
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="forStatusCodes"/>
+        ///     * <paramref name="jsonHttpContentDeserializerFactory"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
         public static T AsJson<T>(
             this ResponseTypeInfoBuilder<T> builder, 
             IEnumerable<StatusCodeRange> forStatusCodes,

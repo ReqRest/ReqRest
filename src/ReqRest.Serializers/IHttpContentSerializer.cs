@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers
 {
     using System.Net.Http;
     using System.Text;

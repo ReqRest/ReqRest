@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Diagnostics;
@@ -24,6 +24,8 @@
     /// </summary>
     public static class HttpMethodBuilderExtensions
     {
+
+        private static readonly HttpMethod PatchMethod = new HttpMethod("PATCH");
 
         /// <summary>
         ///     Sets the <see cref="HttpMethod"/> to the HTTP <c>GET</c> method.
@@ -117,6 +119,19 @@
             builder.SetMethod(HttpMethod.Head);
 
         /// <summary>
+        ///     Sets the <see cref="HttpMethod"/> to the HTTP <c>PATCH</c> method.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T Patch<T>(this T builder) where T : IHttpMethodBuilder =>
+            builder.SetMethod(PatchMethod);
+
+        /// <summary>
         ///     Sets the <see cref="HttpMethod"/> which is being built.
         /// </summary>
         /// <typeparam name="T">The type of the builder.</typeparam>
@@ -148,7 +163,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetMethod<T>(this T builder, HttpMethod method) where T : IHttpMethodBuilder =>
-            builder.Configure(() => builder.Method = method ?? throw new ArgumentNullException(nameof(method)));
+            builder.Configure(_ =>builder.Method = method ?? throw new ArgumentNullException(nameof(method)));
 
     }
 

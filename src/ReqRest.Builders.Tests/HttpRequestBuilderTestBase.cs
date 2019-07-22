@@ -1,6 +1,6 @@
 ﻿namespace ReqRest.Builders.Tests
 {
-    using ReqRest;
+    using ReqRest.Builders;
 
     /// <summary>
     ///     A base class for all tests which test the request builder extensions.
@@ -12,8 +12,8 @@
         ///     Gets a default <see cref="IHttpRequestMessageBuilder"/> instance which can be used
         ///     for testing the extension methods.
         /// </summary>
-        public ReqRest.HttpRequestMessageBuilder Builder { get; } = 
-            new ReqRest.HttpRequestMessageBuilder();
+        public Builders.HttpRequestMessageBuilder Builder { get; } = 
+            new Builders.HttpRequestMessageBuilder();
 
     }
 

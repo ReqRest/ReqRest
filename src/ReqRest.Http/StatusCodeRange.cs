@@ -1,8 +1,8 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Http
 {
     using System;
     using System.ComponentModel;
-    using ReqRest.Resources;
+    using ReqRest.Http.Resources;
 
     /// <summary>
     ///     Represents a range between two HTTP status codes and provides methods for determining
@@ -10,7 +10,46 @@
     /// </summary>
     public readonly struct StatusCodeRange : IEquatable<StatusCodeRange>
     {
+
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers informational status codes, i.e.
+        ///     status codes from <c>100</c> to <c>199</c>.
+        /// </summary>
+        public static readonly StatusCodeRange Informational = (100, 199);
         
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers status codes that indicate success, i.e.
+        ///     status codes from <c>200</c> to <c>299</c>.
+        /// </summary>
+        public static readonly StatusCodeRange Success = (200, 299);
+        
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers status codes that indicate a redirection, i.e.
+        ///     status codes from <c>300</c> to <c>399</c>.
+        /// </summary>
+        public static readonly StatusCodeRange Redirection = (300, 399);
+        
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers status codes that indicate client errors, i.e.
+        ///     status codes from <c>400</c> to <c>499</c>.
+        /// </summary>
+        public static readonly StatusCodeRange ClientErrors = (400, 499);
+       
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers status codes that indicate server errors, i.e.
+        ///     status codes from <c>500</c> to <c>599</c>.
+        /// </summary>
+        public static readonly StatusCodeRange ServerErrors = (500, 599);
+
+        /// <summary>
+        ///     A <see cref="StatusCodeRange"/> which covers status codes that indicate either
+        ///     client or a server errors, i.e. status codes from <c>400</c> to <c>599</c>.
+        ///     
+        ///     This is basically a unification of <see cref="ClientErrors"/> and
+        ///     <see cref="ServerErrors"/>.
+        /// </summary>
+        public static readonly StatusCodeRange Errors = (400, 599);
+
         /// <summary>
         ///     A <see cref="StatusCodeRange"/> which covers every single status code that is available.
         /// </summary>
@@ -45,11 +84,13 @@
         /// <summary>
         ///     Gets a value indicating whether this range spans only a single status code,
         ///     i.e. if <see cref="From"/> equals <see cref="To"/>.
+        ///     The only exception to this rule is this range being <see cref="All"/>.
+        ///     If so, this returns <see langword="false"/>.
         /// </summary>
         public bool IsSingleStatusCode => From == To && From != StatusCode.Wildcard;
 
         /// <summary>
-        ///     Gets a value indicating whether <see cref="From"/> or <see cref="To"/> are
+        ///     Gets a value indicating whether <see cref="From"/>, <see cref="To"/> or both are
         ///     <see langword="null"/>, thus indicating a wildcard.
         /// </summary>
         public bool HasWildcardComponent => From == StatusCode.Wildcard || To == StatusCode.Wildcard;
@@ -133,7 +174,7 @@
         ///     Returns a value indicating whether the <paramref name="other"/> specified status
         ///     code range falls within this range.
         ///     This will also return <see langword="true"/> if the ranges have equal values.
-        ///     For example, this will return <see langword="true"/> for <c>(200-300), (250,300)</c>.
+        ///     For example, this will return <see langword="true"/> for <c>(200-300), (250-300)</c>.
         /// </summary>
         /// <param name="other">
         ///     The other status code range to be checked.
@@ -188,8 +229,8 @@
         }
 
         /// <summary>
-        ///     Returns a string similar to <c>(200-404)</c>, <c>(200)</c>, <c>(200-*)</c>,
-        ///     depending on <see cref="From"/> and <see cref="To"/>.
+        ///     Returns a string similar to <c>200-404</c>, <c>200-*</c>, <c>*-200</c>, <c>200</c>
+        ///     or <c>*</c>, depending on <see cref="From"/> and <see cref="To"/>.
         /// </summary>
         /// <returns>A string representing the current status code range.</returns>
         public override string ToString()

@@ -1,12 +1,13 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
-    using ReqRest.Resources;
+    using ReqRest.Builders.Resources;
 
     /// <summary>
     ///     Represents a builder for an object which provides an <see cref="HttpContent"/>.
@@ -28,6 +29,98 @@
     /// </summary>
     public static class HttpContentBuilderExtensions
     {
+
+        #region SetFormUrlEncodedContent
+
+        /// <summary>
+        ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
+        ///     created from the specified <paramref name="content"/> pairs.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="content">
+        ///     A set of key/value pairs which make up the form encoded HTTP content.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="content"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T SetFormUrlEncodedContent<T>(
+            this T builder, params (string Key, string Value)[] content) where T : IHttpContentBuilder
+        {
+            return builder.SetFormUrlEncodedContent((IEnumerable<(string, string)>)content);
+        }
+
+        /// <summary>
+        ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
+        ///     created from the specified <paramref name="content"/> pairs.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="content">
+        ///     A set of key/value pairs which make up the form encoded HTTP content.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="content"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T SetFormUrlEncodedContent<T>(
+            this T builder, IEnumerable<(string Key, string Value)> content) where T : IHttpContentBuilder
+        {
+            _ = content ?? throw new ArgumentNullException(nameof(content));
+            return builder.SetFormUrlEncodedContent(
+                content.Select(x => new KeyValuePair<string, string>(x.Key, x.Value))
+            );
+        }
+
+        /// <summary>
+        ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
+        ///     created from the specified <paramref name="content"/> pairs.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="content">
+        ///     A set of key/value pairs which make up the form encoded HTTP content.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="content"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T SetFormUrlEncodedContent<T>(
+            this T builder, params KeyValuePair<string, string>[] content) where T : IHttpContentBuilder
+        {
+            return builder.SetFormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)content);
+        }
+
+        /// <summary>
+        ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
+        ///     created from the specified <paramref name="content"/> pairs.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="content">
+        ///     A set of key/value pairs which make up the form encoded HTTP content.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="content"/>
+        /// </exception>
+        [DebuggerStepThrough]
+        public static T SetFormUrlEncodedContent<T>(
+            this T builder, IEnumerable<KeyValuePair<string, string>> content) where T : IHttpContentBuilder
+        {
+            _ = content ?? throw new ArgumentNullException(nameof(content));
+            return builder.SetContent(new FormUrlEncodedContent(content));
+        }
+
+        #endregion
 
         #region SetContent
 
@@ -120,7 +213,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetContent<T>(this T builder, HttpContent content) where T : IHttpContentBuilder =>
-            builder.Configure(() => builder.Content = content);
+            builder.Configure(_ =>builder.Content = content);
 
         #endregion
 
@@ -306,7 +399,7 @@
             this T builder, Action<HttpContentHeaders> configureHeaders) where T : IHttpContentBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(() =>
+            return builder.Configure(_ =>
             {
                 // There may not always be an HttpContent. There is nothing we can/should do. Fail here.
                 if (builder.Content is null)

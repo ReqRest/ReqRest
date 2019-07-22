@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
     using System.IO;
@@ -6,10 +6,15 @@
     using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
+    using ReqRest.Http;
 
     /// <summary>
     ///     An <see cref="HttpContent"/> (de-)serializer which uses the <c>Newtonsoft.Json</c>
     ///     library for the (de-)serialization process.
+    ///     
+    ///     Consider using the <see cref="Default"/> property for accessing a default 
+    ///     <see cref="JsonHttpContentSerializer"/> instance if you don't require any specific JSON
+    ///     serialization settings.
     /// </summary>
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
@@ -22,6 +27,9 @@
         /// <summary>
         ///     Gets a default <see cref="JsonHttpContentSerializer"/> instance which internally
         ///     uses a default <see cref="Newtonsoft.Json.JsonSerializer"/> instance.
+        ///     
+        ///     This is an otherwise default <see cref="Newtonsoft.Json.JsonSerializer"/> which
+        ///     ignores <c>null</c> values during (de-)serialization.
         /// </summary>
         public static JsonHttpContentSerializer Default { get; } = new JsonHttpContentSerializer();
 
@@ -30,6 +38,8 @@
         ///     (de-)serializing the resource objects.
         ///     This can be <see langword="null"/>. If so, a default <see cref="Newtonsoft.Json.JsonSerializer"/>
         ///     instance is used for (de-)serialization.
+        ///     This is an otherwise default <see cref="Newtonsoft.Json.JsonSerializer"/> which
+        ///     ignores <c>null</c> values during (de-)serialization.
         /// </summary>
         protected JsonSerializer? JsonSerializer { get; }
 
@@ -46,6 +56,8 @@
         ///     
         ///     If <see langword="null"/>, a default <see cref="Newtonsoft.Json.JsonSerializer"/>
         ///     instance is used for (de-)serialization.
+        ///     This is an otherwise default <see cref="Newtonsoft.Json.JsonSerializer"/> which
+        ///     ignores <c>null</c> values during (de-)serialization.
         /// </param>
         public JsonHttpContentSerializer(JsonSerializer? jsonSerializer = null)
         {
@@ -55,6 +67,7 @@
         /// <summary>
         ///     Returns either <see cref="Default"/> (if <paramref name="jsonSerializer"/> is <see langword="null"/>)
         ///     or a new <see cref="JsonHttpContentSerializer"/> instance.
+        ///     Used internally so that no new instance has to be created all the time if no serializer is given.
         /// </summary>
         internal static JsonHttpContentSerializer FromJsonSerializer(JsonSerializer? jsonSerializer)
         {
