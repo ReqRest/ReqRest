@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using DemoApplication.Api;
     using DemoApplication.Api.Todos;
-    using Newtonsoft.Json;
     using static System.Console;
 
     public static class Program
