@@ -2,6 +2,7 @@
 {
     using ReqRest.Builders;
     using ReqRest.Client;
+    using ReqRest.Serializers.NewtonsoftJson;
 
     public class TodoInterface : ApiInterface
     {
@@ -17,10 +18,10 @@
         protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos" / $"{_id}";
 
-        //public ApiRequestBase<TodoItem> Get() =>
-        //    BuildRequest()
-        //        .Get()
-        //        .ReceiveJson<TodoItem>();
+        public ApiRequest<TodoItem> Get() => 
+            BuildRequest()
+                .Get()
+                .Receive<TodoItem>().AsJson(200);
 
     }
 
