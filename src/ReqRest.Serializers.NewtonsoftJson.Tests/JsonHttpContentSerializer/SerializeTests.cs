@@ -1,17 +1,12 @@
 ﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentSerializer
 {
-    using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
-    using System.Linq;
     using ReqRest.Serializers.NewtonsoftJson;
     using Xunit;
-    using System.Net.Http;
     using Newtonsoft.Json;
     using FluentAssertions;
     using ReqRest.Http;
     using System.Text;
-    using Moq;
 
     public class SerializeTests
     {
