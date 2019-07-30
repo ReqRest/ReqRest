@@ -34,7 +34,7 @@
   </PropertyGroup>
   
   <ItemGroup Condition=" !$(IsTestProject) ">
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- Certain warnings make no sense in test projects. -->
