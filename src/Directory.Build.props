@@ -3,7 +3,6 @@
   <!-- Default C# Project properties that are expected for all sub-projects. -->
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-    <NullableReferenceTypes>true</NullableReferenceTypes>
     <NullableContextOptions>enable</NullableContextOptions>
     <Nullable>enable</Nullable>
 
@@ -40,8 +39,8 @@
 
   <!-- Certain warnings make no sense in test projects. -->
   <PropertyGroup Condition=" $(IsTestProject) ">
-    <NullableReferenceTypes>false</NullableReferenceTypes>
     <NullableContextOptions>disable</NullableContextOptions>
+    <Nullable>disable</Nullable>
     <NoWarn>
       $(NoWarn);
       CS1573; <!-- No matching XML comment for parameter -->
