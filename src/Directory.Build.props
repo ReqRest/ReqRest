@@ -5,6 +5,7 @@
     <LangVersion>8.0</LangVersion>
     <NullableReferenceTypes>true</NullableReferenceTypes>
     <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../key.snk</AssemblyOriginatorKeyFile>
