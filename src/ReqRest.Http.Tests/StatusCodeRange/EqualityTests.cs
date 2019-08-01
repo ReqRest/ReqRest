@@ -30,7 +30,7 @@
         [InlineData(200, 200, 200, null)]
         [InlineData(200, 200, null, 200)]
         [InlineData(200, 200, null, null)]
-        public void False_For_Equal_Ranges(int? xFrom, int? xTo, int? yFrom, int? yTo)
+        public void False_For_Unequal_Ranges(int? xFrom, int? xTo, int? yFrom, int? yTo)
         {
             var x = new StatusCodeRange(xFrom, xTo);
             var y = new StatusCodeRange(yFrom, yTo);
@@ -42,6 +42,13 @@
             x.GetHashCode().Should().NotBe(y.GetHashCode());
         }
 
+        [Fact]
+        public void False_For_Other_Object()
+        {
+            var range = StatusCodeRange.All;
+            range.Equals(new object()).Should().BeFalse();
+        }
+        
     }
 
 }
