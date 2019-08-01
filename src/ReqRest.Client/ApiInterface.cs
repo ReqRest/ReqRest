@@ -30,7 +30,7 @@
         /// <summary>
         ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
         /// </summary>
-        protected internal Uri Url => _url ?? (_url = this.GetUrl());
+        protected internal Uri Url => _url ??= this.GetUrl();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL

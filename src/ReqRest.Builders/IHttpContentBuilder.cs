@@ -47,11 +47,9 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetFormUrlEncodedContent<T>(
-            this T builder, params (string Key, string Value)[] content) where T : IHttpContentBuilder
-        {
-            return builder.SetFormUrlEncodedContent((IEnumerable<(string, string)>)content);
-        }
+        public static T SetFormUrlEncodedContent<T>(this T builder, params (string Key, string Value)[] content) 
+            where T : IHttpContentBuilder =>
+                builder.SetFormUrlEncodedContent((IEnumerable<(string, string)>)content);
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
@@ -92,11 +90,9 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetFormUrlEncodedContent<T>(
-            this T builder, params KeyValuePair<string, string>[] content) where T : IHttpContentBuilder
-        {
-            return builder.SetFormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)content);
-        }
+        public static T SetFormUrlEncodedContent<T>(this T builder, params KeyValuePair<string, string>[] content) 
+            where T : IHttpContentBuilder =>
+                builder.SetFormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)content);
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
