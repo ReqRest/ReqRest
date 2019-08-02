@@ -6,6 +6,43 @@ branch to read the description of the current release._
 A .NET library for creating fully typed wrappers for RESTful APIs with minimal effort.
 
 
+## What is ReqRest?
+
+At its core, ReqRest allows you to build fully typed REST API Clients.
+Let's assume that we want to wrap a REST API which, amongst others, offers the following endpoint.
+
+| Endpoint | Status Code | Response |
+| -------- | ----------- | -------- |
+| `/users/{id}/todos` | 200 | `{  }`
+```
+
+```csharp
+var client = new DemoApiClient();
+
+// Make a request to get all Todo resources of the user with the ID 1.
+var response = await client.Users(1).Todos().Get().FetchResponseAsync();
+
+// Let's assume that the API returns these types for the following status codes:
+//     200: TodoItem[]
+// 400-599: ErrorResponse
+//  Other : <Undefined>
+
+// ReqRest now allows you to handle all of these possible responses without
+// having to know about the status codes, for example like this (there are also other ways):
+resource.Match(
+    todoItems => Console.WriteLine($"There are {todoItems.Count()} todo items!"),
+    error     => Console.WriteLine($"Received an error: {error.Message}."),
+    ()        => Console.WriteLine($"Received an entirely different status code.")
+);
+
+if (response.TryGetValue(out IEnumerable<TodoItem> todoItems))
+{
+    Console.WriteLine($"There are {todoItems.Count()} items!");
+}
+
+```
+
+
 ## Installation
 
 The library is available on NuGet. Install it via:
