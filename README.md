@@ -13,8 +13,8 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 
 | Endpoint | Status Code | Response |
 | -------- | ----------- | -------- |
-| `/users/{id}/todos` | `200`     | TodoItem(s) of that user: <br/> `[ { "title": string } ]` |
-|                     | `400-599` | Error description: <br/> `{ "message": string }` |
+| `/todos` | `200`     | All TodoItem(s): <br/> `[ { "title": string } ]` |
+|          | `400-599` | Error description: <br/> `{ "message": string }` |
 
 By using ReqRest, you can create a fully typed API Client which allows you to project the REST API directly to C#:
 
@@ -22,7 +22,7 @@ By using ReqRest, you can create a fully typed API Client which allows you to pr
 var client = new DemoApiClient();
 
 // Make a request to get all Todo resources of the user with the ID 1.
-var resource = await client.Users(1).Todos().Get().FetchResourceAsync();
+var resource = await client.Todos().Get().FetchResourceAsync();
 
 // One of ReqRest's greatest strenghts is that it makes REST APIs feel like C#.
 // You won't have to deal with status codes anymore.
@@ -35,6 +35,29 @@ resource.Match(
     error     => Console.WriteLine($"Received an error: {error.Message}."),
     ()        => Console.WriteLine($"Received an entirely different status code.")
 );
+```
+
+The code which is required to recreate this example is minimal (DTO classes are removed for brevity).
+
+```csharp
+class DemoApiClient : ApiClient
+{
+    public DemoApiClient() : base(new ApiClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
+
+    public TodosInterface Todos() =>
+        new TodosInterface();
+}
+
+class TodosInterface : ApiInterface
+{
+    public TodosInterface(ApiClient apiClient) : base(apiClient) { }
+    
+    public ApiRequest<IList<TodoItem>, Error> Get() =>
+        BuildRequest()
+            .Get()
+            .Receive<IList<TodoItem>>().AsJson(200)
+            .Receive<Error>().AsJson((300, 499));
+}
 ```
 
 
