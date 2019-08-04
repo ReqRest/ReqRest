@@ -64,8 +64,8 @@ class TodosInterface : ApiInterface
     public ApiRequest<IList<TodoItem>, Error> Get() =>
         BuildRequest()
             .Get()
-            .Receive<IList<TodoItem>>().AsJson(200)
-            .Receive<Error>().AsJson((300, 499));
+            .Receive<IList<TodoItem>>().AsJson(forStatusCodes: 200)
+            .Receive<Error>().AsJson(forStatusCodes: (300, 499)); // All status codes from 300 to 499.
 }
 ```
 
