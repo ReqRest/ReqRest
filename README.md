@@ -14,7 +14,9 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 | Endpoint | Status Code | Response |
 | -------- | ----------- | -------- |
 | `/users/{id}/todos` | `200`     | TodoItem(s) of that user: <br/> `[ { "title": string } ]` |
-|                     | `400-599` | Error description: <br/> `{ "description": string }` |
+|                     | `400-599` | Error description: <br/> `{ "message": string }` |
+
+By using ReqRest, you can create a fully typed API Client which allows you to project the REST API directly to C#:
 
 ```csharp
 var client = new DemoApiClient();
@@ -22,10 +24,14 @@ var client = new DemoApiClient();
 // Make a request to get all Todo resources of the user with the ID 1.
 var resource = await client.Users(1).Todos().Get().FetchResourceAsync();
 
-// ReqRest allows you to handle all possible API responses without
-// having to know about the status codes, for example like this (there are also other ways):
+// One of ReqRest's greatest strenghts is that it makes REST APIs feel like C#.
+// You won't have to deal with status codes anymore.
+// Depending on what the API returns, ReqRest automatically parses the correct response type and
+// then lets you continue the work with it.
+//
+// The Match(...) is one way of doing this. There also other methods to do the same, for example TryGetValue<T>(...).
 resource.Match(
-    todoItems => Console.WriteLine($"There are {todoItems.Count()} todo items!"),
+    todoItems => Console.WriteLine($"There are {todoItems.Count()} todo items! First: {todoItems.First().Title}"),
     error     => Console.WriteLine($"Received an error: {error.Message}."),
     ()        => Console.WriteLine($"Received an entirely different status code.")
 );
