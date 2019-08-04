@@ -53,7 +53,7 @@ class TodosInterface : ApiInterface
     public TodosInterface(ApiClient apiClient) : base(apiClient) { }
     
     // 'baseUrl' is, in this case, the 'BaseUrl' from the configuration above.
-    // The '/' operator simply joins the two URLs to the following: http://demo-api.com/todos
+    // The '/' operator simply joins the two URL parts to the following: http://demo-api.com/todos
     // Any request created by this class (e.g. the Get() request created below) uses the URL which is built here.
     protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos";
