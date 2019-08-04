@@ -20,21 +20,15 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 var client = new DemoApiClient();
 
 // Make a request to get all Todo resources of the user with the ID 1.
-var response = await client.Users(1).Todos().Get().FetchResponseAsync();
+var resource = await client.Users(1).Todos().Get().FetchResourceAsync();
 
-// ReqRest now allows you to handle all of these possible responses without
+// ReqRest allows you to handle all possible API responses without
 // having to know about the status codes, for example like this (there are also other ways):
 resource.Match(
     todoItems => Console.WriteLine($"There are {todoItems.Count()} todo items!"),
     error     => Console.WriteLine($"Received an error: {error.Message}."),
     ()        => Console.WriteLine($"Received an entirely different status code.")
 );
-
-if (response.TryGetValue(out IEnumerable<TodoItem> todoItems))
-{
-    Console.WriteLine($"There are {todoItems.Count()} items!");
-}
-
 ```
 
 
