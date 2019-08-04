@@ -13,19 +13,14 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 
 | Endpoint | Status Code | Response |
 | -------- | ----------- | -------- |
-| `/users/{id}/todos` | 200 | `{  }`
-```
+| `/users/{id}/todos` | `200`     | TodoItem(s) of that user: <br/> `[ { "title": string } ]` |
+|                     | `400-599` | Error description: <br/> `{ "description": string }` |
 
 ```csharp
 var client = new DemoApiClient();
 
 // Make a request to get all Todo resources of the user with the ID 1.
 var response = await client.Users(1).Todos().Get().FetchResponseAsync();
-
-// Let's assume that the API returns these types for the following status codes:
-//     200: TodoItem[]
-// 400-599: ErrorResponse
-//  Other : <Undefined>
 
 // ReqRest now allows you to handle all of these possible responses without
 // having to know about the status codes, for example like this (there are also other ways):
