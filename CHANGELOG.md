@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.x.x
+* Changed the `ApiRequestBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
+
+
 ## v0.3.0
 
 * **[Breaking]** Removed HttpClientProvider in the configuration and replaced it with a `Func<HttpClient>` for simplicity.

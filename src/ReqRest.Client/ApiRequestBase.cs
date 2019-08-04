@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net.Http;
     using System.Threading;
@@ -33,7 +34,7 @@
         ///     Gets a list of elements which declare what possible .NET types the API may
         ///     return for this request, depending on the result's status code.
         /// </summary>
-        public IEnumerable<ResponseTypeInfo> PossibleResponseTypes => PossibleResponseTypesInternal;
+        public IReadOnlyCollection<ResponseTypeInfo> PossibleResponseTypes { get; }
         
         /// <summary>
         ///     Gets a modifiable list of elements which declare what possible .NET types the API may
@@ -62,6 +63,7 @@
         {
             _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
             PossibleResponseTypesInternal = new ResponseTypeInfoCollection();
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(PossibleResponseTypesInternal);
         }
 
         /// <summary>
