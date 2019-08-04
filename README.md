@@ -16,7 +16,7 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 | `/todos` | `200`     | All TodoItem(s): <br/> `[ { "title": string } ]` |
 |          | `400-599` | Error description: <br/> `{ "message": string }` |
 
-By using ReqRest, you can create a fully typed API Client which allows you to project the REST API directly to C#:
+By using ReqRest, you can create a fully typed API Client which allows you to project the REST API into plain C#:
 
 ```csharp
 var client = new DemoApiClient();
@@ -52,6 +52,12 @@ class TodosInterface : ApiInterface
 {
     public TodosInterface(ApiClient apiClient) : base(apiClient) { }
     
+    // 'baseUrl' is, in this case, the 'BaseUrl' from the configuration above.
+    // The '/' operator simply joins the two URLs to the following: http://demo-api.com/todos
+    // Any request created by this class (e.g. the Get() request created below) uses the URL which is built here.
+    protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+            baseUrl / "todos";
+            
     public ApiRequest<IList<TodoItem>, Error> Get() =>
         BuildRequest()
             .Get()
@@ -59,6 +65,16 @@ class TodosInterface : ApiInterface
             .Receive<Error>().AsJson((300, 499));
 }
 ```
+
+The example above displays the most important features of ReqRest.
+This is a very simple example, but ReqRest also supports more complex scenarios.
+For example, a fictional endpoint like `POST /users/123/todos` can easily be wrapped with ReqRest, resulting in the following code:
+`client.Users(123).Todos().Post(new TodoItem(...))`.
+
+This is not everything though. All in all, ReqRest provides a lot of features which will make your life easier
+when interacting with REST APIs.
+
+For a thorough overview, read through the documentation and advanced examples or have a look at the example projects.
 
 
 ## Installation
