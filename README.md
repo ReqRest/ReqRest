@@ -57,7 +57,10 @@ class TodosInterface : ApiInterface
     // Any request created by this class (e.g. the Get() request created below) uses the URL which is built here.
     protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos";
-            
+    
+    // The task of an ApiInterface class is the creation of requests to that interface.
+    // ReqRest follows a declarative approach.
+    // You state what the API returns for which status code and ReqRest does everything else for you.
     public ApiRequest<IList<TodoItem>, Error> Get() =>
         BuildRequest()
             .Get()
