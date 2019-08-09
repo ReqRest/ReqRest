@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReqRest.Client\ReqRest.Client.csproj" />
+    <ProjectReference Include="..\ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj" />
   </ItemGroup>
 
 </Project>

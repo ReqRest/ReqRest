@@ -40,7 +40,7 @@
         ///     Gets a modifiable list of elements which declare what possible .NET types the API may
         ///     return for this request, depending on the result's status code.
         /// </summary>
-        internal IList<ResponseTypeInfo> PossibleResponseTypesInternal { get; }
+        internal ResponseTypeInfoCollection PossibleResponseTypesInternal { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance with the specified
@@ -59,12 +59,7 @@
         ///     * <paramref name="httpClientProvider"/>
         /// </exception>
         public ApiRequestBase(Func<HttpClient> httpClientProvider, HttpRequestMessage? httpRequestMessage = null)
-            : base(httpRequestMessage)
-        {
-            _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
-            PossibleResponseTypesInternal = new ResponseTypeInfoCollection();
-            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(PossibleResponseTypesInternal);
-        }
+            : this(httpClientProvider, httpRequestMessage, new ResponseTypeInfoCollection()) { }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance which re-uses the properties
@@ -72,19 +67,28 @@
         ///     Used internally to wrap an upgraded request.
         /// </summary>
         private protected ApiRequestBase(ApiRequestBase request)
-            : this(request.HttpClientProvider, request.HttpRequestMessage)
+            : this(
+                request.HttpClientProvider, 
+                request.HttpRequestMessage,
+                new ResponseTypeInfoCollection(request.PossibleResponseTypes.ToList())
+              ) { }
+
+        private ApiRequestBase(
+            Func<HttpClient> httpClientProvider,
+            HttpRequestMessage? httpRequestMessage,
+            ResponseTypeInfoCollection possibleResponseTypes)
+            : base(httpRequestMessage)
         {
-            // Must use ToList() here. The response types infos should not be modifiable from the outside.
-            var responseTypes = request.PossibleResponseTypes.ToList();
-            PossibleResponseTypesInternal = new ResponseTypeInfoCollection(responseTypes);
+            _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
+            PossibleResponseTypesInternal = possibleResponseTypes;
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(PossibleResponseTypesInternal);
         }
 
         /// <summary>
         ///     Uses the request's HttpClient to make the request and fetch the HTTP response.
         /// </summary>
         private protected Task<HttpResponseMessage> FetchHttpResponseAsync(
-            HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
-            CancellationToken cancellationToken = default)
+            HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
             var httpClient = HttpClientProvider() ?? throw new InvalidOperationException(ExceptionStrings.HttpClientProvider_Returned_Null);
             return httpClient.SendAsync(HttpRequestMessage, completionOption, cancellationToken);

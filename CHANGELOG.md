@@ -1,6 +1,7 @@
 # Changelog
 
-## v0.x.x
+## v0.4.0
+* **[Breaking]** The constructor of the `ApiRequest<T>` (not the `ApiRequest` though) classes are no longer `public`, so that upgrading via `Receive` is enforced.
 * Changed the `ApiRequestBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
 
 
