@@ -1,7 +1,12 @@
 # Changelog
 
 ## v0.4.0
+
+_This is an update which refactors a lot of things that proved to be wrongly designed. At this point, the library is
+furthermore fully tested, meaning that it is ready for additional extensions in future updates._
+
 * **[Breaking]** The constructor of the `ApiRequest<T>` (not the `ApiRequest` though) classes are no longer `public`, so that upgrading via `Receive` is enforced.
+* **[Breaking]** Refactored the `ApiResponseBase.CurrentResponseTypeInfo` property to be a method called `GetCurrentResponseTypeInfo`. This fixes a potential bug that the property holds an old value when the status code mutates.
 * The `IHttpContentDeserializer` and related members now allow deserializing an `HttpContent` which is `null`. This previously threw an `ArgumentNullException` which didn't make sense when attempting to deserialize `NoContent`. This behavior has been updated.
 * Changed the `ApiRequestBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
 * Changed the `ApiResponseBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.

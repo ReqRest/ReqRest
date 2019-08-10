@@ -10,8 +10,8 @@
     {
 
         protected ApiResponseBase CreateResponse(
-            HttpResponseMessage? httpResponseMessage = null,
-            IEnumerable<ResponseTypeInfo>? possibleResponseTypes = null)
+            HttpResponseMessage httpResponseMessage = null,
+            IEnumerable<ResponseTypeInfo> possibleResponseTypes = null)
         {
             return new Mock<ApiResponseBase>(httpResponseMessage, possibleResponseTypes) { CallBase = true }
                 .Object;
