@@ -17,7 +17,7 @@
         private const string SendAsyncMethod = "SendAsync";
 
         [Fact]
-        public async Task Throws_InvalidOperationException_If_HttpClientProvider_Returns_Null()
+        public async Task FetchResponseAsync_Throws_InvalidOperationException_If_HttpClientProvider_Returns_Null()
         {
             var req = CreateDynamicRequest();
             Func<Task> testCode = async () => await req.FetchResponseAsync();
@@ -25,7 +25,7 @@
         }
 
         [Fact]
-        public async Task Uses_HttpClient_To_Make_Request()
+        public async Task FetchResponseAsync_Uses_HttpClient_To_Make_Request()
         {
             var (httpMessageHandlerMock, httpClient) = MockHttpClientAndHandler();
             var req = CreateDynamicRequest(() => httpClient);
@@ -42,7 +42,7 @@
         }
 
         [Fact]
-        public async Task Sends_HttpRequestMessage_Of_Request()
+        public async Task FetchResponseAsync_Sends_HttpRequestMessage_Of_Request()
         {
             var (httpMessageHandlerMock, httpClient) = MockHttpClientAndHandler();
             var req = CreateDynamicRequest(() => httpClient);

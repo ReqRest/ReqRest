@@ -16,21 +16,21 @@ namespace ReqRest.Client.Tests.ApiRequest
         private static readonly StatusCodeRange[] DefaultStatusCodes = { 204, (100, 200), (null, 123) };
         
         [Fact]
-        public void Adds_Expected_ResponseTypeInfo() =>
+        public void ReceiveNoContent_Adds_Expected_ResponseTypeInfo() =>
             TestExpectedResponseTypeInfo(
                 req => req.ReceiveNoContent(), 
                 StatusCode.NoContent
             );
 
         [Fact]
-        public void Adds_Expected_ResponseTypeInfo_StatusCodeRangeArray() =>
+        public void ReceiveNoContent_Adds_Expected_ResponseTypeInfo_StatusCodeRangeArray() =>
             TestExpectedResponseTypeInfo(
                 req => req.ReceiveNoContent((StatusCodeRange[])DefaultStatusCodes),
                 DefaultStatusCodes
             );
         
         [Fact]
-        public void Adds_Expected_ResponseTypeInfo_StatusCodeRangeEnumerable() =>
+        public void ReceiveNoContent_Adds_Expected_ResponseTypeInfo_StatusCodeRangeEnumerable() =>
             TestExpectedResponseTypeInfo(
                 req => req.ReceiveNoContent((IEnumerable<StatusCodeRange>)DefaultStatusCodes),
                 DefaultStatusCodes
