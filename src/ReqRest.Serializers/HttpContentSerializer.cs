@@ -111,7 +111,7 @@
                 throw new HttpContentSerializationException(
                     string.Format(
                         CultureInfo.InvariantCulture,
-                        ExceptionStrings.HttpContentSerializationException_Message,
+                        ExceptionStrings.HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent,
                         contentType.FullName
                     )
                 );
