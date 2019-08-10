@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -38,7 +39,7 @@
         ///     Gets a set of elements that declare which .NET types may have been returned by the
         ///     HTTP API in this response.
         /// </summary>
-        protected IEnumerable<ResponseTypeInfo> PossibleResponseTypes { get; }
+        protected internal IReadOnlyCollection<ResponseTypeInfo> PossibleResponseTypes { get; }
 
         /// <summary>
         ///     Gets a <see cref="ResponseTypeInfo"/> from the <see cref="PossibleResponseTypes"/>
@@ -47,7 +48,7 @@
         ///     This is <see langword="null"/> if the <see cref="PossibleResponseTypes"/>
         ///     property doesn't contain any information which matches the response's status code.
         /// </summary>
-        protected ResponseTypeInfo? CurrentResponseTypeInfo { get; }
+        protected internal ResponseTypeInfo? CurrentResponseTypeInfo { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiResponseBase"/> instance with the specified values.
@@ -67,7 +68,9 @@
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage)
         {
-            PossibleResponseTypes = possibleResponseTypes?.ToList() ?? Enumerable.Empty<ResponseTypeInfo>();
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(
+                possibleResponseTypes?.ToArray() ?? Array.Empty<ResponseTypeInfo>()
+            );
             CurrentResponseTypeInfo = FindMostAppropriateResponseTypeInfo();
         }
 
@@ -97,9 +100,9 @@
         ///     <see langword="true"/> if a resource of the specified type can be deserialized;
         ///     <see langword="false"/> if not.
         /// </returns>
-        private protected virtual bool CanDeserializeResource<T>() =>
-            CurrentResponseTypeInfo != null &&
-            typeof(T).IsAssignableFrom(CurrentResponseTypeInfo.ResponseType);
+        private protected bool CanDeserializeResource<T>() =>
+               CurrentResponseTypeInfo != null
+            && typeof(T).IsAssignableFrom(CurrentResponseTypeInfo.ResponseType);
 
         /// <summary>
         ///     Attempts to deserialize the response to the specified type <typeparamref name="T"/>
@@ -112,7 +115,7 @@
         /// <returns>
         ///     The deserialized resource or information about a deserialization exception.
         /// </returns>
-        private protected virtual async Task<T> DeserializeResourceAsync<T>()
+        private protected async Task<T> DeserializeResourceAsync<T>()
         {
             if (CurrentResponseTypeInfo is null)
             {

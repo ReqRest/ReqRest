@@ -163,7 +163,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetMethod<T>(this T builder, HttpMethod method) where T : IHttpMethodBuilder =>
-            builder.Configure(_ =>builder.Method = method ?? throw new ArgumentNullException(nameof(method)));
+            builder.Configure(_ => builder.Method = method ?? throw new ArgumentNullException(nameof(method)));
 
     }
 
