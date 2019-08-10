@@ -120,4 +120,7 @@
   <data name="HttpContentSerializationException_Message" xml:space="preserve">
     <value>The (de-)serialization failed because of an unknown error. See the inner exception for details (if available).</value>
   </data>
+  <data name="HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent" xml:space="preserve">
+    <value>Cannot deserialize the type "{0}" because the HTTP response had no content.</value>
+  </data>
 </root>

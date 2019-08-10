@@ -19,6 +19,7 @@
         /// </summary>
         /// <param name="content">
         ///     The object to be serialized into a new <see cref="HttpContent"/> instance.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <param name="encoding">
         ///     An optional encoding to be used by the serializer if it serializes the <paramref name="content"/>

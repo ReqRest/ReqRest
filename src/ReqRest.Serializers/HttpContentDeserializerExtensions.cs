@@ -20,6 +20,7 @@
         /// <param name="serializer">The serializer.</param>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <returns>
         ///     An object of type <typeparamref name="T"/>.
@@ -34,7 +35,7 @@
         /// <exception cref="HttpContentSerializationException">
         ///     Deserializing the content failed.
         /// </exception>
-        public static async Task<T> DeserializeAsync<T>(this IHttpContentDeserializer serializer, HttpContent httpContent)
+        public static async Task<T> DeserializeAsync<T>(this IHttpContentDeserializer serializer, HttpContent? httpContent)
         {
 #nullable disable
             _ = serializer ?? throw new ArgumentNullException(nameof(serializer));

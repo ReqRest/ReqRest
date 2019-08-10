@@ -1,9 +1,11 @@
 ﻿namespace ReqRest.Serializers
 {
     using System;
+    using System.Globalization;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using ReqRest.Serializers.Resources;
 
     /// <summary>
     ///     An abstract base class for implementers of the <see cref="IHttpContentSerializer"/> and
@@ -86,9 +88,8 @@
         protected abstract HttpContent SerializeCore(object? content, Encoding encoding);
 
         /// <inheritdoc/>
-        public virtual async Task<object?> DeserializeAsync(HttpContent httpContent, Type contentType)
+        public virtual async Task<object?> DeserializeAsync(HttpContent? httpContent, Type contentType)
         {
-            _ = httpContent ?? throw new ArgumentNullException(nameof(httpContent));
             _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
 
             if (contentType == typeof(NoContent))
@@ -101,8 +102,21 @@
             }
         }
 
-        private async Task<object?> DeserializeDefault(HttpContent httpContent, Type contentType)
+        private async Task<object?> DeserializeDefault(HttpContent? httpContent, Type contentType)
         {
+            // We are not expecting NoContent at this point. This means that an empty HttpContent
+            // (i.e. null) should not be legal.
+            if (httpContent is null)
+            {
+                throw new HttpContentSerializationException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        ExceptionStrings.HttpContentSerializationException_Message,
+                        contentType.FullName
+                    )
+                );
+            }
+            
             try
             {
                 return await DeserializeCore(httpContent, contentType).ConfigureAwait(false);
@@ -121,6 +135,7 @@
         /// </summary>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
@@ -128,7 +143,7 @@
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeCore(HttpContent httpContent, Type contentType);
+        protected abstract Task<object?> DeserializeCore(HttpContent? httpContent, Type contentType);
 
     }
 
