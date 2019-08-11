@@ -7,10 +7,10 @@
     using System;
     using ReqRest.Http;
 
-    // This file contains a standard ApiInterface for the /todos interface of the API.
+    // This file contains a standard RestInterface for the /todos interface of the API.
     //
     // Some terms:
-    // An ApiInterface is just that - an interface in the REST API.
+    // A RestInterface is just that - an interface in the REST API.
     // Some examples:
     // In the URL http://api.com/todos there is one interface: "todos".
     // In the URL http://ap.com/todos/123 there is also one interface: "todos/123".
@@ -33,29 +33,29 @@
     // This is not the case for /todos.
 
 
-    // When wrapping an interface, you simply need to create a class which derives from ApiInterface.
+    // When wrapping an interface, you simply need to create a class which derives from RestInterface.
     // Ideally, you give the class the name of the API interface.
-    public class TodosInterface : ApiInterface
+    public class TodosInterface : RestInterface
     {
 
-        // Every ApiInterface requires an ApiClient. That's because when making real HTTP requests,
-        // an interface requires an HttpClient (which comes from the ApiClient).
+        // Every RestInterface requires a RestClient. That's because when making real HTTP requests,
+        // an interface requires an HttpClient (which comes from the RestClient).
         // 
-        // If you hover over the base(..) part, you will see that ApiInterface has an optional
+        // If you hover over the base(..) part, you will see that RestInterface has an optional
         // second parameter.
         // This second parameter is a so-called base URL provider.
         // It is required for building the final URL to which the request will be made.
-        // If nothing is passed, the apiClient is used.
-        // The ApiClient has a BaseUrl in its config - this URL is then used when building the URL.
-        public TodosInterface(ApiClient apiClient) 
-            : base(apiClient) { }
+        // If nothing is passed, the restClient is used.
+        // The RestClient has a BaseUrl in its config - this URL is then used when building the URL.
+        public TodosInterface(RestClient restClient) 
+            : base(restClient) { }
 
         // Again, when making a request, the library must know which URL should be called.
         // This URL is built here.
         // Ideally, every interface only knows about its own name.
         // The rest of the URL info should come from the interface's parent (the base URL provider).
         //
-        // For example, this interface uses the ApiClient as the base URL provider.
+        // For example, this interface uses the RestClient as the base URL provider.
         // This means that the base URL (https://jsonplaceholder.typicode.com) is already set in the
         // builder below.
         // If we simply append the /todos path, we get the full request URL without having

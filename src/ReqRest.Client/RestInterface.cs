@@ -6,19 +6,41 @@
     using ReqRest.Builders;
 
     /// <summary>
-    ///     Defines a base class for wrapping an interface of a RESTful HTTP API.
+    ///     Defines a base class for wrapping an interface of a RESTful HTTP API and exposing
+    ///     the HTTP requests which can be made against that interface.
+    ///     See remarks for details on what an interface means in this context.
     /// </summary>
-    public abstract class ApiInterface : IUrlProvider
+    /// <remarks>
+    ///     An interface in the context of this library means a certain part of an URL which
+    ///     identifies a resource in a RESTful API.
+    ///
+    ///     For example, given the <c>http://api.com/todos</c> URL, the <c>todos</c> part is
+    ///     an interface.
+    ///     If a <see cref="RestClient"/> is configured with the base URL of that API (i.e.
+    ///     (<c>http://api.com</c>), this base URL can be combined with the interface part
+    ///     <c>todos</c> to form a full URL.
+    ///
+    ///     It is important to understand that ReqRest maps each possible interface to one class.
+    ///     For example, while the two URLS <c>http://api.com/todos</c> and <c>http://api.com/todos/123</c>
+    ///     might look like one interface, they are actually treated as two <see cref="RestInterface"/>
+    ///     members by ReqRest.
+    ///     This is because the two URLs support different methods. While the first one usually
+    ///     supports methods like <c>GET</c> and <c>POST</c>, the second one usually supports
+    ///     <c>GET</c>, <c>POST</c>, <c>PUT</c> and <c>DELETE</c>.
+    ///     Thus, it makes sense to separate them into different classes that make different
+    ///     requests available.
+    /// </remarks>
+    public abstract class RestInterface : IUrlProvider
     {
 
         private Uri? _url;
 
         /// <summary>
-        ///     Gets the <see cref="ApiClient"/> which ultimately manages (or rather "contains")
+        ///     Gets the <see cref="RestClient"/> which ultimately manages (or rather "contains")
         ///     this interface.
         ///     This client's configuration is supposed to be used when building requests.
         /// </summary>
-        protected internal ApiClient Client { get; }
+        protected internal RestClient Client { get; }
 
         /// <summary>
         ///     Gets an <see cref="IUrlProvider"/> which is the logical parent of this
@@ -29,16 +51,16 @@
         protected internal IUrlProvider BaseUrlProvider { get; }
 
         /// <summary>
-        ///     Gets the URL which was built for the <see cref="ApiInterface"/>.
+        ///     Gets the URL which was built for the <see cref="RestInterface"/>.
         /// </summary>
         protected internal Uri Url => _url ??= this.GetUrl();
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
+        ///     Initializes a new instance of the <see cref="RestInterface"/> class whose full URL
         ///     depends on another <see cref="IUrlProvider"/>.
         /// </summary>
-        /// <param name="apiClient">
-        ///     The <see cref="ApiClient"/> which ultimately manages (or rather "contains")
+        /// <param name="restClient">
+        ///     The <see cref="RestClient"/> which ultimately manages (or rather "contains")
         ///     this interface.
         /// </param>
         /// <param name="baseUrlProvider">
@@ -47,15 +69,15 @@
         ///     The URL which is provided by this <see cref="IUrlProvider"/> is used as this
         ///     interface's base url.
         ///     
-        ///     If <see langword="null"/>, the <paramref name="apiClient"/> is used instead.
+        ///     If <see langword="null"/>, the <paramref name="restClient"/> is used instead.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="apiClient"/>
+        ///     * <paramref name="restClient"/>
         /// </exception>
-        public ApiInterface(ApiClient apiClient, IUrlProvider? baseUrlProvider = null)
+        public RestInterface(RestClient restClient, IUrlProvider? baseUrlProvider = null)
         {
-            Client = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
-            BaseUrlProvider = baseUrlProvider ?? apiClient;
+            Client = restClient ?? throw new ArgumentNullException(nameof(restClient));
+            BaseUrlProvider = baseUrlProvider ?? restClient;
         }
 
         /// <inheritdoc/>
@@ -104,7 +126,7 @@
         // The following methods are overridden/shadowed, so that the EditorBrowsable Attribute
         // can be applied.
         // While I myself consider hiding members bad practice, I will do it in this case,
-        // because consumers of an API built via ApiInterfaces should, in my opinion,
+        // because consumers of an API built via RestInterfaces should, in my opinion,
         // only see an IntelliSense window with the API's actual members, i.e. something like this:
         //  ________                        ______________
         // | Get    |                      | Get          |
@@ -163,16 +185,38 @@
     }
 
     /// <summary>
-    ///     Defines a base class for wrapping an interface of a RESTful HTTP API.
+    ///     Defines a base class for wrapping an interface of a RESTful HTTP API and exposing
+    ///     the HTTP requests which can be made against that interface.
+    ///     See remarks for details on what an interface means in this context.
     /// </summary>
     /// <typeparam name="TClient">
-    ///     A specific <see cref="ApiClient"/> type which is associated with this interface.
+    ///     A specific <see cref="RestClient"/> type which is associated with this interface.
     ///     Specify this type parameter if you need to access specific properties from your custom
-    ///     client implementation via this class' <see cref="ApiInterface{TClient}.Client"/>
+    ///     client implementation via this class' <see cref="RestInterface{TClient}.Client"/>
     ///     property.
     /// </typeparam>
-    public abstract class ApiInterface<TClient> : ApiInterface
-        where TClient : ApiClient
+    /// <remarks>
+    ///     An interface in the context of this library means a certain part of an URL which
+    ///     identifies a resource in a RESTful API.
+    ///
+    ///     For example, given the <c>http://api.com/todos</c> URL, the <c>todos</c> part is
+    ///     an interface.
+    ///     If a <see cref="RestClient"/> is configured with the base URL of that API (i.e.
+    ///     (<c>http://api.com</c>), this base URL can be combined with the interface part
+    ///     <c>todos</c> to form a full URL.
+    ///
+    ///     It is important to understand that ReqRest maps each possible interface to one class.
+    ///     For example, while the two URLS <c>http://api.com/todos</c> and <c>http://api.com/todos/123</c>
+    ///     might look like one interface, they are actually treated as two <see cref="RestInterface"/>
+    ///     members by ReqRest.
+    ///     This is because the two URLs support different methods. While the first one usually
+    ///     supports methods like <c>GET</c> and <c>POST</c>, the second one usually supports
+    ///     <c>GET</c>, <c>POST</c>, <c>PUT</c> and <c>DELETE</c>.
+    ///     Thus, it makes sense to separate them into different classes that make different
+    ///     requests available.
+    /// </remarks>
+    public abstract class RestInterface<TClient> : RestInterface
+        where TClient : RestClient
     {
 
         /// <summary>
@@ -183,7 +227,7 @@
         protected internal new TClient Client => (TClient)base.Client;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ApiInterface"/> class whose full URL
+        ///     Initializes a new instance of the <see cref="RestInterface"/> class whose full URL
         ///     depends on another <see cref="IUrlProvider"/>.
         /// </summary>
         /// <param name="client">
@@ -199,7 +243,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="client"/>
         /// </exception>
-        public ApiInterface(TClient client, IUrlProvider? baseUrlProvider = null)
+        public RestInterface(TClient client, IUrlProvider? baseUrlProvider = null)
             : base(client, baseUrlProvider) { }
 
     }

@@ -40,17 +40,17 @@ resource.Match(
 The code which is required to recreate this example is minimal (DTO classes are removed for brevity).
 
 ```csharp
-class DemoApiClient : ApiClient
+class DemoApiClient : RestClient
 {
-    public DemoApiClient() : base(new ApiClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
+    public DemoApiClient() : base(new RestClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
 
     public TodosInterface Todos() =>
         new TodosInterface();
 }
 
-class TodosInterface : ApiInterface
+class TodosInterface : RestInterface
 {
-    public TodosInterface(ApiClient apiClient) : base(apiClient) { }
+    public TodosInterface(RestClient restClient) : base(restClient) { }
     
     // 'baseUrl' is, in this case, the 'BaseUrl' from the configuration above.
     // The '/' operator simply joins the two URL parts to the following: http://demo-api.com/todos
@@ -58,7 +58,7 @@ class TodosInterface : ApiInterface
     protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos";
     
-    // The task of an ApiInterface class is the creation of requests to that interface.
+    // The task of a RestInterface class is the creation of requests to that interface.
     // ReqRest follows a declarative approach.
     // You state what the API returns for which status code and ReqRest does everything else for you.
     public ApiRequest<IList<TodoItem>, Error> Get() =>

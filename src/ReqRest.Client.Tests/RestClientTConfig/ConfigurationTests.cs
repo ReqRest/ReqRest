@@ -1,4 +1,4 @@
-namespace ReqRest.Client.Tests.ApiClientTConfig
+namespace ReqRest.Client.Tests.RestClientTConfig
 {
     using System;
     using FluentAssertions;
@@ -12,9 +12,9 @@ namespace ReqRest.Client.Tests.ApiClientTConfig
         [Fact]
         public void Throws_InvalidCastException_If_Types_Dont_Match()
         {
-            var config = new ApiClientConfiguration();
+            var config = new RestClientConfiguration();
             var client = CreateClient();
-            ((ApiClient)client).Configuration = config;
+            ((RestClient)client).Configuration = config;
 
             Action testCode = () => _ = client.Configuration;
             testCode.Should().Throw<InvalidCastException>();
@@ -23,24 +23,24 @@ namespace ReqRest.Client.Tests.ApiClientTConfig
         [Fact]
         public void Returns_Configuration_Of_Base_Class()
         {
-            var config = new CustomApiClientConfiguration();
+            var config = new CustomRestClientConfiguration();
             var client = CreateClient();
-            ((ApiClient)client).Configuration = config;
+            ((RestClient)client).Configuration = config;
             client.Configuration.Should().BeSameAs(config);
         }
 
         [Fact]
         public void Sets_Configuration_Of_Base_Class()
         {
-            var config = new CustomApiClientConfiguration();
+            var config = new CustomRestClientConfiguration();
             var client = CreateClient();
             client.Configuration = config;
-            ((ApiClient)client).Configuration.Should().BeSameAs(config);
+            ((RestClient)client).Configuration.Should().BeSameAs(config);
         }
 
-        protected ApiClient<CustomApiClientConfiguration> CreateClient(CustomApiClientConfiguration config = null)
+        protected RestClient<CustomRestClientConfiguration> CreateClient(CustomRestClientConfiguration config = null)
         {
-            return new Mock<ApiClient<CustomApiClientConfiguration>>(config).Object;
+            return new Mock<RestClient<CustomRestClientConfiguration>>(config).Object;
         }
 
     }

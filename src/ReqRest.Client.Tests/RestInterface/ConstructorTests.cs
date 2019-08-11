@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Client.Tests.ApiInterface
+﻿namespace ReqRest.Client.Tests.RestInterface
 {
     using System;
     using FluentAssertions;
@@ -7,20 +7,20 @@
     using Xunit;
     using System.Reflection;
 
-    public class ConstructorTests : ApiInterfaceTestBase
+    public class ConstructorTests : RestInterfaceTestBase
     {
 
         [Fact]
-        public void Throws_ArgumentNullException_For_ApiClient()
+        public void Throws_ArgumentNullException_For_RestClient()
         {
             Action testCode = () => CreateInterface(null, null);
             testCode.Should().Throw<TargetInvocationException>().WithInnerException<ArgumentNullException>();
         }
 
         [Fact]
-        public void Sets_BaseUrlProvider_To_Specified_ApiClient_If_Null()
+        public void Sets_BaseUrlProvider_To_Specified_RestClient_If_Null()
         {
-            var @interface = CreateInterface(DefaultApiClient, baseUrlProvider: null);
+            var @interface = CreateInterface(RestClient, baseUrlProvider: null);
             @interface.BaseUrlProvider.Should().BeSameAs(@interface.Client);
         }
 
@@ -28,7 +28,7 @@
         public void Sets_BaseUrlProvider_To_Specified_Value_If_Not_Null()
         {
             var baseUrlProvider = new Mock<IUrlProvider>().Object;
-            var @interface = CreateInterface(DefaultApiClient, baseUrlProvider);
+            var @interface = CreateInterface(RestClient, baseUrlProvider);
             @interface.BaseUrlProvider.Should().BeSameAs(baseUrlProvider);
         }
 

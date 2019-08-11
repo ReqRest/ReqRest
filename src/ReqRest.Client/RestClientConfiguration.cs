@@ -4,10 +4,10 @@
     using System.Net.Http;
 
     /// <summary>
-    ///     Defines the basic configuration values for an <see cref="ApiClient"/>.
+    ///     Defines the basic configuration values for a <see cref="RestClient"/>.
     ///     This configuration can be extended by specific client implementations.
     /// </summary>
-    public class ApiClientConfiguration
+    public class RestClientConfiguration
     {
 
         private Func<HttpClient>? _httpClientProvider;
@@ -16,7 +16,7 @@
         ///     Gets or sets an <see cref="Uri"/> which forms the base URL for any request
         ///     created by the client.
         ///     
-        ///     Any <see cref="ApiInterface"/> which is exposed by the client will start building
+        ///     Any <see cref="RestInterface"/> which is exposed by the client will start building
         ///     its request URL based on this value.
         ///     
         ///     This can be <see langword="null"/>. If so, a default initial <see cref="Uri"/> will
@@ -38,9 +38,9 @@
         }
 
         /// <summary>
-        ///     Initializes a new <see cref="ApiClientConfiguration"/> with default values.
+        ///     Initializes a new <see cref="RestClientConfiguration"/> with default values.
         /// </summary>
-        public ApiClientConfiguration() { }
+        public RestClientConfiguration() { }
 
         private static class DefaultValues
         {

@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Client.Tests.ApiClient
+﻿namespace ReqRest.Client.Tests.RestClient
 {
     using System;
     using FluentAssertions;
@@ -28,14 +28,14 @@
         [Fact]
         public void Returns_Builder_With_Configured_Url()
         {
-            var config = new ApiClientConfiguration() { BaseUrl = new Uri("https://test.com/foo") };
+            var config = new RestClientConfiguration() { BaseUrl = new Uri("https://test.com/foo") };
             var url = Builder(config).Uri;
             url.Should().Be(config.BaseUrl);
         }
 
-        private static UrlBuilder Builder(ApiClientConfiguration config = null)
+        private static UrlBuilder Builder(RestClientConfiguration config = null)
         {
-            var client = new Mock<ApiClient>(config).Object;
+            var client = new Mock<RestClient>(config).Object;
             return ((IUrlProvider)client).GetUrlBuilder();
         }
 

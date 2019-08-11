@@ -1,11 +1,11 @@
-﻿namespace ReqRest.Client.Tests.ApiInterface
+﻿namespace ReqRest.Client.Tests.RestInterface
 {
     using FluentAssertions;
     using Moq;
     using ReqRest.Builders;
     using Xunit;
 
-    public class GetUrlBuilderTests : ApiInterfaceTestBase
+    public class GetUrlBuilderTests : RestInterfaceTestBase
     {
 
         [Fact]
@@ -13,7 +13,7 @@
         {
             var builder = new UrlBuilder();
             var baseUrlProviderMock = new Mock<IUrlProvider>();
-            var @interface = CreateInterface(DefaultApiClient, baseUrlProviderMock.Object);
+            var @interface = CreateInterface(RestClient, baseUrlProviderMock.Object);
             baseUrlProviderMock.Setup(x => x.GetUrlBuilder()).Returns(builder);
 
             ((IUrlProvider)@interface).GetUrlBuilder().Should().BeSameAs(builder);
@@ -23,7 +23,7 @@
         public void Calls_BuildUrl()
         {
             bool wasCalled = false;
-            var @interface = CreateInterface(DefaultApiClient, buildUrl: BuildUrl);
+            var @interface = CreateInterface(RestClient, buildUrl: BuildUrl);
             ((IUrlProvider)@interface).GetUrlBuilder();
             wasCalled.Should().BeTrue();
 
@@ -39,7 +39,7 @@
         {
             var builder = new UrlBuilder();
             var baseUrlProviderMock = new Mock<IUrlProvider>();
-            var @interface = CreateInterface(DefaultApiClient, baseUrlProviderMock.Object, BuildUrl);
+            var @interface = CreateInterface(RestClient, baseUrlProviderMock.Object, BuildUrl);
             baseUrlProviderMock.Setup(x => x.GetUrlBuilder()).Returns(builder);
             ((IUrlProvider)@interface).GetUrlBuilder();
 
