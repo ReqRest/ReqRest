@@ -214,10 +214,8 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T AppendQueryParameter<T>(this T builder, params (string? Key, string? Value)[]? parameters)
-            where T : UriBuilder
-        {
-            return builder.AppendQueryParameter((IEnumerable<(string?, string?)>?)parameters);
-        }
+            where T : UriBuilder =>
+                builder.AppendQueryParameter((IEnumerable<(string?, string?)>?)parameters);
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
@@ -241,10 +239,8 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T AppendQueryParameter<T>(this T builder, params KeyValuePair<string?, string?>[]? parameters)
-            where T : UriBuilder
-        {
-            return builder.AppendQueryParameter((IEnumerable<KeyValuePair<string?, string?>>?)parameters);
-        }
+            where T : UriBuilder =>
+                builder.AppendQueryParameter((IEnumerable<KeyValuePair<string?, string?>>?)parameters);
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
@@ -299,14 +295,12 @@
         public static T AppendQueryParameter<T>(this T builder, IEnumerable<KeyValuePair<string?, string?>>? parameters)
             where T : UriBuilder
         {
-            if (parameters is null)
+            if (parameters != null)
             {
-                return builder;
-            }
-
-            foreach (var param in parameters)
-            {
-                builder.AppendQueryParameter(param.Key, param.Value);
+                foreach (var param in parameters)
+                {
+                    builder.AppendQueryParameter(param.Key, param.Value);
+                }
             }
 
             return builder;
@@ -383,7 +377,7 @@
                 return builder;
             }
 
-            var trimChars = new char[] { '&' };
+            var trimChars = new[] { '&' };
             var query = builder.Query.TrimEnd(trimChars);
             parameter = parameter.TrimStart(trimChars);
 

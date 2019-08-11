@@ -11,7 +11,7 @@
     {
 
         /// <summary>
-        ///     Gets or sets the HTTP status code of the which the builder builds.
+        ///     Gets or sets the HTTP status code which the builder builds.
         /// </summary>
         HttpStatusCode StatusCode { get; set; }
 
@@ -50,7 +50,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetStatusCode<T>(this T builder, HttpStatusCode statusCode) where T : IHttpStatusCodeBuilder =>
-            builder.Configure(_ =>builder.StatusCode = statusCode);
+            builder.Configure(_ => builder.StatusCode = statusCode);
 
     }
 

@@ -27,7 +27,7 @@
 
         // These two should never be called, because the base class handles the NoContent serialization.
         // If we ever get here, it was forced by the user through some tricks.
-        protected override Task<object?> DeserializeCore(HttpContent httpContent, Type contentType) =>
+        protected override Task<object?> DeserializeCore(HttpContent? httpContent, Type contentType) =>
             throw new InvalidOperationException(ExceptionStrings.NoContentSerializer_CanOnlySerializeNoContentType);
 
         protected override HttpContent SerializeCore(object? content, Encoding encoding) =>

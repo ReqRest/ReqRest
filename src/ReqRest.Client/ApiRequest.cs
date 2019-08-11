@@ -144,7 +144,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest request)
+        internal ApiRequest(ApiRequest request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -290,7 +290,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1> request)
+        internal ApiRequest(ApiRequest<T1> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -437,7 +437,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2> request)
+        internal ApiRequest(ApiRequest<T1, T2> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -585,7 +585,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2, T3> request)
+        internal ApiRequest(ApiRequest<T1, T2, T3> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -734,7 +734,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2, T3, T4> request)
+        internal ApiRequest(ApiRequest<T1, T2, T3, T4> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -884,7 +884,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2, T3, T4, T5> request)
+        internal ApiRequest(ApiRequest<T1, T2, T3, T4, T5> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -1035,7 +1035,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2, T3, T4, T5, T6> request)
+        internal ApiRequest(ApiRequest<T1, T2, T3, T4, T5, T6> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>
@@ -1187,7 +1187,7 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="request"/>
         /// </exception>
-        public ApiRequest(ApiRequest<T1, T2, T3, T4, T5, T6, T7> request)
+        internal ApiRequest(ApiRequest<T1, T2, T3, T4, T5, T6, T7> request)
             : base(request ?? throw new ArgumentNullException(nameof(request))) { }
 
         /// <summary>

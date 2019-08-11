@@ -6,7 +6,7 @@
     using FluentAssertions;
     using Xunit;
 
-    public class ConstructorTests: ApiRequestBaseTestBase
+    public class ConstructorTests : ApiRequestBaseTestBase
     {
 
         [Fact]

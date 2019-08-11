@@ -15,7 +15,7 @@
         public string? Title { get; set; }
 
         [JsonProperty("completed")]
-        public bool? IsCompleted { get; set; }
+        public bool? Completed { get; set; }
 
     }
 

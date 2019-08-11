@@ -5,7 +5,7 @@
     using Moq;
     using ReqRest.Client;
 
-    public class ApiRequestBaseTestBase
+    public abstract class ApiRequestBaseTestBase
     {
 
         protected Func<HttpClient> DefaultHttpClientProvider { get; } = () => null;

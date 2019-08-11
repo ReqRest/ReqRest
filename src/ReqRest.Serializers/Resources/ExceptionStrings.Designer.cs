@@ -68,5 +68,14 @@ namespace ReqRest.Serializers.Resources {
                 return ResourceManager.GetString("HttpContentSerializationException_Message", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot deserialize the type &quot;{0}&quot; because the HTTP response had no content..
+        /// </summary>
+        internal static string HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent {
+            get {
+                return ResourceManager.GetString("HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent", resourceCulture);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Serializers.Tests.HttpContentSerializer
+﻿namespace ReqRest.Tests
 {
     using System;
     using System.Net.Http;
@@ -14,6 +14,14 @@
         public Func<object, Encoding, HttpContent> SerializeCoreImpl { get; set; }
 
         public Func<HttpContent, Type, Task<object>> DeserializeCoreImpl { get; set; }
+
+        public MockedHttpContentSerializer(
+            Func<object, Encoding, HttpContent> serializeCoreImpl = null,
+            Func<HttpContent, Type, Task<object>> deserializeCoreImpl = null)
+        {
+            SerializeCoreImpl = serializeCoreImpl;
+            DeserializeCoreImpl = deserializeCoreImpl;
+        }
 
         protected override HttpContent SerializeCore(object content, Encoding encoding)
         {
