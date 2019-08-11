@@ -135,7 +135,6 @@
         /// </summary>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
-        ///     This can be <see langword="null"/>.
         /// </param>
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
@@ -143,7 +142,7 @@
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeCore(HttpContent? httpContent, Type contentType);
+        protected abstract Task<object?> DeserializeCore(HttpContent httpContent, Type contentType);
 
     }
 

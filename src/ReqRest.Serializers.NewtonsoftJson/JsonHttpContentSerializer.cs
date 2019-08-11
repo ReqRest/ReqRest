@@ -86,7 +86,7 @@
         }
 
         /// <inheritdoc/>
-        protected override async Task<object?> DeserializeCore(HttpContent? httpContent, Type resourceType)
+        protected override async Task<object?> DeserializeCore(HttpContent httpContent, Type resourceType)
         {
             var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             using var stringReader = new StringReader(json);
