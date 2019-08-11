@@ -1,7 +1,7 @@
 ﻿namespace DemoApplication.Api.Todos
 {
     using ReqRest.Builders;
-    using ReqRest.Client;
+    using ReqRest;
     using ReqRest.Serializers.NewtonsoftJson;
 
     public class TodoInterface : RestInterface

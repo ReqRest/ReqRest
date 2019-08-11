@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
-    using ReqRest.Client;
+    using ReqRest;
     using ReqRest.Http;
 
     /// <summary>

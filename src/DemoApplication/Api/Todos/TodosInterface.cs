@@ -1,7 +1,7 @@
 ﻿namespace DemoApplication.Api.Todos
 {
     using System.Collections.Generic;
-    using ReqRest.Client;
+    using ReqRest;
     using ReqRest.Builders;
     using ReqRest.Serializers.NewtonsoftJson;
     using System;

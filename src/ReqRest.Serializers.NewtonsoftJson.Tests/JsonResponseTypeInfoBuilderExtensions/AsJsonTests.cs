@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
-    using ReqRest.Client;
+    using ReqRest;
     using ReqRest.Http;
     using ReqRest.Serializers.NewtonsoftJson;
     using Xunit;
