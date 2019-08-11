@@ -24,8 +24,7 @@
         {
             buildUrl ??= (baseUrl) => baseUrl;
 
-            var mock = new Mock<ApiInterface>(apiClient, baseUrlProvider);
-            mock.CallBase = true;
+            var mock = new Mock<ApiInterface>(apiClient, baseUrlProvider) { CallBase = true };
             mock.Setup(x => x.BuildUrl(It.IsAny<UrlBuilder>())).Returns(buildUrl);
             return mock.Object;
         }

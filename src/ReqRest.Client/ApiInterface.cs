@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
     using ReqRest.Builders;
 
     /// <summary>
@@ -123,6 +124,7 @@
         /// </summary>
         /// <returns>The exact runtime type of the current instance.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [ExcludeFromCodeCoverage]
         public new Type GetType() =>
             base.GetType();
 
@@ -136,6 +138,7 @@
         ///     otherwise, <see langword="false"/>.
         /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [ExcludeFromCodeCoverage]
         public override bool Equals(object obj) =>
             base.Equals(obj);
 
@@ -145,6 +148,7 @@
         /// </summary>
         /// <returns>A hash code for the current object.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [ExcludeFromCodeCoverage]
         public override int GetHashCode() =>
             base.GetHashCode();
 

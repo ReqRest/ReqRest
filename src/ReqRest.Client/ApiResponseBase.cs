@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
@@ -76,6 +77,7 @@
         ///     <see langword="true"/> if a resource of the specified type can be deserialized;
         ///     <see langword="false"/> if not.
         /// </returns>
+        [ExcludeFromCodeCoverage]
         private protected bool CanDeserializeResource<T>() =>
                GetCurrentResponseTypeInfo() != null
             && typeof(T).IsAssignableFrom(GetCurrentResponseTypeInfo().ResponseType);
@@ -91,6 +93,7 @@
         /// <returns>
         ///     The deserialized resource or information about a deserialization exception.
         /// </returns>
+        [ExcludeFromCodeCoverage]
         private protected async Task<T> DeserializeResourceAsync<T>()
         {
             if (GetCurrentResponseTypeInfo() is null)
