@@ -27,7 +27,6 @@
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="serializer"/>
-        ///     * <paramref name="httpContent"/>
         /// </exception>
         /// <exception cref="InvalidCastException">
         ///     The serializer returned an object which is not of type <typeparamref name="T"/>.

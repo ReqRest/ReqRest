@@ -1,6 +1,5 @@
 ﻿namespace ReqRest.Client.Tests.ApiResponseBase
 {
-    using System;
     using System.Collections.Generic;
     using System.Net.Http;
     using Moq;

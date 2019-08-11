@@ -7,7 +7,6 @@
     using FluentAssertions;
     using Moq;
     using Moq.Protected;
-    using ReqRest.Client;
     using Xunit;
 
     public abstract partial class ApiRequestTestBase<TRequest>

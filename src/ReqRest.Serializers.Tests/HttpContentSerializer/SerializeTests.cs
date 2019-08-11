@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using FluentAssertions;
     using ReqRest.Serializers;
+    using ReqRest.Tests;
     using Xunit;
 
     public class SerializeTests

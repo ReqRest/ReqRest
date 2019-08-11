@@ -1,8 +1,7 @@
-﻿namespace ReqRest.Client.Tests
+namespace ReqRest.Tests
 {
 
-    // For the generic ApiRequest{...} classes, we need some kind of type parameters in the tests.
-    // Anything is fine, so let's just declare a common set of classes.
+    // Some tests require certain types for DTOs, but without any properties.
 
     public class Dto1 { }
     public class Dto2 { }

@@ -3,7 +3,6 @@ namespace ReqRest.Client.Tests.ApiRequest
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Net.Http;
     using FluentAssertions;
     using ReqRest.Client;
     using ReqRest.Http;
