@@ -20,6 +20,6 @@
     <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
   </ItemGroup>
 
-  <Import Project="..\ReqRest.Tests.Shared\ReqRest.Tests.Shared.projitems" Label="Shared" />
+  <Import Project="..\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
 
 </Project>

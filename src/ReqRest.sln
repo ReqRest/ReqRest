@@ -44,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Repository", ".Repository"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReqRest.Serializers.NewtonsoftJson.Tests", "ReqRest.Serializers.NewtonsoftJson.Tests\ReqRest.Serializers.NewtonsoftJson.Tests.csproj", "{1E7E9EC2-69F8-43F7-86EA-E71D0D964A91}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ReqRest.Tests.Shared", "ReqRest.Tests.Shared\ReqRest.Tests.Shared.shproj", "{47D2A7DC-3F11-41D3-B68A-45A2CAEBB784}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.Tests", "Shared.Tests\Shared.Tests.shproj", "{DAF09105-2F31-4121-B01F-B204E29FD431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -204,7 +204,7 @@ Global
 		{2DA17E43-2FBE-44FE-B158-562228759B76} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 		{7A1EC30D-7959-4B41-97BC-6DBFEDF721B2} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 		{1E7E9EC2-69F8-43F7-86EA-E71D0D964A91} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
-		{47D2A7DC-3F11-41D3-B68A-45A2CAEBB784} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
+		{DAF09105-2F31-4121-B01F-B204E29FD431} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09A1C97D-6B57-4AAD-9978-691CF49CAE7E}

@@ -2,8 +2,8 @@
 
 ## v0.4.0
 
-_This is an update which refactors a lot of things that proved to be wrongly designed. At this point, the library is
-furthermore fully tested, meaning that it is ready for additional extensions in future updates._
+_This is an update which refactors a lot of things that proved to be wrongly designed or named.
+At this point, the library is ~95%+ tested, meaning that it is ready for additional extensions in future updates._
 
 * **[Breaking]** The constructor of the `ApiRequest<T>` (not the `ApiRequest` though) classes are no longer `public`, so that upgrading via `Receive` is enforced.
 * **[Breaking]** Refactored the `ApiResponseBase.CurrentResponseTypeInfo` property to be a method called `GetCurrentResponseTypeInfo`. This fixes a potential bug that the property holds an old value when the status code mutates.
