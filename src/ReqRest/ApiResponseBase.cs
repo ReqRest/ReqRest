@@ -78,9 +78,12 @@
         ///     <see langword="false"/> if not.
         /// </returns>
         [ExcludeFromCodeCoverage]
-        private protected bool CanDeserializeResource<T>() =>
-               GetCurrentResponseTypeInfo() != null
-            && typeof(T).IsAssignableFrom(GetCurrentResponseTypeInfo().ResponseType);
+        private protected bool CanDeserializeResource<T>()
+        {
+            var currentResponseTypeInfo = GetCurrentResponseTypeInfo();
+            return currentResponseTypeInfo != null
+                && typeof(T).IsAssignableFrom(currentResponseTypeInfo.ResponseType);
+        }
 
         /// <summary>
         ///     Attempts to deserialize the response to the specified type <typeparamref name="T"/>
