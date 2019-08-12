@@ -89,7 +89,7 @@
         [DebuggerStepThrough]
         public static T AddHeader<T>(
             this T builder, string name, IEnumerable<string?>? values) where T : IHttpHeadersBuilder =>
-            builder.ConfigureHeaders(headers => HttpHeadersExtensions.AddWithUnknownValueCount(headers, name, values));
+                builder.ConfigureHeaders(headers => headers.AddWithUnknownValueCount(name, values));
 
         /// <summary>
         ///     Removes the headers with the specified names from the <see cref="HttpHeaders"/>
@@ -214,7 +214,7 @@
             this T builder, Action<HttpHeaders> configureHeaders) where T : IHttpHeadersBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(_ => configureHeaders(builder.Headers));
+            return builder.Configure(builder => configureHeaders(builder.Headers));
         }
 
     }

@@ -26,7 +26,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetScheme<T>(this T builder, string? scheme) where T : UriBuilder =>
-            builder.Configure(_ => builder.Scheme = scheme);
+            builder.Configure(builder => builder.Scheme = scheme);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.UserName"/> property to the specified
@@ -43,7 +43,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetUserName<T>(this T builder, string? userName) where T : UriBuilder =>
-            builder.Configure(_ => builder.UserName = userName);
+            builder.Configure(builder => builder.UserName = userName);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Password"/> property to the specified
@@ -60,7 +60,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetPassword<T>(this T builder, string? password) where T : UriBuilder =>
-            builder.Configure(_ => builder.Password = password);
+            builder.Configure(builder => builder.Password = password);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Host"/> property to the specified
@@ -77,7 +77,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetHost<T>(this T builder, string? host) where T : UriBuilder =>
-            builder.Configure(_ => builder.Host = host);
+            builder.Configure(builder => builder.Host = host);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Port"/> property to the specified
@@ -94,7 +94,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetPort<T>(this T builder, int? port) where T : UriBuilder =>
-            builder.Configure(_ => builder.Port = port ?? -1);
+            builder.Configure(builder => builder.Port = port ?? -1);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Path"/> property to the specified
@@ -111,7 +111,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetPath<T>(this T builder, string? path) where T : UriBuilder =>
-            builder.Configure(_ => builder.Path = path);
+            builder.Configure(builder => builder.Path = path);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Query"/> property to the specified
@@ -128,7 +128,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetQuery<T>(this T builder, string? query) where T : UriBuilder =>
-            builder.Configure(_ => builder.Query = query);
+            builder.Configure(builder => builder.Query = query);
 
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Fragment"/> property to the specified
@@ -145,7 +145,7 @@
         /// <returns>The same <see cref="UriBuilder"/> instance.</returns>
         [DebuggerStepThrough]
         public static T SetFragment<T>(this T builder, string? fragment) where T : UriBuilder =>
-            builder.Configure(_ => builder.Fragment = fragment);
+            builder.Configure(builder => builder.Fragment = fragment);
 
         /// <summary>
         ///     Appends the specified path <paramref name="segment"/> to the builder's
