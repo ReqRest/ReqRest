@@ -9,6 +9,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using ReqRest.Builders;
+    using ReqRest.Http;
     using ReqRest.Resources;
     using ReqRest.Serializers;
 
@@ -25,16 +26,6 @@
         // There may also be situations where an ApiResponse is passed around by a user.
         // I can think of scenarios where the response gets modified before being passed to some methods.
         // For this, the builder APIs are quite helpful.
-
-        /// <summary>
-        ///     Gets or sets the HTTP status code of the underlying <see cref="HttpResponseMessage"/>
-        ///     as an <see cref="int"/> value for convenient access.
-        /// </summary>
-        public int StatusCode
-        {
-            get => (int)HttpResponseMessage.StatusCode;
-            set => HttpResponseMessage.StatusCode = (HttpStatusCode)value;
-        }
 
         /// <summary>
         ///     Gets a set of elements that declare which .NET types may have been returned by the
@@ -140,7 +131,7 @@
             var possibleTypes =
                 from info in PossibleResponseTypes
                 from statusCodeRange in info.StatusCodes
-                where statusCodeRange.IsInRange(StatusCode)
+                where statusCodeRange.IsInRange((int)StatusCode)
                 select new { StatusCodeRange = statusCodeRange, Info = info };
 
             return possibleTypes

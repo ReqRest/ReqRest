@@ -11,7 +11,7 @@
     {
 
         /// <summary>
-        ///     Gets or sets the <see cref="System.Net.Http.HttpResponseMessage"/> which the builder builds.
+        ///     Gets or sets the <see cref="System.Net.Http.HttpResponseMessage"/> which is being built.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         HttpResponseMessage HttpResponseMessage { get; set; }

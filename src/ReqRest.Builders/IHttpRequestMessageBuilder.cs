@@ -10,7 +10,7 @@
     {
 
         /// <summary>
-        ///     Gets or sets the <see cref="System.Net.Http.HttpRequestMessage"/> which the builder builds.
+        ///     Gets or sets the <see cref="System.Net.Http.HttpRequestMessage"/> which is being built.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         HttpRequestMessage HttpRequestMessage { get; set; }
