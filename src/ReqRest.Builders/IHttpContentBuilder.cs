@@ -400,7 +400,7 @@
                 // There may not always be an HttpContent. There is nothing we can/should do. Fail here.
                 if (builder.Content is null)
                 {
-                    throw new InvalidOperationException(ExceptionStrings.HttpContentBuilderExtensions_NoHttpContentHeaders);
+                    throw new InvalidOperationException(ExceptionStrings.HttpContentBuilderExtensions_NoHttpContentHeaders());
                 }
 
                 configureHeaders(builder.Content.Headers);

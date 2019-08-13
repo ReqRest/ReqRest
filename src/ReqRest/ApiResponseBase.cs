@@ -5,11 +5,9 @@
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
     using ReqRest.Builders;
-    using ReqRest.Http;
     using ReqRest.Resources;
     using ReqRest.Serializers;
 
@@ -92,13 +90,13 @@
         {
             if (GetCurrentResponseTypeInfo() is null)
             {
-                throw new InvalidOperationException(ExceptionStrings.ApiResponse_NoResponseTypeInfoForResponse);
+                throw new InvalidOperationException(ExceptionStrings.ApiResponse_NoResponseTypeInfoForResponse());
             }
 
             var deserializer = GetCurrentResponseTypeInfo().ResponseDeserializerFactory();
             if (deserializer is null)
             {
-                throw new InvalidOperationException(ExceptionStrings.ApiResponse_InvalidResponseDeserializer);
+                throw new InvalidOperationException(ExceptionStrings.ApiResponse_InvalidResponseDeserializer());
             }
 
             try

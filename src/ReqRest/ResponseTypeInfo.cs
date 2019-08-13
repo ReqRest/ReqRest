@@ -68,7 +68,7 @@
             if (!statusCodes.Any())
             {
                 throw new ArgumentException(
-                    ExceptionStrings.ResponseTypeInfo_MustProvideAtLeastOneStatusCode,
+                    ExceptionStrings.ResponseTypeInfo_MustProvideAtLeastOneStatusCode(),
                     nameof(statusCodes)
                 );
             }

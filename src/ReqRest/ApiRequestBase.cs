@@ -90,7 +90,7 @@
         private protected Task<HttpResponseMessage> FetchHttpResponseAsync(
             HttpCompletionOption completionOption, CancellationToken cancellationToken)
         {
-            var httpClient = HttpClientProvider() ?? throw new InvalidOperationException(ExceptionStrings.HttpClientProvider_Returned_Null);
+            var httpClient = HttpClientProvider() ?? throw new InvalidOperationException(ExceptionStrings.HttpClientProvider_Returned_Null());
             return httpClient.SendAsync(HttpRequestMessage, completionOption, cancellationToken);
         }
 

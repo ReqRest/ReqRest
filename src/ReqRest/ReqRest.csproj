@@ -21,19 +21,4 @@
         <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Compile Update="Resources\ExceptionStrings.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>ExceptionStrings.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <EmbeddedResource Update="Resources\ExceptionStrings.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>ExceptionStrings.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
-
 </Project>

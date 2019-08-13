@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Net;
     using ReqRest.Http.Resources;
 
     /// <summary>
@@ -137,7 +136,7 @@
         {
             if (from > to)
             {
-                throw new ArgumentException(ExceptionStrings.StatusCodeRange_FromCannotBeGreaterThanTo);
+                throw new ArgumentException(ExceptionStrings.StatusCodeRange_FromCannotBeGreaterThanTo());
             }
 
             From = from;

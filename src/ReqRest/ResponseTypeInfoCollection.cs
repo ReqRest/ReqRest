@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Globalization;
     using System.Linq;
     using ReqRest.Http;
     using ReqRest.Resources;
@@ -40,23 +39,12 @@
         private static void VerifyNotConflicting(ResponseTypeInfo item, IEnumerable<ResponseTypeInfo> items)
         {
             var conflicting = FindConflictingStatusCodes(item, items);
-
             if (conflicting.Any())
             {
                 throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        ExceptionStrings.ResponseTypeInfoCollection_ConflictingStatusCodeRanges,
-                        FormatConflictingStatusCodes()
-                    )
+                    ExceptionStrings.ResponseTypeInfoCollection_ConflictingStatusCodeRanges(conflicting)
                 );
             }
-
-            string FormatConflictingStatusCodes() => 
-                string.Join(
-                    "\n",
-                    conflicting.Select(pair => $"- {pair.Item1} and {pair.Item2}")
-                );
         }
 
         private static IEnumerable<(StatusCodeRange, StatusCodeRange)> FindConflictingStatusCodes(
