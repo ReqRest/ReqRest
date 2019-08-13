@@ -67,7 +67,7 @@
         }
 
         /// <summary>
-        ///     Gets or sets the _HTTP status code
+        ///     Gets or sets the HTTP status code
         ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
         /// </summary>
         public HttpStatusCode StatusCode
