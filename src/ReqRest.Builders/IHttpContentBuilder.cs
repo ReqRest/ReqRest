@@ -47,11 +47,9 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetFormUrlEncodedContent<T>(
-            this T builder, params (string Key, string Value)[] content) where T : IHttpContentBuilder
-        {
-            return builder.SetFormUrlEncodedContent((IEnumerable<(string, string)>)content);
-        }
+        public static T SetFormUrlEncodedContent<T>(this T builder, params (string Key, string Value)[] content) 
+            where T : IHttpContentBuilder =>
+                builder.SetFormUrlEncodedContent((IEnumerable<(string, string)>)content);
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
@@ -92,11 +90,9 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetFormUrlEncodedContent<T>(
-            this T builder, params KeyValuePair<string, string>[] content) where T : IHttpContentBuilder
-        {
-            return builder.SetFormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)content);
-        }
+        public static T SetFormUrlEncodedContent<T>(this T builder, params KeyValuePair<string, string>[] content) 
+            where T : IHttpContentBuilder =>
+                builder.SetFormUrlEncodedContent((IEnumerable<KeyValuePair<string, string>>)content);
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="FormUrlEncodedContent"/> instance which is
@@ -213,7 +209,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetContent<T>(this T builder, HttpContent content) where T : IHttpContentBuilder =>
-            builder.Configure(_ =>builder.Content = content);
+            builder.Configure(builder => builder.Content = content);
 
         #endregion
 
@@ -399,12 +395,12 @@
             this T builder, Action<HttpContentHeaders> configureHeaders) where T : IHttpContentBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(_ =>
+            return builder.Configure(builder =>
             {
                 // There may not always be an HttpContent. There is nothing we can/should do. Fail here.
                 if (builder.Content is null)
                 {
-                    throw new InvalidOperationException(ExceptionStrings.HttpContentBuilderExtensions_NoHttpContentHeaders);
+                    throw new InvalidOperationException(ExceptionStrings.HttpContentBuilderExtensions_NoHttpContentHeaders());
                 }
 
                 configureHeaders(builder.Content.Headers);

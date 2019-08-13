@@ -19,6 +19,19 @@
     }
 
     /// <summary>
+    ///     Represents a builder for an object which provides <see cref="HttpHeaders"/> of a specific type.
+    /// </summary>
+    public interface IHttpHeadersBuilder<T> : IHttpHeadersBuilder where T : HttpHeaders
+    {
+
+        /// <summary>
+        ///     Gets the collection of HTTP headers which the builder builds.
+        /// </summary>
+        new T Headers { get; }
+
+    }
+
+    /// <summary>
     ///     Defines the  static methods for an <see cref="IHttpHeadersBuilder"/> provided
     ///     by the library.
     /// </summary>
@@ -89,7 +102,7 @@
         [DebuggerStepThrough]
         public static T AddHeader<T>(
             this T builder, string name, IEnumerable<string?>? values) where T : IHttpHeadersBuilder =>
-            builder.ConfigureHeaders(headers => HttpHeadersExtensions.AddWithUnknownValueCount(headers, name, values));
+                builder.ConfigureHeaders(headers => headers.AddWithUnknownValueCount(name, values));
 
         /// <summary>
         ///     Removes the headers with the specified names from the <see cref="HttpHeaders"/>
@@ -214,7 +227,7 @@
             this T builder, Action<HttpHeaders> configureHeaders) where T : IHttpHeadersBuilder
         {
             _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(_ =>configureHeaders(builder.Headers));
+            return builder.Configure(builder => configureHeaders(builder.Headers));
         }
 
     }

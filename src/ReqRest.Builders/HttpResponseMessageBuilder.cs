@@ -1,7 +1,6 @@
 ﻿namespace ReqRest.Builders
 {
     using System;
-    using System.Diagnostics;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
@@ -12,7 +11,7 @@
     /// </summary>
     public class HttpResponseMessageBuilder :
         IHttpResponseMessageBuilder,
-        IHttpHeadersBuilder,
+        IHttpHeadersBuilder<HttpResponseHeaders>,
         IHttpContentBuilder,
         IHttpProtocolVersionBuilder,
         IHttpResponseReasonPhraseBuilder,
@@ -29,36 +28,49 @@
         }
 
         /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpHeaders IHttpHeadersBuilder.Headers => HttpResponseMessage.Headers;
+        HttpHeaders IHttpHeadersBuilder.Headers => Headers;
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpContent? IHttpContentBuilder.Content
+        /// <summary>
+        ///     Gets the collection of HTTP response headers
+        ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
+        /// </summary>
+        public HttpResponseHeaders Headers => HttpResponseMessage.Headers;
+
+        /// <summary>
+        ///     Gets or sets the HTTP content 
+        ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
+        /// </summary>
+        public HttpContent? Content
         {
             get => HttpResponseMessage.Content;
             set => HttpResponseMessage.Content = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        Version IHttpProtocolVersionBuilder.Version
+        /// <summary>
+        ///     Gets or sets the HTTP message version
+        ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
+        /// </summary>
+        public Version Version
         {
             get => HttpResponseMessage.Version;
             set => HttpResponseMessage.Version = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        string? IHttpResponseReasonPhraseBuilder.ReasonPhrase
+        /// <summary>
+        ///     Gets or sets the reason phrase
+        ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
+        /// </summary>
+        public string? ReasonPhrase
         {
             get => HttpResponseMessage.ReasonPhrase;
             set => HttpResponseMessage.ReasonPhrase = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpStatusCode IHttpStatusCodeBuilder.StatusCode
+        /// <summary>
+        ///     Gets or sets the HTTP status code
+        ///     of the <see cref="HttpResponseMessage"/> whose properties are being built.
+        /// </summary>
+        public HttpStatusCode StatusCode
         {
             get => HttpResponseMessage.StatusCode;
             set => HttpResponseMessage.StatusCode = value;

@@ -1,8 +1,10 @@
 ﻿namespace DemoApplication
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using DemoApplication.Api;
-    using Newtonsoft.Json;
+    using DemoApplication.Api.Todos;
     using static System.Console;
 
     public static class Program
@@ -10,42 +12,44 @@
 
         public static async Task Main()
         {
-            var client = new JsonPlaceholderClient();
-            var res = await client.Todos().Get().FetchResponseAsync().ConfigureAwait(false);
-            var resource = await res.DeserializeResourceAsync().ConfigureAwait(false);
+            // To dive into the code:
+            // Start with the JsonPlaceholderClient.cs file.
+            // Then follow the comments in there.
 
-            if ((await res.DeserializeResourceAsync().ConfigureAwait(false)).TryGetValue(out var items))
+            // Using the API wrapper client:
+            // Usually, you just create an instance somewhere and (optionally) pass a configuration.
+            var client = new JsonPlaceholderClient();
+
+            // Then you can just use the fluent API to follow the REST API:
+            var getAllTodosResponse = await client.Todos().Get().FetchResponseAsync();
+            var getAllTodosResource = await getAllTodosResponse.DeserializeResourceAsync();
+
+            // An important thing to know is the difference between Response and Resource.
+            // 
+            // Response means the whole HTTP response data returned from the API, i.e.
+            // the status code, the headers, the content, ...
+            //
+            // Resource means the deserialized .NET POCO that can be parsed from the response's
+            // HttpContent.
+            // As you can see above, it can be retrieved from an ApiResponse via the
+            // DeserializeResourceAsync() method.
+            //
+            // With the deserialized resource, we, as a user, can now interact with the result
+            // returned by the API - without having to worry about anything like status codes!
+
+            if (getAllTodosResource.TryGetValue(out IEnumerable<TodoItem> todos))
             {
-                foreach (var item in items)
+                WriteLine($"Fetched {todos.Count()} todos!");
+
+                foreach (var todo in todos)
                 {
-                    WriteLine(JsonConvert.SerializeObject(item));
+                    WriteLine($"  - {todo.Title}");
                 }
             }
-
-            //var allRes = await client.Todos().Get().RequestAsync().ConfigureAwait(false);
-            //foreach (var item in allRes.Resource)
-            //{
-            //    WriteLine(item.Id);
-            //}
-
-            //WriteLine();
-
-            //var singleRes = await client.Todos(10).Get().RequestAsync().ConfigureAwait(false);
-            //var singleItem = singleRes.Resource;
-            //WriteLine($"Id: {singleItem.Id}; Title: {singleItem.Title}");
-
-            //var itemToPost = new TodoItem()
-            //{
-            //    UserId = 1,
-            //    Title = "Test post",
-            //    IsCompleted = false,
-            //};
-
-            //var postRes = await client.Todos().Post(itemToPost).RequestAsync().ConfigureAwait(false);
-            //if (postRes.HttpResponseMessage.StatusCode == HttpStatusCode.Created)
-            //{
-            //    WriteLine("Created. New ID: {0}", postRes.Resource.Id);
-            //}
+            else
+            {
+                WriteLine("Failed to load any todos...");
+            }
         }
 
     }

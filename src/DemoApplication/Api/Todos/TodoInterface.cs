@@ -1,15 +1,16 @@
 ﻿namespace DemoApplication.Api.Todos
 {
     using ReqRest.Builders;
-    using ReqRest.Client;
+    using ReqRest;
+    using ReqRest.Serializers.NewtonsoftJson;
 
-    public class TodoInterface : ApiInterface
+    public class TodoInterface : RestInterface
     {
 
         private readonly int _id;
 
-        public TodoInterface(ApiClient apiClient, int id)
-            : base(apiClient)
+        public TodoInterface(RestClient restClient, int id)
+            : base(restClient)
         {
             _id = id;
         }
@@ -17,10 +18,10 @@
         protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos" / $"{_id}";
 
-        //public ApiRequestBase<TodoItem> Get() =>
-        //    BuildRequest()
-        //        .Get()
-        //        .ReceiveJson<TodoItem>();
+        public ApiRequest<TodoItem> Get() => 
+            BuildRequest()
+                .Get()
+                .Receive<TodoItem>().AsJson(200);
 
     }
 

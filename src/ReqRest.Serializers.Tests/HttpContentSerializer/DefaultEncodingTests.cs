@@ -2,6 +2,7 @@
 {
     using System.Text;
     using FluentAssertions;
+    using ReqRest.Tests;
     using Xunit;
 
     public class DefaultEncodingTests

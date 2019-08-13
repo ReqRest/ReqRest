@@ -5,20 +5,12 @@
     using System.Threading.Tasks;
     using FluentAssertions;
     using ReqRest.Serializers;
+    using ReqRest.Tests;
     using Xunit;
 
     public class DeserializeAsyncTests
     {
 
-        [Fact]
-        public async Task Throws_ArgumentNullException_For_HttpContent()
-        {
-            var serializer = new MockedHttpContentSerializer();
-
-            Func<Task> testCode = async () => await serializer.DeserializeAsync(null, typeof(object));
-            await testCode.Should().ThrowAsync<ArgumentNullException>();
-        }
-        
         [Fact]
         public async Task Throws_ArgumentNullException_For_ContentType()
         {
@@ -37,6 +29,21 @@
             var result = await serializer.DeserializeAsync(content, typeof(NoContent));
 
             result.Should().BeOfType<NoContent>();
+        }
+
+        [Fact]
+        public async Task Throws_HttpContentSerializationException_If_Content_Is_Null()
+        {
+            var serializer = new MockedHttpContentSerializer();
+            Func<Task> testCode = async () => await serializer.DeserializeAsync(null, typeof(object));
+            await testCode.Should().ThrowAsync<HttpContentSerializationException>();
+        }
+
+        [Fact]
+        public async Task Doesnt_Throw_HttpContentSerializationException_If_Content_Is_Null_And_Deserializing_NoContent()
+        {
+            var serializer = new MockedHttpContentSerializer();
+            await serializer.DeserializeAsync(null, typeof(NoContent)); // Should not throw.
         }
 
         [Fact]

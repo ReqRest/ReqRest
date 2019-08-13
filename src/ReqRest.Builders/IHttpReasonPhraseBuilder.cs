@@ -36,7 +36,7 @@
         /// </exception>
         [DebuggerStepThrough]
         public static T SetReasonPhrase<T>(this T builder, string? reasonPhrase) where T : IHttpResponseReasonPhraseBuilder =>
-            builder.Configure(_ =>builder.ReasonPhrase = reasonPhrase);
+            builder.Configure(builder => builder.ReasonPhrase = reasonPhrase);
 
     }
 

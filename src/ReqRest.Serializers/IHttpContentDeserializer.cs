@@ -20,6 +20,7 @@
         /// </summary>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
@@ -28,13 +29,12 @@
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="httpContent"/>
         ///     * <paramref name="contentType"/>
         /// </exception>
         /// <exception cref="HttpContentSerializationException">
         ///     Deserializing the content failed.
         /// </exception>
-        Task<object?> DeserializeAsync(HttpContent httpContent, Type contentType);
+        Task<object?> DeserializeAsync(HttpContent? httpContent, Type contentType);
 
     }
 

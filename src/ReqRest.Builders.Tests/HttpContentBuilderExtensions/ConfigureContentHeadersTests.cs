@@ -3,8 +3,10 @@
     using System;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using FluentAssertions;
     using ReqRest.Builders;
     using ReqRest.Builders.Tests.HeaderTestBase;
+    using Xunit;
 
     public class ConfigureContentHeadersTests : ConfigureHeadersTestBase<HttpContentHeaders>
     {
@@ -22,6 +24,14 @@
         protected override void ConfigureHeaders(Action<HttpContentHeaders> configure) =>
             _builder.ConfigureContentHeaders(configure);
 
+        [Fact]
+        public void Throws_InvalidOperationException_If_Content_Is_Null()
+        {
+            _builder.Content = null;
+            Action testCode = () => _builder.ConfigureContentHeaders(_ => { });
+            testCode.Should().Throw<InvalidOperationException>();
+        }
+        
     }
 
 }

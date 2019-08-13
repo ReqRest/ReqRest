@@ -3,8 +3,8 @@
   <!-- Default C# Project properties that are expected for all sub-projects. -->
   <PropertyGroup>
     <LangVersion>8.0</LangVersion>
-    <NullableReferenceTypes>true</NullableReferenceTypes>
     <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
 
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>../key.snk</AssemblyOriginatorKeyFile>
@@ -13,7 +13,7 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
     
-    <Version Condition=" $(Version) == '' ">0.3.0</Version>
+    <Version Condition=" $(Version) == '' ">0.4.0</Version>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>
@@ -34,13 +34,13 @@
   </PropertyGroup>
   
   <ItemGroup Condition=" !$(IsTestProject) ">
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4" PrivateAssets="all" />
   </ItemGroup>
 
   <!-- Certain warnings make no sense in test projects. -->
   <PropertyGroup Condition=" $(IsTestProject) ">
-    <NullableReferenceTypes>false</NullableReferenceTypes>
     <NullableContextOptions>disable</NullableContextOptions>
+    <Nullable>disable</Nullable>
     <NoWarn>
       $(NoWarn);
       CS1573; <!-- No matching XML comment for parameter -->
