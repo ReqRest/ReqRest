@@ -38,27 +38,6 @@
             testCode.Should().Throw<ArgumentException>();
         }
 
-        [Fact]
-        public void Throws_ArgumentOutOfRangeException_If_From_Is_Less_Than_Zero()
-        {
-            Action testCode = () => new StatusCodeRange(-1, 123);
-            testCode.Should().Throw<ArgumentOutOfRangeException>();
-        }
-        
-        [Fact]
-        public void Throws_ArgumentOutOfRangeException_If_To_Is_Less_Than_Zero()
-        {
-            Action testCode = () => new StatusCodeRange(123, -1);
-            testCode.Should().Throw<ArgumentOutOfRangeException>();
-        }
-        
-        [Fact]
-        public void Throws_ArgumentOutOfRangeException_If_Single_Status_Code_Is_Less_Than_Zero()
-        {
-            Action testCode = () => new StatusCodeRange(-1);
-            testCode.Should().Throw<ArgumentOutOfRangeException>();
-        }
-
     }
 
 }

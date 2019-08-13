@@ -53,9 +53,9 @@
             // - (*, 200) and (*, 205) don't conflict because (*, 200) is more specific.
             // - (200, *) and (205, *) don't conflict because (205, *) is more specific.
             bool HaveWildcardRangeConflict() =>
-                   (range != StatusCodeRange.All && other != StatusCodeRange.All)
-                && (range.From == Wildcard && other.To == Wildcard && range.To >= other.From)
-                || (other.From == Wildcard && range.To == Wildcard && other.To >= range.From);
+                     range != StatusCodeRange.All && other != StatusCodeRange.All
+                && ((range is (null, _) && other is (_, null) && range.To >= other.From)
+                || ( range is (_, null) && other is (null, _) && other.To >= range.From));
 
         }
 

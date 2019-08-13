@@ -8,16 +8,12 @@
     {
 
         [Theory]
-        [InlineData(null, null, int.MinValue)]
-        [InlineData(null, null, -50)]
         [InlineData(null, null, 0)]
         [InlineData(null, null, 50)]
         [InlineData(null, null, int.MaxValue)]
         [InlineData(0, 100, 0)]
         [InlineData(0, 100, 50)]
         [InlineData(0, 100, 100)]
-        [InlineData(null, 100, int.MinValue)]
-        [InlineData(null, 100, -50)]
         [InlineData(null, 100, 0)]
         [InlineData(null, 100, 50)]
         [InlineData(null, 100, 100)]
@@ -31,8 +27,6 @@
         }
         
         [Theory]
-        [InlineData(0, 100, -100)]
-        [InlineData(0, 100, -1)]
         [InlineData(0, 100, 101)]
         [InlineData(0, 100, 200)]
         [InlineData(null, 100, 101)]
