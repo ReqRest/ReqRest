@@ -26,7 +26,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -55,7 +55,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -112,7 +112,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -174,7 +174,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -241,7 +241,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -313,7 +313,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -390,7 +390,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -472,7 +472,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
@@ -559,7 +559,7 @@
         ///     HTTP API in this response.
         ///     If <see langword="null"/>, an empty set is used instead.
         /// </param>
-        public ApiResponse(
+        internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
             IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
