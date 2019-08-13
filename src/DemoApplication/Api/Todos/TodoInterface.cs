@@ -1,16 +1,16 @@
 ﻿namespace DemoApplication.Api.Todos
 {
     using ReqRest.Builders;
-    using ReqRest.Client;
+    using ReqRest;
     using ReqRest.Serializers.NewtonsoftJson;
 
-    public class TodoInterface : ApiInterface
+    public class TodoInterface : RestInterface
     {
 
         private readonly int _id;
 
-        public TodoInterface(ApiClient apiClient, int id)
-            : base(apiClient)
+        public TodoInterface(RestClient restClient, int id)
+            : base(restClient)
         {
             _id = id;
         }

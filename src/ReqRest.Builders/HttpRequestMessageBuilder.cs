@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Net.Http;
     using System.Net.Http.Headers;
 
@@ -10,10 +9,9 @@
     ///     Implements several builder interfaces which enable fluent building of
     ///     <see cref="System.Net.Http.HttpRequestMessage"/> objects.
     /// </summary>
-    public class HttpRequestMessageBuilder : 
-        IBuilder,
+    public class HttpRequestMessageBuilder :
         IHttpRequestMessageBuilder,
-        IHttpHeadersBuilder,
+        IHttpHeadersBuilder<HttpRequestHeaders>,
         IHttpRequestPropertiesBuilder,
         IHttpContentBuilder,
         IHttpProtocolVersionBuilder,
@@ -31,40 +29,56 @@
         }
 
         /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpHeaders IHttpHeadersBuilder.Headers => HttpRequestMessage.Headers;
+        HttpHeaders IHttpHeadersBuilder.Headers => Headers;
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        IDictionary<string, object?> IHttpRequestPropertiesBuilder.Properties => HttpRequestMessage.Properties;
+        /// <summary>
+        ///     Gets the collection of HTTP request headers
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        public HttpRequestHeaders Headers => HttpRequestMessage.Headers;
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpContent? IHttpContentBuilder.Content
+        /// <summary>
+        ///     Gets the set of HTTP properties for the request
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        public IDictionary<string, object?> Properties => HttpRequestMessage.Properties;
+
+        /// <summary>
+        ///     Gets or sets the HTTP content
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        public HttpContent? Content
         {
             get => HttpRequestMessage.Content;
             set => HttpRequestMessage.Content = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        Version IHttpProtocolVersionBuilder.Version
+        /// <summary>
+        ///     Gets or sets the HTTP message version
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        public Version Version
         {
             get => HttpRequestMessage.Version;
             set => HttpRequestMessage.Version = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        Uri? IRequestUriBuilder.RequestUri
+        /// <summary>
+        ///     Gets or sets the request <see cref="Uri"/>
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        public Uri? RequestUri
         {
             get => HttpRequestMessage.RequestUri;
             set => HttpRequestMessage.RequestUri = value;
         }
 
-        /// <inheritdoc/>
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        HttpMethod IHttpMethodBuilder.Method
+        /// <summary>
+        ///     Gets or sets the <see cref="HttpMethod"/>
+        ///     of the <see cref="HttpRequestMessage"/> whose properties are being built.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"/>
+        public HttpMethod Method
         {
             get => HttpRequestMessage.Method;
             set => HttpRequestMessage.Method = value ?? throw new ArgumentNullException(nameof(value));

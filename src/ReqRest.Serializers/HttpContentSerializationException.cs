@@ -49,7 +49,7 @@
             : base(info, context) { }
 
         private static string GetDefaultMessage() =>
-            ExceptionStrings.HttpContentSerializationException_Message;
+            ExceptionStrings.HttpContentSerializationException_Message();
 
     }
 

@@ -45,12 +45,11 @@
         ///     * <paramref name="key"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetProperty<T>(this T builder, string key, object? value) where T : IHttpRequestPropertiesBuilder =>
-            builder.ConfigureProperties(p =>
-            {
-                _ = key ?? throw new ArgumentNullException(nameof(key));
-                p[key] = value;
-            });
+        public static T SetProperty<T>(this T builder, string key, object? value) where T : IHttpRequestPropertiesBuilder
+        {
+            _ = key ?? throw new ArgumentNullException(nameof(key));
+            return builder.ConfigureProperties(p => p[key] = value);
+        }
 
         /// <summary>
         ///     Adds the specified property and value to the properties of the HTTP request which
@@ -76,12 +75,11 @@
         ///     * <paramref name="key"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T AddProperty<T>(this T builder, string key, object? value) where T : IHttpRequestPropertiesBuilder =>
-            builder.ConfigureProperties(p =>
-            {
-                _ = key ?? throw new ArgumentNullException(nameof(key));
-                p.Add(key, value);
-            });
+        public static T AddProperty<T>(this T builder, string key, object? value) where T : IHttpRequestPropertiesBuilder
+        {
+            _ = key ?? throw new ArgumentNullException(nameof(key));
+            return builder.ConfigureProperties(p => p.Add(key, value));
+        }
 
         /// <summary>
         ///     Removes the properties with the specified names from the properties of the
@@ -97,11 +95,15 @@
         ///     * <paramref name="builder"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T RemoveProperty<T>(this T builder, params string?[]? names) where T : IHttpRequestPropertiesBuilder =>
-            builder.ConfigureProperties(p =>
+        public static T RemoveProperty<T>(this T builder, params string?[]? names) where T : IHttpRequestPropertiesBuilder
+        {
+            if (names is null)
             {
-                if (names is null) return;
-
+                return builder;
+            }
+            
+            return builder.ConfigureProperties(p =>
+            {
                 foreach (var name in names)
                 {
                     if (name != null)
@@ -110,6 +112,7 @@
                     }
                 }
             });
+        }
 
         /// <summary>
         ///     Removes all properties from the properties of the HTTP request which is being built.
@@ -144,7 +147,7 @@
             this T builder, Action<IDictionary<string, object?>> configureProperties) where T : IHttpRequestPropertiesBuilder
         {
             _ = configureProperties ?? throw new ArgumentNullException(nameof(configureProperties));
-            return builder.Configure(_ =>configureProperties(builder.Properties));
+            return builder.Configure(builder => configureProperties(builder.Properties));
         }
 
     }

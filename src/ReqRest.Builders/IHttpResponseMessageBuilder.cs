@@ -11,7 +11,7 @@
     {
 
         /// <summary>
-        ///     Gets or sets the <see cref="System.Net.Http.HttpResponseMessage"/> which the builder builds.
+        ///     Gets or sets the <see cref="System.Net.Http.HttpResponseMessage"/> which is being built.
         /// </summary>
         /// <exception cref="ArgumentNullException"/>
         HttpResponseMessage HttpResponseMessage { get; set; }
@@ -101,7 +101,7 @@
             this T builder, Func<HttpResponseMessage, HttpResponseMessage> setResponse) where T : IHttpResponseMessageBuilder
         {
             _ = setResponse ?? throw new ArgumentNullException(nameof(setResponse));
-            return builder.Configure(_ =>builder.HttpResponseMessage = setResponse(builder.HttpResponseMessage));
+            return builder.Configure(builder => builder.HttpResponseMessage = setResponse(builder.HttpResponseMessage));
         }
 
         /// <summary>
@@ -122,7 +122,7 @@
             where T : IHttpResponseMessageBuilder
         {
             _ = httpResponseMessage ?? throw new ArgumentNullException(nameof(httpResponseMessage));
-            return builder.Configure(_ =>builder.HttpResponseMessage = httpResponseMessage);
+            return builder.Configure(builder => builder.HttpResponseMessage = httpResponseMessage);
         }
 
     }

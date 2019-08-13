@@ -1,7 +1,7 @@
 _Please note that this repository's default branch is the `dev` branch. Switch to the `master`
 branch to read the description of the current release._
 
-# ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Nuget](https://img.shields.io/nuget/v/ReqRest.Client.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
+# ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
 
 A .NET library for creating fully typed wrappers for RESTful APIs with minimal effort.
 
@@ -40,17 +40,17 @@ resource.Match(
 The code which is required to recreate this example is minimal (DTO classes are removed for brevity).
 
 ```csharp
-class DemoApiClient : ApiClient
+class DemoApiClient : RestClient
 {
-    public DemoApiClient() : base(new ApiClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
+    public DemoApiClient() : base(new RestClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
 
     public TodosInterface Todos() =>
         new TodosInterface();
 }
 
-class TodosInterface : ApiInterface
+class TodosInterface : RestInterface
 {
-    public TodosInterface(ApiClient apiClient) : base(apiClient) { }
+    public TodosInterface(RestClient restClient) : base(restClient) { }
     
     // 'baseUrl' is, in this case, the 'BaseUrl' from the configuration above.
     // The '/' operator simply joins the two URL parts to the following: http://demo-api.com/todos
@@ -58,7 +58,7 @@ class TodosInterface : ApiInterface
     protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
             baseUrl / "todos";
     
-    // The task of an ApiInterface class is the creation of requests to that interface.
+    // The task of a RestInterface class is the creation of requests to that interface.
     // ReqRest follows a declarative approach.
     // You state what the API returns for which status code and ReqRest does everything else for you.
     public ApiRequest<IList<TodoItem>, Error> Get() =>
@@ -85,25 +85,25 @@ For a thorough overview, read through the documentation and advanced examples or
 The library is available on NuGet. Install it via:
 
 ```sh
-Install-Package ReqRest.Client
+Install-Package ReqRest
 Install-Package ReqRest.Serializers.NewtonsoftJson # Optional, but desired in most cases.
 
 --or--
 
-dotnet add package ReqRest.Client
+dotnet add package ReqRest
 dotnet add package ReqRest.Serializers.NewtonsoftJson # Optional, but desired in most cases. 
 ```
 
-While `ReqRest.Client` is the main package which you will want to install in 99.9% of cases,
+While `ReqRest` is the main package which you will want to install in 99.9% of cases,
 the whole library is split into multiple packages from which you can choose:
 
 | Package Name                         | NuGet Version | Description |
 | ------------------------------------ | ------------- |------------ |
-| `ReqRest.Client`                     | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Client.svg) | The main package which contains the required members to wrap a REST API. |
+| `ReqRest`                            | ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) | The main package which contains the required members to wrap a RESTful HTTP API. |
 | `ReqRest.Builders`                   | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Builders.svg) | Provides builders and builder extension methods which enable fluent configuration of classes like `HttpRequestMessage`. |
 | `ReqRest.Http`                       | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Http.svg) | Contains constants and members that are missing from `System.Net.Http`. |
 | `ReqRest.Serializers`                | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.svg) | Provides the base members for serializers that are used by the library. |
-| `ReqRest.Serializers.NewtonsoftJson` | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.NewtonsoftJson.svg) | Provides a JSON (de-)serializer and integration methods for the `ReqRest.Client` package. Uses the `Newtonsoft.Json` for the JSON (de-)serialization. |
+| `ReqRest.Serializers.NewtonsoftJson` | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.NewtonsoftJson.svg) | Provides a JSON (de-)serializer and integration methods for the `ReqRest` package. Uses the `Newtonsoft.Json` for the JSON (de-)serialization. |
 
 
 ## Getting Started

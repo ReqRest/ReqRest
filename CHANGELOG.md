@@ -2,20 +2,30 @@
 
 ## v0.4.0
 
-_This is an update which refactors a lot of things that proved to be wrongly designed. At this point, the library is
-furthermore fully tested, meaning that it is ready for additional extensions in future updates._
+_This is an update which refactors a lot of things that proved to be wrongly designed or named.
+At this point, the library is ~95%+ tested, meaning that it is ready for additional extensions in future updates._
 
+* **[Breaking / Package]** The `ReqRest.Client` package is being renamed/moved to `ReqRest`. As a result, `ReqRest.Client` is now **deprecated**!  
 * **[Breaking]** The constructor of the `ApiRequest<T>` (not the `ApiRequest` though) classes are no longer `public`, so that upgrading via `Receive` is enforced.
+* **[Breaking]** The constructor of all `ApiResponse` classes are no longer `public`, meaning that instances can only be retrieved by creating an `ApiRequest` first.
 * **[Breaking]** Refactored the `ApiResponseBase.CurrentResponseTypeInfo` property to be a method called `GetCurrentResponseTypeInfo`. This fixes a potential bug that the property holds an old value when the status code mutates.
+* **[Breaking]** Renamed `ApiClient` to `RestClient`.
+* **[Breaking]** Renamed `ApiClientConfiguration` to `RestClientConfiguration`.
+* **[Breaking]** Renamed `ApiInterface` to `RestInterface`.
+* **[Breaking]** The `ApiResponseBase.StatusCode` property is now of type `HttpStatusCode`, not of type `Int32`.
+* **[Breaking]** Removed the `StatusCodeRange.IsInRange(Int32)` method.
+* The `HttpRequestMessageBuilder` and `IHttpResponseMessageBuilder` (and thus, the `ApiRequest` and `ApiResponse` classes) now publicly expose the wrapped properties of the underlying HTTP message class, so that interacting with `ApiRequest` and `ApiResponse` instances becomes more used friendly.
+* The `StatusCodeRange` now supports negative numbers.
 * The `IHttpContentDeserializer` and related members now allow deserializing an `HttpContent` which is `null`. This previously threw an `ArgumentNullException` which didn't make sense when attempting to deserialize `NoContent`. This behavior has been updated.
 * Changed the `ApiRequestBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
 * Changed the `ApiResponseBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
+* Updated the XML documentation.
 
 
 ## v0.3.0
 
 * **[Breaking]** Removed HttpClientProvider in the configuration and replaced it with a `Func<HttpClient>` for simplicity.
-* **[Breaking]** The `ApiRequestBase` and derived classes now expect a `Func<HttpClient>` aswell. No `HttpClient` gets passed around directly.
+* **[Breaking]** The `ApiRequestBase` and derived classes now expect a `Func<HttpClient>` as well. No `HttpClient` gets passed around directly.
 * **[Breaking]** The `ApiRequestBase.SetHttpClient` method was renamed to `SetHttpClientProvider` and now accepts a `Func<HttpClient>` (in addition to an `HttpClient`).
 * **[Breaking]** `ApiResponseBase.CurrentResponseTypeInfo` is no longer virtual.
 * **[Breaking]** `ApiClient<TConfig>` now has the `where TConfig : new()` constraint.

@@ -109,11 +109,7 @@
             if (httpContent is null)
             {
                 throw new HttpContentSerializationException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        ExceptionStrings.HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent,
-                        contentType.FullName
-                    )
+                    ExceptionStrings.HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent(contentType)
                 );
             }
             

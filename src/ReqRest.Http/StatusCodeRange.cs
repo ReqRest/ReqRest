@@ -104,9 +104,6 @@
         ///     If <see langword="null"/>, this range is equal to <see cref="All"/> and will
         ///     thus cover every single available status code.
         /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     <paramref name="singleStatusCode"/> is less than zero.
-        /// </exception>
         public StatusCodeRange(int? singleStatusCode)
             : this(singleStatusCode, singleStatusCode) { }
 
@@ -135,39 +132,15 @@
         /// <exception cref="ArgumentException">
         ///     <paramref name="from"/> is larger than <paramref name="to"/>.
         /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     <paramref name="from"/> or <paramref name="to"/> is less than zero.
-        /// </exception>
         public StatusCodeRange(int? from, int? to)
         {
-            if (from < 0 || to < 0)
-            {
-                throw new ArgumentOutOfRangeException(ExceptionStrings.StatusCodeRange_CodesCannotBeNegative);
-            }
-
             if (from > to)
             {
-                throw new ArgumentException(ExceptionStrings.StatusCodeRange_FromCannotBeGreaterThanTo);
+                throw new ArgumentException(ExceptionStrings.StatusCodeRange_FromCannotBeGreaterThanTo());
             }
 
             From = from;
             To = to;
-        }
-
-        /// <summary>
-        ///     Returns a value indicating whether the specified <paramref name="statusCode"/>
-        ///     falls within this range.
-        /// </summary>
-        /// <param name="statusCode">
-        ///     The status code to be checked.
-        /// </param>
-        /// <returns>
-        ///     <see langword="true"/> if <paramref name="statusCode"/> falls within this range;
-        ///     <see langword="false"/> if not.
-        /// </returns>
-        public bool IsInRange(int statusCode)
-        {
-            return FromOrMinInt <= statusCode && statusCode <= ToOrMaxInt;
         }
 
         /// <summary>
