@@ -12,7 +12,9 @@ At this point, the library is ~95%+ tested, meaning that it is ready for additio
 * **[Breaking]** Renamed `ApiClientConfiguration` to `RestClientConfiguration`.
 * **[Breaking]** Renamed `ApiInterface` to `RestInterface`.
 * **[Breaking]** The `ApiResponseBase.StatusCode` property is now of type `HttpStatusCode`, not of type `Int32`.
+* **[Breaking]** Removed the `StatusCodeRange.IsInRange(Int32)` method.
 * The `HttpRequestMessageBuilder` and `IHttpResponseMessageBuilder` (and thus, the `ApiRequest` and `ApiResponse` classes) now publicly expose the wrapped properties of the underlying HTTP message class, so that interacting with `ApiRequest` and `ApiResponse` instances becomes more used friendly.
+* The `StatusCodeRange` now supports negative numbers.
 * The `IHttpContentDeserializer` and related members now allow deserializing an `HttpContent` which is `null`. This previously threw an `ArgumentNullException` which didn't make sense when attempting to deserialize `NoContent`. This behavior has been updated.
 * Changed the `ApiRequestBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
 * Changed the `ApiResponseBase.PossibleResponseTypes` from an `IEnumerable` to an `IReadOnlyCollection`.
