@@ -179,7 +179,7 @@
             }
             else
             {
-#error version
+#nullable disable // TODO: Remove this once the compiler no longer emits warnings.
                 if (segment.StartsWith("/", StringComparison.Ordinal))
                 {
                     segment = segment.Substring(1, segment.Length - 1);
@@ -191,6 +191,7 @@
                 }
 
                 return builder.SetPath($"{path}/{segment}");
+#nullable restore
             }
         }
 
@@ -379,6 +380,7 @@
                 return builder;
             }
 
+#nullable disable // TODO: Remove this once the compiler no longer emits warnings.
             var trimChars = new[] { '&' };
             var query = builder.Query.TrimEnd(trimChars);
             parameter = parameter.TrimStart(trimChars);
@@ -391,6 +393,7 @@
             {
                 return builder.SetQuery($"{query}&{parameter}");
             }
+#nullable restore
         }
 
         /// <summary>
