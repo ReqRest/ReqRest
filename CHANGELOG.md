@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.1
+
+* **[Package]** Fixed the `ReqRest` package description being wrongly formatted.
+* Added the `PostJson`, `PutJson` and `PatchJson` methods in the `Newtonsoft` package.
+* Fixed a potential NullReferenceException in the `AppendPath` extension method.
+* Updated the XML documentation.
+
+
 ## v0.4.0
 
 _This is an update which refactors a lot of things that proved to be wrongly designed or named.

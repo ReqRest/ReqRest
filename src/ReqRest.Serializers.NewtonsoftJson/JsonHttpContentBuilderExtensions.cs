@@ -13,10 +13,11 @@
     {
 
         /// <summary>
-        ///     Serializes the specified <paramref name="content"/> to an <see cref="HttpContent"/>
-        ///     using the JSON format and then sets the <see cref="IHttpContentBuilder.Content"/>
-        ///     to the new value.
-        ///     This method uses the <c>application/json</c> media type for the new content.
+        ///     Sets the HTTP content to a serialized JSON string representing <paramref name="content"/>.
+        /// 
+        ///     <paramref name="content"/> is serialized using the specified <paramref name="serializer"/>
+        ///     and <paramref name="encoding"/>.
+        ///     The serialized HTTP content has the <c>application/json</c> media type.
         /// </summary>
         /// <typeparam name="T">The type of the builder.</typeparam>
         /// <param name="builder">The request builder.</param>
@@ -38,7 +39,10 @@
             Encoding? encoding = null,
             JsonHttpContentSerializer? serializer = null) where T : IHttpContentBuilder
         {
+            // Validate builder here to stop a potential serialization.
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             serializer ??= JsonHttpContentSerializer.Default;
+            
             var httpContent = serializer.Serialize(content, encoding);
             return builder.SetContent(httpContent);
         }
