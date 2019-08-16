@@ -179,6 +179,8 @@
             }
             else
             {
+                Debug.Assert(segment != null); // Temp. fixing the build.
+
                 if (segment.StartsWith("/", StringComparison.Ordinal))
                 {
                     segment = segment.Substring(1, segment.Length - 1);
@@ -377,6 +379,7 @@
             {
                 return builder;
             }
+            Debug.Assert(parameter != null); // Temp. fixing the build.
 
             var trimChars = new[] { '&' };
             var query = builder.Query.TrimEnd(trimChars);
