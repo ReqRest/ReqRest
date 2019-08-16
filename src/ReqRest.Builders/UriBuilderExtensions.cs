@@ -170,6 +170,7 @@
         [DebuggerStepThrough]
         public static T AppendPath<T>(this T builder, string? segment) where T : UriBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             var path = builder.Path;
 
             if (string.IsNullOrEmpty(segment))
