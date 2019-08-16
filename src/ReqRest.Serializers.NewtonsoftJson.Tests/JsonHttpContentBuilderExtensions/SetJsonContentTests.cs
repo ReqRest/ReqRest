@@ -12,8 +12,8 @@ namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentBuilderExtensi
     public class SetJsonContentTests
     {
         
-        private readonly JsonHttpContentSerializer DefaultSerializer = JsonHttpContentSerializer.Default;
-        private readonly Encoding DefaultEncoding = Encoding.UTF8;
+        private static readonly JsonHttpContentSerializer DefaultSerializer = JsonHttpContentSerializer.Default;
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
         
         [Theory]
         [MemberData(nameof(JsonTestData.Dtos), MemberType = typeof(JsonTestData))]
