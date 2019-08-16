@@ -28,8 +28,8 @@
         ///     Gets a default <see cref="JsonHttpContentSerializer"/> instance which internally
         ///     uses a default <see cref="Newtonsoft.Json.JsonSerializer"/> instance.
         ///     
-        ///     This is an otherwise default <see cref="Newtonsoft.Json.JsonSerializer"/> which
-        ///     ignores <c>null</c> values during (de-)serialization.
+        ///     This is an otherwise default <see cref="Newtonsoft.Json.JsonSerializer"/> whose
+        ///     <see cref="JsonSerializer.NullValueHandling"/> is set to <see cref="NullValueHandling.Ignore"/>.
         /// </summary>
         public static JsonHttpContentSerializer Default { get; } = new JsonHttpContentSerializer();
 
