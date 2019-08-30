@@ -8,6 +8,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using ReqRest.Builders;
+    using ReqRest.Internal;
     using ReqRest.Resources;
 
     /// <summary>

@@ -1,8 +1,8 @@
-﻿namespace ReqRest.Tests.StatusCodeRangeSpecificnessComparer
+﻿namespace ReqRest.Tests.Internal.StatusCodeRangeSpecificnessComparer
 {
     using FluentAssertions;
-    using ReqRest;
     using ReqRest.Http;
+    using ReqRest.Internal;
     using Xunit;
 
     public class CompareTests

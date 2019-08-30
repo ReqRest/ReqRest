@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Internal
 {
     using ReqRest.Http;
     using static ReqRest.Http.StatusCode;

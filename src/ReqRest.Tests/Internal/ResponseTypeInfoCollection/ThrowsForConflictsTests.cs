@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Tests.ResponseTypeInfoCollection
+﻿namespace ReqRest.Tests.Internal.ResponseTypeInfoCollection
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,8 @@
     using FluentAssertions;
     using ReqRest;
     using ReqRest.Http;
+    using ReqRest.Internal;
+    using ReqRest.Tests;
     using Xunit;
 
     public class ThrowsForConflictsTests
