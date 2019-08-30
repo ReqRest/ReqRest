@@ -22,8 +22,7 @@ namespace ReqRest.Builders.Tests.UrlBuilder
         {
             var builder = new UrlBuilder()
             {
-                Host = null,
-                Scheme = null,
+                Host = "foo\\\\",
             };
 
             Action testCode = () => _ = (Uri)builder;
