@@ -2,6 +2,8 @@
 
 ## v0.4.2
 
+* **[Breaking]** Updated the `StatusCodeRange.ToString()` method to return strings similar to `[-200, 300]`, so that negative status codes look better (before, strings like `-300--200` were possible).
+* **[Breaking]** Updated the `ResponseTypeInfo.ToString()` method to respect the new status code range string format.
 * The `UrlBuilder` can now be implicitly converted to an `Uri`.
 * Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar")`.
 * Updated the XML documentation, specifically of the builder interfaces.
