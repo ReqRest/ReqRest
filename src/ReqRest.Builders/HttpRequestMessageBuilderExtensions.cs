@@ -4,20 +4,6 @@
     using System.Net.Http;
 
     /// <summary>
-    ///     Represents a builder for a <see cref="System.Net.Http.HttpRequestMessage"/>.
-    /// </summary>
-    public interface IHttpRequestMessageBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the <see cref="System.Net.Http.HttpRequestMessage"/> which is being built.
-        /// </summary>
-        /// <exception cref="ArgumentNullException"/>
-        HttpRequestMessage HttpRequestMessage { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpRequestMessageBuilder"/> provided
     ///     by the library.
     /// </summary>

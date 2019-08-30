@@ -4,19 +4,6 @@
     using System.Diagnostics;
 
     /// <summary>
-    ///     Represents a builder for an object which provides an HTTP protocol version.
-    /// </summary>
-    public interface IHttpProtocolVersionBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the HTTP protocol version which the builder builds.
-        /// </summary>
-        Version Version { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpProtocolVersionBuilder"/> provided
     ///     by the library.
     /// </summary>

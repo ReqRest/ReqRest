@@ -5,19 +5,6 @@
     using System.Net;
 
     /// <summary>
-    ///     Represents a builder for an HTTP status code.
-    /// </summary>
-    public interface IHttpStatusCodeBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the HTTP status code which the builder builds.
-        /// </summary>
-        HttpStatusCode StatusCode { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpStatusCodeBuilder"/> provided
     ///     by the library.
     /// </summary>

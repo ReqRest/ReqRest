@@ -5,20 +5,6 @@
     using System.Net.Http;
 
     /// <summary>
-    ///     Represents a builder for an object which provides an <see cref="System.Net.Http.HttpMethod"/>.
-    /// </summary>
-    public interface IHttpMethodBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the HTTP method which the builder builds.
-        /// </summary>
-        /// <exception cref="ArgumentNullException"/>
-        HttpMethod Method { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpMethodBuilder"/> provided
     ///     by the library.
     /// </summary>

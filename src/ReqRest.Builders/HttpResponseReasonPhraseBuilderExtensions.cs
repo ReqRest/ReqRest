@@ -4,20 +4,6 @@
     using System.Diagnostics;
 
     /// <summary>
-    ///     Represents a builder for a reason phrase which typically gets sent by a server
-    ///     within the context of an HTTP message.
-    /// </summary>
-    public interface IHttpResponseReasonPhraseBuilder : IBuilder
-    {
-        
-        /// <summary>
-        ///     Gets or sets the reason phrase which the builder builds.
-        /// </summary>
-        string? ReasonPhrase { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpResponseReasonPhraseBuilder"/> provided
     ///     by the library.
     /// </summary>

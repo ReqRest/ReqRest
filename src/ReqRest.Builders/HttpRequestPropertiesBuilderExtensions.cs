@@ -5,19 +5,6 @@
     using System.Diagnostics;
 
     /// <summary>
-    ///     Represents a builder for an HTTP request which provides a set of configurable properties.
-    /// </summary>
-    public interface IHttpRequestPropertiesBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets the request's set of properties which are being built.
-        /// </summary>
-        IDictionary<string, object?> Properties { get; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpRequestPropertiesBuilder"/> provided
     ///     by the library.
     /// </summary>

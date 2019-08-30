@@ -10,20 +10,6 @@
     using ReqRest.Builders.Resources;
 
     /// <summary>
-    ///     Represents a builder for an object which provides an <see cref="HttpContent"/>.
-    /// </summary>
-    public interface IHttpContentBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the HTTP content which the builder builds.
-        ///     This can be <see langword="null"/>.
-        /// </summary>
-        HttpContent? Content { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpContentBuilder"/> provided
     ///     by the library.
     /// </summary>
