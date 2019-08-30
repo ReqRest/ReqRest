@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.2
+
+* The `UrlBuilder` can now be implicitly converted to an `Uri`.
+* Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar")`.
+* Updated the XML documentation, specifically of the builder interfaces.
+
 ## v0.4.1
 
 * **[Package]** Fixed the `ReqRest` package description being wrongly formatted.
