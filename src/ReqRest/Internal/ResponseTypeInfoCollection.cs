@@ -1,4 +1,4 @@
-﻿namespace ReqRest
+﻿namespace ReqRest.Internal
 {
     using System;
     using System.Collections.Generic;

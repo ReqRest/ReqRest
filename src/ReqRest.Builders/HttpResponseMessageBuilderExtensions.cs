@@ -5,20 +5,6 @@
     using System.Diagnostics;
 
     /// <summary>
-    ///     Represents a builder for a <see cref="System.Net.Http.HttpResponseMessage"/>.
-    /// </summary>
-    public interface IHttpResponseMessageBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the <see cref="System.Net.Http.HttpResponseMessage"/> which is being built.
-        /// </summary>
-        /// <exception cref="ArgumentNullException"/>
-        HttpResponseMessage HttpResponseMessage { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IHttpResponseMessageBuilder"/> provided
     ///     by the library.
     /// </summary>

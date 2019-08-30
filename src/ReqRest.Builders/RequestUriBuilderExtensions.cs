@@ -4,21 +4,6 @@
     using System.Diagnostics;
 
     /// <summary>
-    ///     Represents a builder for an object which provides an <see cref="Uri"/> for making
-    ///     an HTTP request.
-    /// </summary>
-    public interface IRequestUriBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets or sets the request <see cref="Uri"/> which the builder builds.
-        ///     This can be <see langword="null"/>.
-        /// </summary>
-        Uri? RequestUri { get; set; }
-
-    }
-
-    /// <summary>
     ///     Defines the static methods for an <see cref="IRequestUriBuilder"/> provided
     ///     by the library.
     /// </summary>

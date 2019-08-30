@@ -1,10 +1,10 @@
-﻿namespace ReqRest.Tests.NoContentSerializer
+﻿namespace ReqRest.Tests.Internal.Serializers.NoContentSerializer
 {
     using System;
     using System.Net.Http;
     using System.Threading.Tasks;
     using FluentAssertions;
-    using ReqRest;
+    using ReqRest.Internal.Serializers;
     using ReqRest.Serializers;
     using Xunit;
 

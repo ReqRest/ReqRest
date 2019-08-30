@@ -6,32 +6,6 @@
     using System.Net.Http.Headers;
 
     /// <summary>
-    ///     Represents a builder for an object which provides <see cref="HttpHeaders"/>.
-    /// </summary>
-    public interface IHttpHeadersBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets the collection of HTTP headers which the builder builds.
-        /// </summary>
-        HttpHeaders Headers { get; }
-
-    }
-
-    /// <summary>
-    ///     Represents a builder for an object which provides <see cref="HttpHeaders"/> of a specific type.
-    /// </summary>
-    public interface IHttpHeadersBuilder<T> : IHttpHeadersBuilder where T : HttpHeaders
-    {
-
-        /// <summary>
-        ///     Gets the collection of HTTP headers which the builder builds.
-        /// </summary>
-        new T Headers { get; }
-
-    }
-
-    /// <summary>
     ///     Defines the  static methods for an <see cref="IHttpHeadersBuilder"/> provided
     ///     by the library.
     /// </summary>

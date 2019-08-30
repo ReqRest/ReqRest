@@ -6,6 +6,7 @@ namespace ReqRest.Tests.ApiRequest
     using FluentAssertions;
     using ReqRest;
     using ReqRest.Http;
+    using ReqRest.Internal.Serializers;
     using ReqRest.Serializers;
     using Xunit;
 

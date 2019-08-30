@@ -8,6 +8,7 @@
     using System.Threading.Tasks;
     using NCommons.Monads;
     using ReqRest.Http;
+    using ReqRest.Internal.Serializers;
     using ReqRest.Serializers;
 
 #pragma warning disable CA2000 // Dispose objects before losing scope

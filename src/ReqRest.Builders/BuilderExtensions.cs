@@ -3,16 +3,6 @@
     using System;
     using System.Diagnostics;
 
-#pragma warning disable CA1040 // Avoid empty interfaces
-
-    /// <summary>
-    ///     Used to give a single entry point for extension methods that should be
-    ///     available for every single builder defined by this library.
-    /// </summary>
-    public interface IBuilder { }
-
-#pragma warning restore CA1040 // Avoid empty interfaces
-
     /// <summary>
     ///     Provides extension methods that are available for every single <see cref="IBuilder"/>
     ///     provided by the library.
