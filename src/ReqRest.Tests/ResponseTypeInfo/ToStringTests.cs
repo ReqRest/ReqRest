@@ -22,9 +22,9 @@
         public static TheoryData<Type, IEnumerable<StatusCodeRange>, string> ToStringData { get; } =
             new TheoryData<Type, IEnumerable<StatusCodeRange>, string>()
             {
-                { typeof(object), new[] { StatusCodeRange.All }, "Object: (*)" },
-                { typeof(Int32), new StatusCodeRange[] { (200, 300) }, "Int32: (200-300)" },
-                { typeof(NoContent), new StatusCodeRange[] { (200, 300), 400, StatusCodeRange.All, (null, 100) }, "NoContent: (200-300), (400), (*), (*-100)" },
+                { typeof(object), new[] { StatusCodeRange.All }, "Object: *" },
+                { typeof(Int32), new StatusCodeRange[] { (200, 300) }, "Int32: [200, 300]" },
+                { typeof(NoContent), new StatusCodeRange[] { (200, 300), 400, StatusCodeRange.All, (null, 100) }, "NoContent: [200, 300], 400, *, [*, 100]" },
             };
 
     }

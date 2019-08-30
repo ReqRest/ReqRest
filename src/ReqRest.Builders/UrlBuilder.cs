@@ -145,6 +145,22 @@
         public static UrlBuilder operator &(UrlBuilder builder, string? queryParameter) =>
             builder.AppendQueryParameter(queryParameter);
 
+        /// <summary>
+        ///     Implicitly converts the specified <paramref name="builder"/> to an <see cref="Uri"/>
+        ///     by returning the value of the <see cref="UriBuilder.Uri"/> property.
+        /// </summary>
+        /// <param name="builder">The builder.</param>
+        /// <returns>
+        ///     The <see cref="Uri"/> built by the builder or <see langword="null"/> if
+        ///     <paramref name="builder"/> is <see langword="null"/>.
+        /// </returns>
+        /// <exception cref="UriFormatException">
+        ///     The URI constructed by the <see cref="UriBuilder"/> properties is invalid.
+        /// </exception>
+        // TODO: [NotNullIfNotNull(nameof(builder))]
+        public static implicit operator Uri?(UrlBuilder builder) =>
+            builder?.Uri;
+
     }
 
 }

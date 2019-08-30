@@ -221,7 +221,7 @@
             {
                 var from = StatusCodeToString(From);
                 var to = StatusCodeToString(To);
-                return $"{from}-{to}";
+                return $"[{from}, {to}]";
             }
             
             static string StatusCodeToString(int? statusCode) =>

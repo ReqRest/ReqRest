@@ -11,18 +11,19 @@
     {
 
         /// <summary>
-        ///     Executes the specified <paramref name="configure"/> function to modify the
-        ///     <see cref="IRequestUriBuilder.RequestUri"/> with a new <see cref="UrlBuilder"/>
-        ///     instance.
+        ///     Executes the specified <paramref name="configure"/> method which allows configuring the
+        ///     <see cref="IRequestUriBuilder.RequestUri"/> via an <see cref="UrlBuilder"/>.
         /// </summary>
         /// <typeparam name="T">The type of the builder.</typeparam>
         /// <param name="builder">The builder.</param>
         /// <param name="configure">
-        ///     A function which receives a new <see cref="UrlBuilder"/> instance created on
-        ///     the builder's current <see cref="IRequestUriBuilder.RequestUri"/>.
-        ///     The function can then use the builder to modify the request URI.
+        ///     A method which receives a new <see cref="UrlBuilder"/> instance created from the
+        ///     current <see cref="IRequestUriBuilder.RequestUri"/>.
+        /// 
+        ///     The <see cref="Uri"/> which was built with the provided <see cref="UrlBuilder"/> is
+        ///     used as the new <see cref="IRequestUriBuilder.RequestUri"/>.
         /// </param>
-        /// <returns></returns>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="builder"/>
         ///     * <paramref name="configure"/>
@@ -34,6 +35,41 @@
         [DebuggerStepThrough]
         public static T ConfigureRequestUri<T>(this T builder, Action<UrlBuilder> configure) where T : IRequestUriBuilder
         {
+            _ = configure ?? throw new ArgumentNullException(nameof(configure));
+            
+            return builder.ConfigureRequestUri(urlBuilder =>
+            {
+                configure(urlBuilder);
+                return urlBuilder;
+            });
+        }
+
+        /// <summary>
+        ///     Executes the specified <paramref name="configure"/> function which allows configuring the
+        ///     <see cref="IRequestUriBuilder.RequestUri"/> via an <see cref="UrlBuilder"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the builder.</typeparam>
+        /// <param name="builder">The builder.</param>
+        /// <param name="configure">
+        ///     A function which receives a new <see cref="UrlBuilder"/> instance created from the
+        ///     current <see cref="IRequestUriBuilder.RequestUri"/>.
+        /// 
+        ///     The resulting <see cref="Uri"/> is used as the new <see cref="IRequestUriBuilder.RequestUri"/>.
+        ///
+        ///     Hint: You can simply return the <see cref="UrlBuilder"/>, because it gets implicitly converted
+        ///     to an <see cref="Uri"/>.
+        /// </param>
+        /// <returns>The specified <paramref name="builder"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="builder"/>
+        ///     * <paramref name="configure"/>
+        /// </exception>
+        /// <exception cref="UriFormatException">
+        ///     The <see cref="Uri"/> which was built by the <paramref name="configure"/> function
+        ///     had an invalid format.
+        /// </exception>
+        public static T ConfigureRequestUri<T>(this T builder, Func<UrlBuilder, Uri?> configure) where T : IRequestUriBuilder
+        {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = configure ?? throw new ArgumentNullException(nameof(configure));
 
@@ -41,8 +77,8 @@
                 ? new UrlBuilder()
                 : new UrlBuilder(builder.RequestUri);
 
-            configure(urlBuilder);
-            return builder.SetRequestUri(urlBuilder.Uri);
+            var uri = configure(urlBuilder);
+            return builder.SetRequestUri(uri);
         }
 
         /// <summary>
