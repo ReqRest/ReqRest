@@ -22,10 +22,6 @@
     <ProjectReference Include="..\ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Internal\Serializers" />
-  </ItemGroup>
-
   <Import Project="..\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
 
 </Project>
