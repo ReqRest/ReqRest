@@ -3,7 +3,7 @@ branch to read the description of the current release._
 
 # ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
 
-**Build beautiful, fully typed REST API wrappers that feel like a normal C# library!**
+**Build beautiful, fully typed REST API clients that feel like a normal C# library!**
 
 ![Basic Client Usage](./.github/img/BasicClientUsage.gif)
 
