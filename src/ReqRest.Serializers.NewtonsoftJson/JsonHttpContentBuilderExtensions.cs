@@ -1,7 +1,6 @@
 ﻿namespace ReqRest.Serializers.NewtonsoftJson
 {
     using System;
-    using System.Net.Http;
     using System.Text;
     using ReqRest.Builders;
 

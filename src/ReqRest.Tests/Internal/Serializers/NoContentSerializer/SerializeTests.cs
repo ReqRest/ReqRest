@@ -11,11 +11,11 @@
     {
 
         [Fact]
-        public void Throws_InvalidOperationException_When_Serializing_Other_Type()
+        public void Throws_NotSupportedException_When_Not_Serializing_NoContent()
         {
             var serializer = new NoContentSerializer();
             Action testCode = () => serializer.Serialize(123, null);
-            testCode.Should().Throw<HttpContentSerializationException>().WithInnerException<InvalidOperationException>();
+            testCode.Should().Throw<HttpContentSerializationException>().WithInnerException<NotSupportedException>();
         }
 
         [Fact]

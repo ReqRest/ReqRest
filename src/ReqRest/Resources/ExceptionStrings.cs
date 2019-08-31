@@ -1,7 +1,9 @@
 ﻿namespace ReqRest.Resources
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
     using ReqRest.Http;
 
     internal static class ExceptionStrings
@@ -21,9 +23,6 @@
             "The configured HttpClient provider function returned null. " +
             "Ensure that the function returns a valid HttpClient instance.";
 
-        public static string NoContentSerializer_CanOnlySerializeNoContentType() =>
-            "The NoContentSerializer can only (de-)serialize the NoContent type.";
-
         public static string ResponseTypeInfo_MustProvideAtLeastOneStatusCode() =>
             "At least one status code or status code range must be provided.";
 
@@ -42,6 +41,9 @@
                 $"The conflicting status codes are:\n" +
                 $"{conflictingStr}";
         }
+
+        public static string Serializer_CanOnlyDeserialize(Type type) =>
+            $"The serializer can only deserialize objects of type {type.FullName}.";
 
     }
 
