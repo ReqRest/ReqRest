@@ -7,7 +7,7 @@
 * **[Internal / Breaking]** The internally used `NoContentSerializer` now throws a `NotSupportedException` instead of an `InvalidOperationException` when an unsupported method gets called by the user. This is an uncommon scenario that is not expected to happen in common usage of the library.
 * Added the `ApiRequest.FetchAsync` methods which combine `FetchResponseAsync` and `FetchResourceAsync` by returning both the response and a deserialized resource for development convenience.
 * Added the `ApiRequest.ReceiveString` and `ApiRequest.ReceiveByteArray` methods.
-* Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar")`.
+* Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar"))`.
 * The `UrlBuilder` can now be implicitly converted to an `Uri`.
 * Updated the XML documentation, specifically of the builder interfaces and the `ApiRequest` and `ApiResponse` classes.
 
