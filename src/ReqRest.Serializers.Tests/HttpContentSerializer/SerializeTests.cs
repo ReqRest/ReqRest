@@ -12,13 +12,11 @@
     {
 
         [Fact]
-        public async Task Serializes_NoContent_To_Empty_HttpContent()
+        public void Serializes_NoContent_To_Null()
         {
             var serializer = new MockedHttpContentSerializer();
             var httpContent = serializer.Serialize(new NoContent(), encoding: null);
-            var bytes = await httpContent.ReadAsByteArrayAsync();
-
-            bytes.Should().BeEmpty();
+            httpContent.Should().BeNull();
         }
 
         [Fact]
