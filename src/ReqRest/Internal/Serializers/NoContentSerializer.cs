@@ -29,7 +29,7 @@
         protected override Task<object?> DeserializeCore(HttpContent httpContent, Type contentType) =>
             throw new NotSupportedException();
 
-        protected override HttpContent SerializeCore(object? content, Encoding encoding) =>
+        protected override HttpContent? SerializeCore(object? content, Encoding encoding) =>
             throw new NotSupportedException();
 
     }
