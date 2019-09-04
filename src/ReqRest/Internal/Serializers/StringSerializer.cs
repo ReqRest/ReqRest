@@ -26,7 +26,7 @@
 
         // This should never be called, because this class is internal.
         // If that ever happens, it's forced by the user.
-        protected override HttpContent SerializeCore(object? content, Encoding encoding) =>
+        protected override HttpContent? SerializeCore(object? content, Encoding encoding) =>
             throw new NotSupportedException();
 
         protected override async Task<object?> DeserializeCore(HttpContent httpContent, Type contentType)

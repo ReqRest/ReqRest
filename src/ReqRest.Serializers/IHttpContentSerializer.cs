@@ -27,12 +27,13 @@
         ///     If <see langword="null"/>, a default encoding is used.
         /// </param>
         /// <returns>
-        ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>.
+        ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>
+        ///     or <see langword="null"/>.
         /// </returns>
         /// <exception cref="HttpContentSerializationException">
         ///     Serializing the <paramref name="content"/> failed.
         /// </exception>
-        HttpContent Serialize(object? content, Encoding? encoding);
+        HttpContent? Serialize(object? content, Encoding? encoding);
 
     }
 

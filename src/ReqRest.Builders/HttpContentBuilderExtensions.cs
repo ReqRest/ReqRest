@@ -194,7 +194,7 @@
         ///     * <paramref name="builder"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetContent<T>(this T builder, HttpContent content) where T : IHttpContentBuilder =>
+        public static T SetContent<T>(this T builder, HttpContent? content) where T : IHttpContentBuilder =>
             builder.Configure(builder => builder.Content = content);
 
         #endregion
