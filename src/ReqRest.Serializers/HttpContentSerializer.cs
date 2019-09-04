@@ -48,7 +48,7 @@
         {
             if (content is NoContent)
             {
-                return new ByteArrayContent(Array.Empty<byte>());
+                return null;
             }
             else
             {

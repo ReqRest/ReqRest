@@ -10,6 +10,7 @@
 * Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar"))`.
 * The `UrlBuilder` can now be implicitly converted to an `Uri`.
 * Fixed several nullable annotations dealing with setting or serializing an `HttpContent`. This mainly concerns the `HttpContentSerializer` and `SetHttpContent` method.
+* The `HttpContentSerializer` now returns `null` when serializing `NoContent`.
 * Updated the XML documentation, specifically of the builder interfaces and the `ApiRequest` and `ApiResponse` classes.
 
 ## v0.4.1

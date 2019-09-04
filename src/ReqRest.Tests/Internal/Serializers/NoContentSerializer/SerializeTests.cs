@@ -19,11 +19,11 @@
         }
 
         [Fact]
-        public async Task Serializes_NoContent()
+        public void Serializes_NoContent()
         {
             var serializer = new NoContentSerializer();
             var content = serializer.Serialize(new NoContent(), null);
-            (await content.ReadAsByteArrayAsync()).Length.Should().Be(0);
+            content.Should().BeNull();
         }
 
     }
