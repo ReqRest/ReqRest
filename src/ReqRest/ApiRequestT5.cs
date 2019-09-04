@@ -174,14 +174,14 @@
         /// <seealso cref="FetchResourceAsync(HttpCompletionOption, CancellationToken)"/>
         /// <example>
         ///     <code>
-        ///         var (response, resource) = await request.FetchAsync();
-        ///         
-        ///         // Note: The above is equivalent to calling these two lines manually:
-        ///         var response = await request.FetchResponseAsync();
-        ///         var resource = await response.DeserializeResourceAsync();
-        ///         
-        ///         Console.WriteLine($"Received status {response.StatusCode}");
-        ///         Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
+        ///     var (response, resource) = await request.FetchAsync();
+        ///     
+        ///     // Note: The above is equivalent to calling these two lines manually:
+        ///     var response = await request.FetchResponseAsync();
+        ///     var resource = await response.DeserializeResourceAsync();
+        ///     
+        ///     Console.WriteLine($"Received status {response.StatusCode}");
+        ///     Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
         ///     </code>
         /// </example>
         [DebuggerStepThrough]
@@ -225,11 +225,11 @@
         /// </remarks>
         /// <example>
         ///     <code>
-        ///         var response = await request.FetchResponseAsync();
-        ///         var resource = await response.DeserializeResourceAsync();
-        ///         
-        ///         Console.WriteLine($"Received status {response.StatusCode}");
-        ///         Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
+        ///     var response = await request.FetchResponseAsync();
+        ///     var resource = await response.DeserializeResourceAsync();
+        ///     
+        ///     Console.WriteLine($"Received status {response.StatusCode}");
+        ///     Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
         ///     </code>
         /// </example>
         /// <seealso cref="FetchAsync(HttpCompletionOption, CancellationToken)"/>
@@ -283,8 +283,8 @@
         /// </remarks>
         /// <example>
         ///     <code>
-        ///         var resource = await response.FetchResourceAsync();
-        ///         Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
+        ///     var resource = await response.FetchResourceAsync();
+        ///     Console.WriteLine($"Received a resource of type {resource.Value?.GetType()}");
         ///     </code>
         /// </example>
         /// <seealso cref="FetchAsync(HttpCompletionOption, CancellationToken)"/>

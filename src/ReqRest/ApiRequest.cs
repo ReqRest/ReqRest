@@ -153,8 +153,8 @@
         /// </remarks>
         /// <example>
         ///     <code>
-        ///         var response = await request.FetchResponseAsync();
-        ///         Console.WriteLine($"Received status {response.StatusCode}");
+        ///     var response = await request.FetchResponseAsync();
+        ///     Console.WriteLine($"Received status {response.StatusCode}");
         ///     </code>
         /// </example>
         [DebuggerStepThrough]
