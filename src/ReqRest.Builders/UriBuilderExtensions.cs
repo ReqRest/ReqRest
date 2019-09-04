@@ -197,7 +197,7 @@
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
-        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     a set of query parameters (similar to <c>&amp;key=value</c>) and appends them at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameters starts with one or
@@ -222,7 +222,7 @@
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
-        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     a set of query parameters (similar to <c>&amp;key=value</c>) and appends them at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameters starts with one or
@@ -247,7 +247,7 @@
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
-        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     a set of query parameters (similar to <c>&amp;key=value</c>) and appends them at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameters starts with one or
@@ -276,7 +276,7 @@
 
         /// <summary>
         ///     Formats the specified parameters consisting of a key and value into
-        ///     a set of query parameters (similar to <c>&amp;key=value)</c> and appends them at the
+        ///     a set of query parameters (similar to <c>&amp;key=value</c>) and appends them at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameters starts with one or
@@ -311,7 +311,7 @@
 
         /// <summary>
         ///     Formats the specified <paramref name="key"/> and <paramref name="value"/> into
-        ///     a query parameter (similar to <c>&amp;key=value)</c> and appends it at the end
+        ///     a query parameter (similar to <c>&amp;key=value</c>) and appends it at the end
         ///     of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameter starts with one or

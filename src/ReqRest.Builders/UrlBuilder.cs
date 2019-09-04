@@ -84,7 +84,7 @@
 
         /// <summary>
         ///     Formats the specified parameter consisting of a key and value into
-        ///     a query parameters (similar to <c>&amp;key=value)</c> and appends it at the
+        ///     a query parameters (similar to <c>&amp;key=value</c>) and appends it at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameter starts with one or
@@ -105,7 +105,7 @@
 
         /// <summary>
         ///     Formats the specified parameter consisting of a key and value into
-        ///     a query parameters (similar to <c>&amp;key=value)</c> and appends it at the
+        ///     a query parameters (similar to <c>&amp;key=value</c>) and appends it at the
         ///     end of the <see cref="UriBuilder.Query"/> string.
         ///     
         ///     If the query ends with or if the final parameter starts with one or
