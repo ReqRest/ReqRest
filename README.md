@@ -109,9 +109,10 @@ the whole library is split into multiple packages from which you can choose:
 
 ## Getting Started
 
-Detailed guides will be written once the library is more or less stable.
+A documentation is in the process of being written.
+You can view the documentation [here](https://manuelroemer.github.io/ReqRest-Documentation).
 
-For now, have a look at `src/DemoApplication`.
+While the documentation is incomplete, you can have a look at `src/DemoApplication` in this repository.
 In there, you can find a functional demo app which uses ReqRest to wrap the [JSON Placeholder](https://jsonplaceholder.typicode.com/)
 API.
 I recommend to look at the following files (in order) and then just follow the comments:
