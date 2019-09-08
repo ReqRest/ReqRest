@@ -3,8 +3,9 @@ branch to read the description of the current release._
 
 # ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
 
-A .NET library for creating fully typed wrappers for RESTful APIs with minimal effort.
+**Build beautiful, fully typed REST API clients that feel like a normal C# library!**
 
+![Basic Client Usage](./.github/img/BasicClientUsage.gif)
 
 ## What is ReqRest?
 
@@ -19,7 +20,7 @@ Let's assume that we want to wrap a REST API which, amongst others, offers the f
 By using ReqRest, you can create a fully typed API Client which allows you to project the REST API into plain C#:
 
 ```csharp
-var client = new DemoApiClient();
+var client = new DemoClient();
 
 // Make a request to get all Todo resources of the user with the ID 1.
 var resource = await client.Todos().Get().FetchResourceAsync();
@@ -40,9 +41,9 @@ resource.Match(
 The code which is required to recreate this example is minimal (DTO classes are removed for brevity).
 
 ```csharp
-class DemoApiClient : RestClient
+class DemoClient : RestClient
 {
-    public DemoApiClient() : base(new RestClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
+    public DemoClient() : base(new RestClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
 
     public TodosInterface Todos() =>
         new TodosInterface();
@@ -56,7 +57,7 @@ class TodosInterface : RestInterface
     // The '/' operator simply joins the two URL parts to the following: http://demo-api.com/todos
     // Any request created by this class (e.g. the Get() request created below) uses the URL which is built here.
     protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
-            baseUrl / "todos";
+        baseUrl / "todos";
     
     // The task of a RestInterface class is the creation of requests to that interface.
     // ReqRest follows a declarative approach.
@@ -108,9 +109,10 @@ the whole library is split into multiple packages from which you can choose:
 
 ## Getting Started
 
-Detailed guides will be written once the library is more or less stable.
+A documentation is in the process of being written.
+You can view the documentation [here](https://manuelroemer.github.io/ReqRest-Documentation).
 
-For now, have a look at `src/DemoApplication`.
+While the documentation is incomplete, you can have a look at `src/DemoApplication` in this repository.
 In there, you can find a functional demo app which uses ReqRest to wrap the [JSON Placeholder](https://jsonplaceholder.typicode.com/)
 API.
 I recommend to look at the following files (in order) and then just follow the comments:

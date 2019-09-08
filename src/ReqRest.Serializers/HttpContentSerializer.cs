@@ -1,7 +1,6 @@
 ﻿namespace ReqRest.Serializers
 {
     using System;
-    using System.Globalization;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -45,11 +44,11 @@
         protected virtual Encoding DefaultEncoding => Encoding.UTF8;
 
         /// <inheritdoc/>
-        public virtual HttpContent Serialize(object? content, Encoding? encoding)
+        public virtual HttpContent? Serialize(object? content, Encoding? encoding)
         {
             if (content is NoContent)
             {
-                return new ByteArrayContent(Array.Empty<byte>());
+                return null;
             }
             else
             {
@@ -57,7 +56,7 @@
             }
         }
 
-        private HttpContent SerializeDefault(object? content, Encoding? encoding)
+        private HttpContent? SerializeDefault(object? content, Encoding? encoding)
         {
             try
             {
@@ -83,9 +82,10 @@
         ///     to an <see cref="HttpContent"/> which requires one.
         /// </param>
         /// <returns>
-        ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>.
+        ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>
+        ///     or <see langword="null"/>.
         /// </returns>
-        protected abstract HttpContent SerializeCore(object? content, Encoding encoding);
+        protected abstract HttpContent? SerializeCore(object? content, Encoding encoding);
 
         /// <inheritdoc/>
         public virtual async Task<object?> DeserializeAsync(HttpContent? httpContent, Type contentType)

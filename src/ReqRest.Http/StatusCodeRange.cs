@@ -209,9 +209,9 @@
         public override string ToString()
         {
             // Goal:
-            // Represent the range like this:      200-404
+            // Represent the range like this:      [200, 404]
             // If the range only spans one code:   404
-            // If From/To is null, replace with *: 200-*   or   *
+            // If From/To is null, replace with *: [200, *]   or   *
             if (IsSingleStatusCode || this == All)
             {
                 var code = StatusCodeToString(From);
@@ -221,7 +221,7 @@
             {
                 var from = StatusCodeToString(From);
                 var to = StatusCodeToString(To);
-                return $"{from}-{to}";
+                return $"[{from}, {to}]";
             }
             
             static string StatusCodeToString(int? statusCode) =>

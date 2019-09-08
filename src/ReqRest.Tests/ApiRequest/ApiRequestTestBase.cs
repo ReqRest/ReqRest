@@ -10,13 +10,13 @@ namespace ReqRest.Tests.ApiRequest
 
         protected dynamic CreateDynamicRequest() =>
             CreateRequest();
-        
+
         protected dynamic CreateDynamicRequest(Func<HttpClient> httpClientProvider) =>
             CreateRequest(httpClientProvider);
-        
+
         protected TRequest CreateRequest() =>
             CreateRequest(() => null);
-        
+
         protected abstract TRequest CreateRequest(Func<HttpClient> httpClientProvider);
 
     }

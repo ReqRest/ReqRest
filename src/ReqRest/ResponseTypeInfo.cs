@@ -84,8 +84,7 @@
         /// <returns>A string representing this instance.</returns>
         public override string ToString()
         {
-            var ranges = StatusCodes.Select(r => $"({r})");
-            return $"{ResponseType.Name}: {string.Join(", ", ranges)}";
+            return $"{ResponseType.Name}: {string.Join(", ", StatusCodes)}";
         }
 
     }

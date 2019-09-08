@@ -8,6 +8,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using ReqRest.Builders;
+    using ReqRest.Internal;
     using ReqRest.Resources;
     using ReqRest.Serializers;
 

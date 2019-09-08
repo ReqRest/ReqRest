@@ -77,7 +77,7 @@
         }
 
         /// <inheritdoc/>
-        protected override HttpContent SerializeCore(object? resource, Encoding encoding)
+        protected override HttpContent? SerializeCore(object? resource, Encoding encoding)
         {
             using var stringWriter = new StringWriter();
             using var jsonWriter = new JsonTextWriter(stringWriter);

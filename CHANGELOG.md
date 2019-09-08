@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.4.2
+
+* **[Breaking]** Updated the `StatusCodeRange.ToString()` method to return strings similar to `[-200, 300]`, so that negative status codes look better (before, strings like `-300--200` were possible).
+* **[Breaking]** Updated the `ResponseTypeInfo.ToString()` method to respect the new status code range string format.
+* **[Internal / Breaking]** The internally used `NoContentSerializer` now throws a `NotSupportedException` instead of an `InvalidOperationException` when an unsupported method gets called by the user. This is an uncommon scenario that is not expected to happen in common usage of the library.
+* Added the `ApiRequest.FetchAsync` methods which combine `FetchResponseAsync` and `FetchResourceAsync` by returning both the response and a deserialized resource for development convenience.
+* Added the `ApiRequest.ReceiveString` and `ApiRequest.ReceiveByteArray` methods.
+* Added the `RequestUriBuilderExtensions.ConfigureRequestUri(Func<UrlBuilder, Uri?>)` method to support more fluent URI configuration (from `builder.ConfigureRequestUri(url => url = url & ("foo", "bar"))` to `builder.ConfigureRequestsUri(url => url & ("foo", "bar"))`.
+* The `UrlBuilder` can now be implicitly converted to an `Uri`.
+* Fixed several nullable annotations dealing with setting or serializing an `HttpContent`. This mainly concerns the `HttpContentSerializer` and `SetHttpContent` method.
+* The `HttpContentSerializer` now returns `null` when serializing `NoContent`.
+* Updated the XML documentation, specifically of the builder interfaces and the `ApiRequest` and `ApiResponse` classes.
+
 ## v0.4.1
 
 * **[Package]** Fixed the `ReqRest` package description being wrongly formatted.
