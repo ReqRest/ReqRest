@@ -9,6 +9,7 @@ dependencies or are simply not compatible with .NET Standard 2.0, e.g. the `ReqR
 
 * **[Breaking / Package]** The multiple `ReqRest.*` packages have been consolidated into the single `ReqRest` package. The namespaces haven't changed, but the old packages are deprecated from this release on.
 * **[Breaking]** Moved the `NoContent` type from the `ReqRest.Serializers` namespace to `ReqRest.Http`.
+* Extended the `ReqRest.Http.MediaType` constants with common values.
 * The `NoContent.ToString()` method is no longer overridden and returns .NET's default `object.ToString()` format.
 
 
