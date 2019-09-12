@@ -6,7 +6,7 @@
     using FluentAssertions;
     using ReqRest.Http;
     using ReqRest.Serializers;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
     using Xunit;
 
     public class DeserializeAsyncTests

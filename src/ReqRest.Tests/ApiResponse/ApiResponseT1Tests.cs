@@ -6,7 +6,7 @@ namespace ReqRest.Tests.ApiResponse
     using System.Threading.Tasks;
     using ReqRest;
     using ReqRest.Serializers;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
     using Xunit;
 
     public class ApiResponseT1Tests : ApiResponseTests

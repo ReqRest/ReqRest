@@ -1,4 +1,4 @@
-namespace ReqRest.Tests
+namespace ReqRest.Tests.Shared
 {
     using System;
     using System.Net.Http;

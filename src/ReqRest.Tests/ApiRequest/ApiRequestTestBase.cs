@@ -3,7 +3,7 @@ namespace ReqRest.Tests.ApiRequest
     using System;
     using System.Net.Http;
     using ReqRest;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
 
     public abstract partial class ApiRequestTestBase<TRequest> where TRequest : ApiRequestBase
     {

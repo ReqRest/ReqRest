@@ -8,7 +8,7 @@ namespace ReqRest.Tests.ApiResponse
     using ReqRest;
     using ReqRest.Http;
     using ReqRest.Serializers;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
 
     public abstract class ApiResponseTestBase
     {

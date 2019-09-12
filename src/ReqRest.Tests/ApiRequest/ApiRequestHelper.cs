@@ -5,7 +5,7 @@
     using ReqRest.Builders;
     using ReqRest;
     using ReqRest.Serializers.NewtonsoftJson;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
 
     /// <summary>
     ///     Provides helper methods for dealing with the ApiRequest{...} classes, e.g. methods

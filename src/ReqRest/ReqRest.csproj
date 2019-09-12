@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,12 +13,6 @@ Under the hood, ReqRest follows one very simple core philosophy - to be nothing 
 
     <ItemGroup>
         <PackageReference Include="NCommons.Monads" Version="1.3.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\ReqRest.Builders\ReqRest.Builders.csproj" />
-        <ProjectReference Include="..\ReqRest.Http\ReqRest.Http.csproj" />
-        <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
     </ItemGroup>
 
 </Project>

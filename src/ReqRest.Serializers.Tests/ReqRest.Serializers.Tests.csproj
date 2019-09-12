@@ -17,9 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReqRest.Tests.Shared\ReqRest.Tests.Shared.csproj" />
     <ProjectReference Include="..\ReqRest\ReqRest.csproj" />
   </ItemGroup>
-
-  <Import Project="..\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
 
 </Project>

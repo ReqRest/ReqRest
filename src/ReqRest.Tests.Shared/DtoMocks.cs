@@ -1,4 +1,4 @@
-namespace ReqRest.Tests
+namespace ReqRest.Tests.Shared
 {
 
     // Some tests require certain types for DTOs, but without any properties.

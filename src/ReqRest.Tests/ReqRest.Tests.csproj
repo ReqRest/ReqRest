@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
@@ -18,10 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReqRest\ReqRest.csproj" />
-    <ProjectReference Include="..\ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj" />
+    <ProjectReference Include="../ReqRest.Tests.Shared/ReqRest.Tests.Shared.csproj" />
+    <ProjectReference Include="../ReqRest/ReqRest.csproj" />
+    <ProjectReference Include="../ReqRest.Serializers.NewtonsoftJson/ReqRest.Serializers.NewtonsoftJson.csproj" />
   </ItemGroup>
-
-  <Import Project="..\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
 
 </Project>
