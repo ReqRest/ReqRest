@@ -1,13 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Description>
-ReqRest is a .NET library dealing with RESTful HTTP APIs.
-At its core, it provides the means for creating a fully typed wrapper for a RESTful API with minimal effort.
+An extension package for the ReqRest library.
 
-This package provides a JSON serializer based on the Newtonsoft.Json library.
-    </Description>
+This package provides a JSON serializer based on the Newtonsoft.Json library.</Description>
   </PropertyGroup>
 
   <ItemGroup>
