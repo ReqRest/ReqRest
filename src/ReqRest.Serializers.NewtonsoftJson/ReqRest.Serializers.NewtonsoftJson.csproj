@@ -16,7 +16,6 @@ This package provides a JSON serializer based on the Newtonsoft.Json library.
 
   <ItemGroup>
     <ProjectReference Include="..\ReqRest\ReqRest.csproj" />
-    <ProjectReference Include="..\ReqRest.Serializers\ReqRest.Serializers.csproj" />
   </ItemGroup>
 
 </Project>

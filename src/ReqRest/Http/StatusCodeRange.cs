@@ -2,7 +2,7 @@
 {
     using System;
     using System.ComponentModel;
-    using ReqRest.Http.Resources;
+    using ReqRest.Resources;
 
     /// <summary>
     ///     Represents a range between two HTTP status codes and provides methods for determining

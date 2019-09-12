@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
+    using ReqRest.Http;
     using ReqRest.Serializers;
 
     /// <summary>

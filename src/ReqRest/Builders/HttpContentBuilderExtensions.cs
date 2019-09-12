@@ -7,7 +7,8 @@
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
-    using ReqRest.Builders.Resources;
+    using ReqRest.Resources;
+    using ReqRest.Internal;
 
     /// <summary>
     ///     Defines the static methods for an <see cref="IHttpContentBuilder"/> provided

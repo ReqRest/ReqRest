@@ -3,11 +3,11 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Description>
-ReqRest is a .NET library dealing with RESTful HTTP APIs.
-At its core, it provides the means for creating a fully typed wrapper for a RESTful API with minimal effort.
+ReqRest allows you to easily project a RESTful HTTP API to a C#/VB library that feels and behaves like .NET. If you use ReqRest to wrap your REST API, you will end up with a library that is fully typed, has IntelliSense and compiler support and is thus incredibly easy to use.
 
-This package provides the members for creating a custom REST API Client using the full power of
-the ReqRest libraries.
+In addition, ReqRest makes this process as simple as possible. You will be able to leverage a fluent method style for defining how the REST API behaves for different scenarios, i.e. what input it expects and what it returns.
+
+Under the hood, ReqRest follows one very simple core philosophy - to be nothing more but an enhancement of the .NET Framework. ReqRest tries to utilize .NET's types whenever possible. As a result, most members in the library are nothing more but a convenient, specialized way to create HTTP requests using .NET's HttpClient API. As a result, libraries built with ReqRest are incredibly adaptable. Whatever you can do with an HttpClient, you can do with ReqRest. Your imagination is your limit! 
         </Description>
     </PropertyGroup>
 

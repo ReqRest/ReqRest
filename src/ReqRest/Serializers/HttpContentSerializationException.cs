@@ -2,7 +2,7 @@
 {
     using System;
     using System.Runtime.Serialization;
-    using ReqRest.Serializers.Resources;
+    using ReqRest.Resources;
 
     /// <summary>
     ///     An exception that gets thrown by various members inside the library when an

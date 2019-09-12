@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Serializers.Tests.NoContent
 {
     using FluentAssertions;
+    using ReqRest.Http;
     using ReqRest.Serializers;
     using Xunit;
 

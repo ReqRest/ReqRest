@@ -4,7 +4,8 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using ReqRest.Serializers.Resources;
+    using ReqRest.Http;
+    using ReqRest.Resources;
 
     /// <summary>
     ///     An abstract base class for implementers of the <see cref="IHttpContentSerializer"/> and

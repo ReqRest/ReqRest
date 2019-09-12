@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Net.Http.Headers;
+    using ReqRest.Internal;
 
     /// <summary>
     ///     Defines the  static methods for an <see cref="IHttpHeadersBuilder"/> provided
