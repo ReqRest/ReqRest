@@ -11,6 +11,7 @@ dependencies or are simply not compatible with .NET Standard 2.0, e.g. the `ReqR
 * **[Breaking]** Moved the `NoContent` type from the `ReqRest.Serializers` namespace to `ReqRest.Http`.
 * Extended the `ReqRest.Http.MediaType` constants with common values.
 * The `NoContent.ToString()` method is no longer overridden and returns .NET's default `object.ToString()` format.
+* Updated the XML documentation.
 
 
 ## v0.4.2

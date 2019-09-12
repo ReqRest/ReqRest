@@ -112,7 +112,7 @@
         ///     <paramref name="from"/> and ends at <paramref name="to"/>.
         /// </summary>
         /// <param name="from">
-        ///     the status code where the range starts.
+        ///     The status code where the range starts.
         ///     
         ///     If <see langword="null"/>, every single status code before
         ///     <paramref name="to"/> is covered by this range.
