@@ -18,9 +18,9 @@
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/manuelroemer/ReqRest</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/manuelroemer/ReqRest</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/manuelroemer/ReqRest/blob/dev/CHANGELOG.md</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/ReqRest/ReqRest</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ReqRest/ReqRest</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ReqRest/ReqRest/blob/dev/CHANGELOG.md</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
