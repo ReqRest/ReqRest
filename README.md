@@ -30,11 +30,12 @@ feel like plain C#.
 # Table of Contents
 
 1. [Features](./README.md#Features)
-2. [Installation](./README.md#installation)
-3. [Getting Started](./README.md#getting-started)
-4. [Documentation](./README.md#documentation)
-5. [Contributing](./README.md#contributing)
-6. [Build, Code and Repository Information](./README.md#build-code-and-repository-information)
+2. [A Minimal Working Example](./README.md#a-minimal-working-example)
+3. [Installation](./README.md#installation)
+4. [Getting Started](./README.md#getting-started)
+5. [Documentation](./README.md#documentation)
+6. [Contributing](./README.md#contributing)
+7. [Build, Code and Repository Information](./README.md#build-code-and-repository-information)
    1. [Versioning](./README.md#versioning)
    2. [Git and CI](./README.md#git-and-cicd)
    3. [License](./README.md#license)
@@ -133,6 +134,74 @@ ReqRest supports Nullable Reference Types throughout the whole library.
 
 Every public method of ReqRest is extensively documented via XML comments.
 
+
+# A Minimal Working Example
+
+This section shows what it takes to write a minimal API client with ReqRest.
+This API client will interact with the [JSON Placeholder](https://jsonplaceholder.typicode.com/) API,
+specifically the `GET https://jsonplaceholder.typicode.com/todos` endpoint.
+
+Because this is supposed to just be an example, the code is not explained in detail. Consider checking
+out the [Getting Started](https://reqrest.github.io/articles/getting-started.html) guide to learn
+more about what is happening in this code.
+
+> :information_source: **Note:** 
+>
+> For brevity, the example doesn't show the `TodoItem` class, because it is simply a DTO
+> with four properties.
+
+```csharp
+public class JsonPlaceholderClient : RestClient
+{
+    // For simplicity, define a static config. This should be user-configurable in a real client.
+    private static readonly RestClientConfiguration DefaultConfig = new RestClientConfiguration
+    {
+        BaseUrl = new Uri("https://jsonplaceholder.typicode.com"),
+    };
+
+    public JsonPlaceholderClient() : base(DefaultConfig) { }
+
+    public TodosInterface Todos() => new TodosInterface(this);
+}
+
+public class TodosInterface : RestInterface
+{
+    internal TodosInterface(JsonPlaceholderClient restClient) : base(restClient) { }
+
+    // baseUrl here is the BaseUrl configured in the client above.
+    protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
+        baseUrl / "todos";
+
+    public ApiRequest<IList<TodoItem>> Get() =>
+        BuildRequest()
+            .Get()
+            .Receive<IList<TodoItem>>().AsJson(200);
+}
+```
+
+A lot is happening in this small piece of code. The explanation can be found in the
+[Getting Started](https://reqrest.github.io/articles/getting-started.html) guide.
+The important part is that this is all that you need for creating a client with ReqRest:
+
+```csharp
+JsonPlaceholderClient client = new JsonPlaceholderClient();
+var (response, resource) = await client.Todos().Get().FetchAsync();
+
+// TryGetValue is one of many ways to get to the value that the API returned. 
+if (resource.TryGetValue(out IList<TodoItem> todoItems))
+{
+    Console.WriteLine($"The API returned {todoItems.Count} items!");
+}
+else
+{
+    Console.WriteLine($"The API returned no items. The status code was: {response.StatusCode}.");
+}
+```
+
+In theory, this client could (once extended) be published as a library via NuGet. Everything
+is statically typed and users can simply use your code like any other C# library.
+
+
 # Installation
 
 The library is available on NuGet. Install it via:
@@ -189,7 +258,9 @@ If you have found a bug or have a question or feature request, be sure to
 [open an issue](https://github.com/ReqRest/ReqRest/issues/new). Alternatively, depending on the
 problem, you can create a new Pull Request and manually make your desired changes.
 
-> :warning: If you intend to make any (larger) changes to the code, be sure to open an issue to talk
+> :warning: **Important:**
+> 
+> If you intend to make any (larger) changes to the code, be sure to open an issue to talk
 > about what you are going to do before starting your work, so that we can ensure that the changes
 > are going to have a chance of actually being accepted.
 
