@@ -15,11 +15,15 @@
 
 </div>
 
-# ReqRest 
+# What is ReqRest? 
 
-**Build beautiful, fully typed REST API clients that feel like a normal C# library!**
+ReqRest allows you to easily turn a RESTful Web API into a **fully typed** C# library by using a **declarative, fluent** syntax.
+API clients written with ReqRest have full IntelliSense and compiler support and thus feel like plain C#. 
 
 ![Basic Client Usage](./.github/img/BasicClientUsage.gif)
+
+> An example API client demonstrating ReqRest's IntelliSense support.
+
 
 ## What is ReqRest?
 
