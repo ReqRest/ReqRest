@@ -22,7 +22,7 @@ API clients written with ReqRest have full IntelliSense and compiler support and
 
 ![Basic Client Usage](./.github/img/BasicClientUsage.gif)
 
-> An example API client demonstrating ReqRest's IntelliSense support.
+> An example API call demonstrating ReqRest's IntelliSense support.
 
 
 ## What is ReqRest?
