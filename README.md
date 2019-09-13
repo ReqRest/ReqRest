@@ -17,89 +17,93 @@
 
 # What is ReqRest? 
 
-ReqRest allows you to easily turn a RESTful Web API into a **fully typed** C# library by using a **declarative, fluent** syntax.
-API clients written with ReqRest have full **IntelliSense** and **compiler support** and thus make your REST API feel like plain C#. 
+ReqRest allows you to easily turn a RESTful Web API into a **fully typed** C# library by using a **declarative, fluent**
+syntax. API clients written with ReqRest have full **IntelliSense** and **compiler support** and thus make your REST API
+feel like plain C#. 
 
 ![Basic Client Usage](./.github/img/BasicClientUsage.gif)
 
 > An example API call demonstrating ReqRest's IntelliSense support.
 
 
-## What is ReqRest?
+# Features
 
-At its core, ReqRest allows you to build fully typed REST API Clients.
-Let's assume that we want to wrap a REST API which, amongst others, offers the following endpoint.
+### :heavy_check_mark: Declarative, Fluent API
 
-| Endpoint | Status Code | Response |
-| -------- | ----------- | -------- |
-| `/todos` | `200`     | All TodoItem(s): <br/> `[ { "title": string } ]` |
-|          | `400-599` | Error description: <br/> `{ "message": string }` |
+ReqRest makes it incredibly easy to declare how your API behaves for specific requests. Even special
+API endpoints can easily be wrapped with ReqRest. 
 
-By using ReqRest, you can create a fully typed API Client which allows you to project the REST API into plain C#:
+For example, the fictional API endpoint `GET /todos?page={number}&pageSize={number}` endpoint returns
+a `List<TodoItem>` for the status code `200` and an `ErrorMessage` for status codes between `400`
+and `599`. It can be declared like this:
 
 ```csharp
-var client = new DemoClient();
+public ApiRequest<List<TodoItem>, ErrorMessage> Get(int? page, int? pageSize) =>
+    BuildRequest()
+        .Get()
+        .ConfigureRequestUri(url => 
+            url & ("page", $"{page}") & ("pageSize", $"{pageSize}")
+        )
+        .Receive<List<TodoItem>>().AsJson(forStatusCodes: 200)
+        .Receive<ErrorMessage>().AsJson(forStatusCodes: (400, 599));
+```
 
-// Make a request to get all Todo resources of the user with the ID 1.
-var resource = await client.Todos().Get().FetchResourceAsync();
+### :heavy_check_mark: Convenient API Response Handling
 
-// One of ReqRest's greatest strenghts is that it makes REST APIs feel like C#.
-// You won't have to deal with status codes anymore.
-// Depending on what the API returns, ReqRest automatically parses the correct response type and
-// then lets you continue the work with it.
-//
-// The Match(...) is one way of doing this. There also other methods to do the same, for example TryGetValue<T>(...).
+When interacting with a REST API, dealing with status code is a required, but tedious.
+ReqRest tackles this and makes your life easier by abstracting status codes away for you.
+
+For example, the code in the section above declares that the API returns a `List<TodoItem>` or an
+`ErrorMessage`, depending on the status code.
+Because ReqRest now has all these information, it can do the matching for you when interacting with
+the response:
+
+```csharp
+var (response, resource) = await client.Todos().Get(page: 1, pageSize: 50).FetchAsync();
+
+// Match(...) is only one of many ways to get the actual object that you are interested in.
+// Other possible methods are, for example: GetValue, TryGetValue, GetValueOr, ...
 resource.Match(
-    todoItems => Console.WriteLine($"There are {todoItems.Count()} todo items! First: {todoItems.First().Title}"),
-    error     => Console.WriteLine($"Received an error: {error.Message}."),
-    ()        => Console.WriteLine($"Received an entirely different status code.")
+    todoItems => Console.WriteLine($"There are {todoItems.Count} items!"),
+    errorMsg  => Console.WriteLine($"There was an error: {errorMsg.Message}."),
+    ()        => Console.WriteLine($"Received an unexpected status code: {response.StatusCode}")
 );
 ```
 
-The code which is required to recreate this example is minimal (DTO classes are removed for brevity).
+### :heavy_check_mark: Easy to Extend
+
+Nearly every part of ReqRest can be extended depending on your needs. As a matter of fact, ReqRest's
+code base mainly consists of extension methods. If we can extend it this way, so can you!
+
+Say that your API offers the special `CUSTOM` HTTP Method - you can easily add such functionality to ReqRest:
 
 ```csharp
-class DemoClient : RestClient
-{
-    public DemoClient() : base(new RestClientConfiguration() { BaseUrl = new Uri("http://demo-api.com") }) { }
+public static T Custom<T>(this T builder) where T : IHttpMethodBuilder =>
+    builder.SetMethod(new HttpMethod("CUSTOM"));
 
-    public TodosInterface Todos() =>
-        new TodosInterface();
-}
-
-class TodosInterface : RestInterface
-{
-    public TodosInterface(RestClient restClient) : base(restClient) { }
-    
-    // 'baseUrl' is, in this case, the 'BaseUrl' from the configuration above.
-    // The '/' operator simply joins the two URL parts to the following: http://demo-api.com/todos
-    // Any request created by this class (e.g. the Get() request created below) uses the URL which is built here.
-    protected override UrlBuilder BuildUrl(UrlBuilder baseUrl) =>
-        baseUrl / "todos";
-    
-    // The task of a RestInterface class is the creation of requests to that interface.
-    // ReqRest follows a declarative approach.
-    // You state what the API returns for which status code and ReqRest does everything else for you.
-    public ApiRequest<IList<TodoItem>, Error> Get() =>
-        BuildRequest()
-            .Get()
-            .Receive<IList<TodoItem>>().AsJson(forStatusCodes: 200)
-            .Receive<Error>().AsJson(forStatusCodes: (400, 599)); // All status codes from 400 to 599.
-}
+// Use it like this:
+BuildRequest()
+    .Custom()
+    .Receive<Foo>().AsJson(forStatusCode: 200);
 ```
 
-The example above displays the most important features of ReqRest.
-This is a very simple example, but ReqRest also supports more complex scenarios.
-For example, a fictional endpoint like `POST /users/123/todos` can easily be wrapped with ReqRest, resulting in the following code:
-`client.Users(123).Todos().Post(new TodoItem(...))`.
+### :heavy_check_mark: It's Just .NET
 
-This is not everything though. All in all, ReqRest provides a lot of features which will make your life easier
-when interacting with REST APIs.
+One of ReqRest's core philosophies is to simply be a wrapper around .NET's `HttpClient` API.
+Anything that you can do with an `HttpClient` is also possible with ReqRest.
 
-For a thorough overview, read through the documentation and advanced examples or have a look at the example projects.
+For example, the `ApiRequest` class is nothing else but a decorator around .NET's `HttpRequestMessage`
+class. As a result, you have full access to the underlying properties. No magic, no nonsense.
 
+### :heavy_check_mark: C# 8.0 Support
 
-## Installation
+ReqRest supports Nullable Reference Types throughout the whole library.
+
+### :heavy_check_mark: Fully Documented
+
+Every public method of ReqRest is extensively documented via XML comments.
+
+# Installation
 
 The library is available on NuGet. Install it via:
 
@@ -113,35 +117,63 @@ dotnet add package ReqRest
 dotnet add package ReqRest.Serializers.NewtonsoftJson # Optional, but desired in most cases. 
 ```
 
-While `ReqRest` is the main package which you will want to install in 99.9% of cases,
-the whole library is split into multiple packages from which you can choose:
+Depending on your needs, you may want to install additional packages which enhance the base
+functionality of ReqRest. In most cases, you will have to install an extra package for JSON support.
+These packages are not shipped with ReqRest by default, because they depend on external libraries
+or are not compatible with .NET Standard 2.0.
 
 | Package Name                         | NuGet Version | Description |
 | ------------------------------------ | ------------- |------------ |
-| `ReqRest`                            | ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) | The main package which contains the required members to wrap a RESTful HTTP API. |
-| `ReqRest.Builders`                   | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Builders.svg) | Provides builders and builder extension methods which enable fluent configuration of classes like `HttpRequestMessage`. |
-| `ReqRest.Http`                       | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Http.svg) | Contains constants and members that are missing from `System.Net.Http`. |
-| `ReqRest.Serializers`                | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.svg) | Provides the base members for serializers that are used by the library. |
-| `ReqRest.Serializers.NewtonsoftJson` | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.NewtonsoftJson.svg) | Provides a JSON (de-)serializer and integration methods for the `ReqRest` package. Uses the `Newtonsoft.Json` for the JSON (de-)serialization. |
+| `ReqRest`                            | ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) | The main package which contains ReqRest's most important members. |
+| `ReqRest.Serializers.NewtonsoftJson` | ![Nuget](https://img.shields.io/nuget/v/ReqRest.Serializers.NewtonsoftJson.svg) | Enhances ReqRest with JSON support using the `Newtonsoft.Json` library. |
 
 
-## Getting Started
+# Getting Started
 
-A documentation is in the process of being written.
-You can view the documentation [here](https://ReqRest.github.io).
+There are multiple ways for getting started with ReqRest.
 
-While the documentation is incomplete, you can have a look at `src/DemoApplication` in this repository.
-In there, you can find a functional demo app which uses ReqRest to wrap the [JSON Placeholder](https://jsonplaceholder.typicode.com/)
-API.
-I recommend to look at the following files (in order) and then just follow the comments:
+You should definitely check out the [Getting Started Guide](https://reqrest.github.io/articles/getting-started.html)
+in the official documentation.
 
-* `Program.cs`
-* `JsonPlaceholderClient.cs`
-* `TodosInterface.cs`
-* `TodoInterface.cs`
+Afterwards, you can have a look at the [Guides](https://reqrest.github.io/articles/guides/index.html).
+In there, you will find in depth tutorials and explanations regarding the usage of ReqRest.
+
+Last but not least, you can always have a look at the [API Documentation](https://reqrest.github.io/api/)
+both online and via Visual Studio's IntelliSense. I spend a lot of time on the XML documentation -
+it is definitely worth your time to have a look into it.
 
 
-## Versioning
+# Documentation
+
+The public documentation is available at [https://reqrest.github.io](https://reqrest.github.io).
+
+This documentation is generated as part of the build process and stored in a separate repository
+available at [https://github.com/ReqRest/ReqRest-Documentation](https://github.com/ReqRest/ReqRest-Documentation).
+If you are interested in updating the documentation, be sure to have a look into that repository.
+
+
+# Contributing
+
+Any kind of contribution is welcome! 
+If you have found a bug or have a question or feature request, be sure to
+[open an issue](https://github.com/ReqRest/ReqRest/issues/new). Alternatively, depending on the
+problem, you can create a new Pull Request and manually make your desired changes.
+
+> :warning: If you intend to make any (larger) changes to the code, be sure to open an issue to talk
+> about what you are going to do before starting your work, so that we can ensure that the changes
+> are going to have a chance of actually being accepted.
+
+For development, C# 8.0 is used. As a result, you will have to download the .NET Core 3.0 SDK and
+at least Visual Studio 2019.
+
+When writing code for the library, please be sure to:
+
+* Follow the established code style of the existing code.
+* Always write XML documentation for public members.
+* Create test cases for new code (there may be exceptions for this point, but view it as a guideline).
+
+
+# Versioning
 
 As long as the library is still in the initial development (i.e. on version `0.x.x`) any
 version increment may signify a breaking change.
@@ -151,25 +183,14 @@ Small breaking changes may only increment the patch number though.
 As soon as the library reaches version `1.0.0` it will follow Semantic Versioning.
 
 
-## Contributing
+# Git and CI
 
-Any kind of contribution is welcome! Be sure to submit bugs and feature requests via GitHub issues.
-
-Before starting to write code for a (larger) Pull Request, be sure to talk about the changes that
-you are going to make, so that we can ensure that the changes are going to have a chance of being 
-accepted.
-
-
-### Git and CI
-
-Development is done in separate branches. Once changes are done, they will be merged into the
-`dev` branch.
-
-Once there are enough changes to justify a new library version, `dev` will be merged into `master`
-and published.
-As a result, `master` always represents the state of the latest release. 
+The repository's main branch is the `dev` branch. On this branch, changes are accumulated until
+the release of a new version is justified. Once that happens, the current state of `dev` will be
+merged into `master` and then automatically be built and deployed to NuGet. 
+As a result, `master` will always represent the state of the latest release.
 
 
-## License
+# License
 
 See the [LICENSE](./LICENSE) file for details.
