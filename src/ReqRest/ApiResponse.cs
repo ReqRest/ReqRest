@@ -2,9 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Net.Http;
-    using System.Threading.Tasks;
-    using NCommons.Monads;
-    using ReqRest.Serializers;
 
     /// <summary>
     ///     Encapsulates information which were returned by a RESTful HTTP API after making

@@ -5,7 +5,6 @@
     using FluentAssertions;
     using ReqRest;
     using ReqRest.Http;
-    using ReqRest.Serializers;
     using Xunit;
 
     public class ToStringTests
