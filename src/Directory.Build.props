@@ -13,16 +13,23 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
     
-    <Version Condition=" $(Version) == '' ">0.4.2</Version>
+    <Version Condition=" $(Version) == '' ">0.5.0</Version>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/manuelroemer/ReqRest</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/manuelroemer/ReqRest</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ReqRest/ReqRest</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ReqRest/ReqRest</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ReqRest/ReqRest/blob/dev/CHANGELOG.md</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageIcon>Logo128x128.png</PackageIcon>
   </PropertyGroup>
-
+  
+  <!-- Icon for NuGet. -->
+  <ItemGroup>
+    <None Include="../../assets/Logo128x128.png" Pack="True" PackagePath="\" Visible="False"/>
+  </ItemGroup>
+  
   <!-- Don't allow warnings in release builds. -->
   <PropertyGroup Condition=" $(Configuration) == 'Release' ">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -44,7 +51,8 @@
     <NoWarn>
       $(NoWarn);
       CS1573; <!-- No matching XML comment for parameter -->
-      CA2007  <!-- ConfigureAwait(false) leads to cluttered tests. -->
+      CA2007; <!-- ConfigureAwait(false) leads to cluttered tests. -->
+      CA1716  <!-- It's fine if test projects use reserved language keywords. -->
     </NoWarn>
   </PropertyGroup>
   

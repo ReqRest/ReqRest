@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using ReqRest.Http;
     using ReqRest.Internal.Serializers;
-    using ReqRest.Serializers;
 
     /// <summary>
     ///     Encapsulates information for building and making a request to a RESTful HTTP API.

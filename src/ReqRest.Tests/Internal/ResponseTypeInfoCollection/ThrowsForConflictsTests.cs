@@ -7,7 +7,6 @@
     using ReqRest;
     using ReqRest.Http;
     using ReqRest.Internal;
-    using ReqRest.Tests;
     using Xunit;
 
     public class ThrowsForConflictsTests

@@ -5,7 +5,7 @@ namespace ReqRest.Tests.ApiResponse
     using System.Threading.Tasks;
     using Xunit;
     using ReqRest;
-    using ReqRest.Tests;
+    using ReqRest.Tests.Shared;
 
     public class ApiResponseT5Tests : ApiResponseT4Tests
     {

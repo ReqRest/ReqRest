@@ -7,7 +7,6 @@
     using ReqRest;
     using ReqRest.Http;
     using ReqRest.Internal.Serializers;
-    using ReqRest.Serializers;
     using Xunit;
 
     public abstract partial class ApiRequestTestBase<TRequest>

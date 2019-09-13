@@ -1,8 +1,8 @@
 ﻿namespace ReqRest.Tests.Internal.Serializers.NoContentSerializer
 {
     using System;
-    using System.Threading.Tasks;
     using FluentAssertions;
+    using ReqRest.Http;
     using ReqRest.Internal.Serializers;
     using ReqRest.Serializers;
     using Xunit;

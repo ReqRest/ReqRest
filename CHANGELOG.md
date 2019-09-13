@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.5.0
+
+_This release tackles another bad decision - splitting up the library into multiple small packages.
+It turned out that this provided next to no benefit and will thus be changed while ReqRest is still in development mode.
+From now on, there will be one main package (`ReqRest`) and several supportive packages which either have external
+dependencies or are simply not compatible with .NET Standard 2.0, e.g. the `ReqRest.Serializers.NewtonsoftJson` package._
+
+* **[Breaking / Package]** The multiple `ReqRest.*` packages have been consolidated into the single `ReqRest` package. The namespaces haven't changed, but the old packages are deprecated from this release on.
+* **[Breaking]** Moved the `NoContent` type from the `ReqRest.Serializers` namespace to `ReqRest.Http`.
+* Extended the `ReqRest.Http.MediaType` constants with common values.
+* The `NoContent.ToString()` method is no longer overridden and returns .NET's default `object.ToString()` format.
+* Updated the XML documentation.
+
+
 ## v0.4.2
 
 * **[Breaking]** Updated the `StatusCodeRange.ToString()` method to return strings similar to `[-200, 300]`, so that negative status codes look better (before, strings like `-300--200` were possible).
