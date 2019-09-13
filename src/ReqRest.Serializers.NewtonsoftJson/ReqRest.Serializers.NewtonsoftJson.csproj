@@ -5,7 +5,10 @@
     <Description>
 An extension package for the ReqRest library.
 
-This package provides a JSON serializer based on the Newtonsoft.Json library.</Description>
+This package provides a JSON serializer based on the Newtonsoft.Json library.
+
+Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqrest.github.io.
+    </Description>
   </PropertyGroup>
 
   <ItemGroup>
