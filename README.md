@@ -35,9 +35,9 @@ feel like plain C#.
 4. [Documentation](./README.md#documentation)
 5. [Contributing](./README.md#contributing)
 6. [Build, Code and Repository Information](./README.md#build-code-and-repository-information)
-  6.1. [Versioning](./README.md#versioning)
-  6.2. [Git and CI](./README.md#git-and-cicd)
-  6.3. [License](./README.md#license)
+   1. [Versioning](./README.md#versioning)
+   2. [Git and CI](./README.md#git-and-cicd)
+   3. [License](./README.md#license)
 
 
 # Features
