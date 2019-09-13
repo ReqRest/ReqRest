@@ -50,7 +50,7 @@ public ApiRequest<List<TodoItem>, ErrorMessage> Get(int? page, int? pageSize) =>
 
 ### :heavy_check_mark: Convenient API Response Handling
 
-When interacting with a REST API, dealing with status code is a required, but tedious.
+When interacting with a REST API, dealing with status code is required, but tedious.
 ReqRest tackles this and makes your life easier by abstracting status codes away for you.
 
 For example, the code in the section above declares that the API returns a `List<TodoItem>` or an
