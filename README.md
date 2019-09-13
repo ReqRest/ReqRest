@@ -70,6 +70,22 @@ resource.Match(
 );
 ```
 
+### :heavy_check_mark: Adaptible by Users
+
+It can always happen that a user of your API client will have some special needs for specific
+requests. For example, a user may have to send a special HTTP header with his request.
+The way that ReqRest is designed makes it incredibly simple to do exactly that.
+
+As an example, you can add a custom header to the request from above like this:
+
+```csharp
+var response = await client.Todos().Get(1, 50).AddHeader("x-foo", "bar").FetchResponseAsync();
+```
+
+As a matter of fact, users have access to all methods that are available during the request building
+phase. You can create standard requests in your API client while still allowing users to configure
+every request to their needs!
+
 ### :heavy_check_mark: Easy to Extend
 
 Nearly every part of ReqRest can be extended depending on your needs. As a matter of fact, ReqRest's
