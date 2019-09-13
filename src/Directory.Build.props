@@ -22,8 +22,14 @@
     <PackageProjectUrl>https://github.com/ReqRest/ReqRest</PackageProjectUrl>
     <PackageReleaseNotes>https://github.com/ReqRest/ReqRest/blob/dev/CHANGELOG.md</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageIcon>Logo128x128.png</PackageIcon>
   </PropertyGroup>
-
+  
+  <!-- Icon for NuGet. -->
+  <ItemGroup>
+    <None Include="../../assets/Logo128x128.png" Pack="True" PackagePath="\" />
+  </ItemGroup>
+  
   <!-- Don't allow warnings in release builds. -->
   <PropertyGroup Condition=" $(Configuration) == 'Release' ">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
