@@ -11,7 +11,7 @@
 
 [Getting Started](https://reqrest.github.io/articles/getting-started.html) &nbsp; | &nbsp; [Guides](https://reqrest.github.io/articles/guides/index.html) &nbsp; | &nbsp; [API Documentation](https://reqrest.github.io/api/) &nbsp; | &nbsp; [Changelog](./CHANGELOG.md) &nbsp; | &nbsp; [NuGet](https://www.nuget.org/packages/ReqRest/)
 
-> **Note:** This repository's default branch is the `dev` branch. Switch to `master` for the last release._
+> **Note:** This repository's default branch is the `dev` branch. Switch to `master` for the latest release.
 
 </div>
 
