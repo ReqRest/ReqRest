@@ -51,7 +51,8 @@
     <NoWarn>
       $(NoWarn);
       CS1573; <!-- No matching XML comment for parameter -->
-      CA2007  <!-- ConfigureAwait(false) leads to cluttered tests. -->
+      CA2007; <!-- ConfigureAwait(false) leads to cluttered tests. -->
+      CA1716  <!-- It's fine if test projects use reserved language keywords. -->
     </NoWarn>
   </PropertyGroup>
   
