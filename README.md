@@ -15,6 +15,7 @@
 
 </div>
 
+
 # What is ReqRest? 
 
 ReqRest allows you to easily turn a RESTful Web API into a **fully typed** C# library by using a **declarative, fluent**
@@ -24,6 +25,18 @@ feel like plain C#.
 ![Basic Client Usage](./.github/img/BasicClientUsage.gif)
 
 > An example API call demonstrating ReqRest's IntelliSense support.
+
+
+# Table of Contents
+
+1. [Features](./README.md#Features)
+2. [Installation](./README.md#installation)
+3. [Getting Started](./README.md#getting-started)
+4. [Documentation](./README.md#documentation)
+5. [Contributing](./README.md#contributing)
+6. [Versioning](./README.md#versioning)
+7. [Git and CI](./README.md#git-and-ci)
+8. [License](./README.md#license)
 
 
 # Features
