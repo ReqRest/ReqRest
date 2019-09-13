@@ -76,7 +76,7 @@ It can always happen that a user of your API client will have some special needs
 requests. For example, a user may have to send a special HTTP header with his request.
 The way that ReqRest is designed makes it incredibly simple to do exactly that.
 
-As an example, you can add a custom header to the request from above like this:
+As an example, you can send the request from above with a custom header like this:
 
 ```csharp
 var response = await client.Todos().Get(1, 50).AddHeader("x-foo", "bar").FetchResponseAsync();
