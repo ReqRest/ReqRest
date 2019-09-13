@@ -70,7 +70,7 @@ resource.Match(
 );
 ```
 
-### :heavy_check_mark: Adaptible by Users
+### :heavy_check_mark: Adaptable by Users
 
 It can always happen that a user of your API client will have some special needs for specific
 requests. For example, a user may have to send a special HTTP header with his request.
