@@ -20,7 +20,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/ReqRest/ReqRest</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ReqRest/ReqRest</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/ReqRest/ReqRest/blob/dev/CHANGELOG.md</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/ReqRest/ReqRest/blob/master/CHANGELOG.md</PackageReleaseNotes>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageIcon>Logo128x128.png</PackageIcon>
   </PropertyGroup>
