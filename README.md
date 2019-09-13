@@ -217,7 +217,7 @@ dotnet add package ReqRest.Serializers.NewtonsoftJson # Optional, but desired in
 ```
 
 Depending on your needs, you may want to install additional packages which enhance the base
-functionality of ReqRest. In most cases, you will have to install an extra package for JSON support.
+functionality of ReqRest. In most cases, you will want to install an extra package for JSON support.
 These packages are not shipped with ReqRest by default, because they depend on external libraries
 or are not compatible with .NET Standard 2.0.
 
