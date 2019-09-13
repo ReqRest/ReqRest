@@ -202,7 +202,9 @@ When writing code for the library, please be sure to:
 * Create test cases for new code (there may be exceptions for this point, but view it as a guideline).
 
 
-# Versioning
+# Build, Code and Repository Information
+
+## Versioning
 
 As long as the library is still in the initial development (i.e. on version `0.x.x`) any
 version increment may signify a breaking change.
@@ -212,7 +214,7 @@ Small breaking changes may only increment the patch number though.
 As soon as the library reaches version `1.0.0` it will follow Semantic Versioning.
 
 
-# Git and CI
+## Git and CI/CD
 
 The repository's main branch is the `dev` branch. On this branch, changes are accumulated until
 the release of a new version is justified. Once that happens, the current state of `dev` will be
@@ -220,6 +222,6 @@ merged into `master` and then automatically be built and deployed to NuGet.
 As a result, `master` will always represent the state of the latest release.
 
 
-# License
+## License
 
 See the [LICENSE](./LICENSE) file for details.
