@@ -1,7 +1,20 @@
+<h1 align="center">
+  <img src="./assets/Logo.svg" alt="ReqRest Logo" width="128" height="128" />
+</h1>
+<h3 align="center">
+  Build REST API Wrappers with Ease
+</h3>
+
+<div align="center">
+    
+[![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/ManuelRoemer/ReqRest/18) ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
+    
+</div>
+
 _Please note that this repository's default branch is the `dev` branch. Switch to the `master`
 branch to read the description of the current release._
 
-# ReqRest [![Build Status](https://dev.azure.com/ManuelRoemer/ReqRest/_apis/build/status/ReqRest?branchName=master)](https://dev.azure.com/ManuelRoemer/ReqRest/_build/latest?definitionId=12&branchName=master) ![Azure DevOps tests](https://img.shields.io/azure-devops/tests/ManuelRoemer/ReqRest/18) ![Nuget](https://img.shields.io/nuget/v/ReqRest.svg) ![C# 8.0](https://img.shields.io/badge/C%23-Nullable%20Reference%20Types-success.svg)
+# ReqRest 
 
 **Build beautiful, fully typed REST API clients that feel like a normal C# library!**
 
