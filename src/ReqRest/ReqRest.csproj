@@ -7,7 +7,7 @@ ReqRest allows you to easily project a RESTful HTTP API to a C#/VB library that 
 
 In addition, ReqRest makes this process as simple as possible. You will be able to leverage a fluent method style for defining how the REST API behaves for different scenarios, i.e. what input it expects and what it returns.
 
-Under the hood, ReqRest follows one very simple core philosophy - to be nothing more but an enhancement of the .NET Framework. ReqRest tries to utilize .NET's types whenever possible. As a result, most members in the library are nothing more but a convenient, specialized way to create HTTP requests using .NET's HttpClient API. As a result, libraries built with ReqRest are incredibly adaptable. Whatever you can do with an HttpClient, you can do with ReqRest. Your imagination is your limit! 
+Under the hood, ReqRest follows one very simple core philosophy - to be nothing more but an enhancement of the .NET Framework. ReqRest tries to utilize .NET's types whenever possible. As a result, most members in the library are nothing more but a convenient, specialized way to create HTTP requests using .NET's HttpClient API. This means that libraries built with ReqRest are incredibly adaptable. Whatever you can do with an HttpClient, you can do with ReqRest. Your imagination is your limit! 
 
 Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqrest.github.io.
         </Description>
