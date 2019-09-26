@@ -169,7 +169,7 @@
         ///     <see langword="true"/> the two objects are considered equal;
         ///     <see langword="false"/> if not.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is StatusCodeRange other)
             {

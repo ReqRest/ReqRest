@@ -46,7 +46,7 @@
         /// </param>
         /// <param name="action">
         ///     An action to be executed if the <paramref name="condition"/> is <see langword="true"/>.
-        ///     This action receives the this builder instance as its parameter.
+        ///     This action receives this builder instance as its parameter.
         /// </param>
         /// <returns>The specified <paramref name="builder"/>.</returns>
         /// <exception cref="ArgumentNullException">
@@ -79,7 +79,7 @@
         /// </param>
         /// <param name="action">
         ///     An action to be executed if the <paramref name="condition"/> is <see langword="false"/>.
-        ///     This action receives the this builder instance as its parameter.
+        ///     This action receives this builder instance as its parameter.
         /// </param>
         /// <returns>The specified <paramref name="builder"/>.</returns>
         /// <exception cref="ArgumentNullException">

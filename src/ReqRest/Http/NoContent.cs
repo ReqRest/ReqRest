@@ -22,7 +22,7 @@
         ///     <see langword="true"/> if <paramref name="obj"/> is of type <see cref="NoContent"/>;
         ///     <see langword="false"/> otherwise.
         /// </returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is NoContent;
 
         /// <summary>
