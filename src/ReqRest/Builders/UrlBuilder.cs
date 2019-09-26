@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
     // Before editing this class, consider editing the UriBuilderExtensions first.
     // This class is basically introduced for custom operators.
@@ -54,9 +55,9 @@
         /// <param name="path">The URL's path.</param>
         /// <param name="extraValue">The URL's extra value.</param>
         public UrlBuilder(
-            string? scheme = DefaultScheme, 
-            string? host = DefaultHost, 
-            int? port = NoPort, 
+            string? scheme = DefaultScheme,
+            string? host = DefaultHost,
+            int? port = NoPort,
             string? path = null,
             string? extraValue = null)
             : base(scheme, host, port ?? NoPort, path, extraValue) { }
@@ -157,8 +158,8 @@
         /// <exception cref="UriFormatException">
         ///     The URI constructed by the <see cref="UriBuilder"/> properties is invalid.
         /// </exception>
-        // TODO: [NotNullIfNotNull(nameof(builder))]
-        public static implicit operator Uri?(UrlBuilder builder) =>
+        [return: NotNullIfNotNull("builder")]
+        public static implicit operator Uri?(UrlBuilder? builder) =>
             builder?.Uri;
 
     }

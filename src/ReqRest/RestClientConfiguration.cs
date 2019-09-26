@@ -1,6 +1,7 @@
 ﻿namespace ReqRest
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Net.Http;
 
     /// <summary>
@@ -31,6 +32,7 @@
         ///     By default, this returns a default <see cref="HttpClient"/> factory that uses a single
         ///     static <see cref="HttpClient"/> instance.
         /// </summary>
+        [AllowNull]
         public Func<HttpClient> HttpClientProvider
         {
             get => _httpClientProvider ?? DefaultValues.HttpClientProvider;
