@@ -106,7 +106,7 @@
 
         #endregion
 
-        #region SetContent
+        #region SetStringContent
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="StringContent"/> instance which is created
@@ -131,7 +131,7 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetContent<T>(
+        public static T SetStringContent<T>(
             this T builder,
             string content,
             Encoding? encoding = null,
@@ -142,6 +142,10 @@
             return builder.SetContent(new StringContent(content, encoding, mediaType));
 #pragma warning restore CA2000
         }
+
+        #endregion
+
+        #region SetByteArrayContent
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="ByteArrayContent"/> instance which is
@@ -156,8 +160,8 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetContent<T>(this T builder, byte[] content) where T : IHttpContentBuilder =>
-            builder.SetContent(content, 0, content?.Length ?? 0);
+        public static T SetByteArrayContent<T>(this T builder, byte[] content) where T : IHttpContentBuilder =>
+            builder.SetByteArrayContent(content, 0, content?.Length ?? 0);
 
         /// <summary>
         ///     Sets the HTTP content to a new <see cref="ByteArrayContent"/> instance which is
@@ -174,13 +178,17 @@
         ///     * <paramref name="content"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetContent<T>(this T builder, byte[] content, int offset, int count) where T : IHttpContentBuilder
+        public static T SetByteArrayContent<T>(this T builder, byte[] content, int offset, int count) where T : IHttpContentBuilder
         {
 #pragma warning disable CA2000 
             _ = content ?? throw new ArgumentNullException(nameof(content));
             return builder.SetContent(new ByteArrayContent(content, offset, count));
 #pragma warning restore CA2000 
         }
+
+        #endregion
+
+        #region SetContent
 
         /// <summary>
         ///     Serializes the specified <paramref name="content"/> to an <see cref="HttpContent"/>

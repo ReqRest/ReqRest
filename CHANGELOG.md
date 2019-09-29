@@ -12,6 +12,8 @@
 * **[Breaking]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
 * **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.
+* **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
+* **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
