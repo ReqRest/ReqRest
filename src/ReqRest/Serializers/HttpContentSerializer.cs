@@ -39,30 +39,48 @@
 
         /// <summary>
         ///     Gets the default <see cref="Encoding"/> which is passed to
-        ///     <see cref="SerializeCore(object, Encoding)"/> if no encoding was provided by
+        ///     <see cref="SerializeCore(object?, Type?, Encoding)"/> if no encoding was provided by
         ///     the user.
         ///     If not overridden, this is <see cref="Encoding.UTF8"/>.
         /// </summary>
         protected virtual Encoding DefaultEncoding => Encoding.UTF8;
 
         /// <inheritdoc/>
-        public virtual HttpContent? Serialize(object? content, Encoding? encoding)
+        public virtual HttpContent? Serialize(object? content, Type? contentType, Encoding? encoding)
         {
-            if (content is NoContent)
+            contentType = GetAndVerifyContentType(content, contentType);
+
+            if (content is NoContent || contentType == typeof(NoContent))
             {
                 return null;
             }
             else
             {
-                return SerializeDefault(content, encoding);
+                return SerializeDefault(content, contentType, encoding);
             }
         }
 
-        private HttpContent? SerializeDefault(object? content, Encoding? encoding)
+        private static Type? GetAndVerifyContentType(object? content, Type? contentType)
+        {
+            // If both types are given, ensure that they match. Otherwise serialization will be problematic.
+            var actualContentType = content?.GetType();
+            if (actualContentType != null && contentType != null && !contentType.IsAssignableFrom(actualContentType))
+            {
+                throw new ArgumentException(
+                    ExceptionStrings.HttpContentSerializer_ContentTypeDoesNotMatchActualType(contentType, actualContentType),
+                    nameof(contentType)
+                );
+            }
+
+            // The contentType is optional. In that case, try to get the type on our own.
+            return contentType ?? actualContentType;
+        }
+
+        private HttpContent? SerializeDefault(object? content, Type? contentType, Encoding? encoding)
         {
             try
             {
-                return SerializeCore(content, encoding ?? DefaultEncoding);
+                return SerializeCore(content, contentType, encoding ?? DefaultEncoding);
             }
             catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
@@ -71,13 +89,23 @@
         }
 
         /// <summary>
-        ///     Called by <see cref="Serialize(object, Encoding?)"/>.
+        ///     Called by <see cref="Serialize(object?, Type?, Encoding?)"/>.
         ///     This method should perform the actual serialization logic, i.e. it should
         ///     serialize the specified <paramref name="content"/> into a new
         ///     <see cref="HttpContent"/> instance.
         /// </summary>
         /// <param name="content">
         ///     The object to be serialized into a new <see cref="HttpContent"/> instance.
+        /// </param>
+        /// <param name="contentType">
+        ///     The type of the specified <paramref name="content"/>.
+        ///     
+        ///     This is can be <see langword="null"/> if <paramref name="content"/> is also <see langword="null"/>
+        ///     and if this was not specified by the caller.
+        ///     
+        ///     It this is not <see langword="null"/>, it is guaranteed to be a type that <paramref name="content"/>
+        ///     can be assigned to, i.e. <paramref name="content"/> has either the same type, or it
+        ///     has a type deriving from this parameter.
         /// </param>
         /// <param name="encoding">
         ///     An optional encoding to be used by the serializer if it serializes the <paramref name="content"/>
@@ -87,7 +115,7 @@
         ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>
         ///     or <see langword="null"/>.
         /// </returns>
-        protected abstract HttpContent? SerializeCore(object? content, Encoding encoding);
+        protected abstract HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding);
 
         /// <inheritdoc/>
         public virtual async Task<object?> DeserializeAsync(

@@ -9,14 +9,18 @@
 ### ReqRest
 
 * **[Package]** ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
-* **[Breaking (Authors)]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
+* **[Breaking]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
+* **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
+* **[Breaking]** The `HttpContentSerializer` implements these interface changes.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
 * Updated certain nullable annotations to accept `null`, for example in `public override bool Equals(object?)`.
 
 ### ReqRest.Serializers.NewtonsoftJson
 
+* **[Breaking]** The `JsonHttpContentSerializer` has been updated with the changes to the serializer interfaces.
 * The default `JsonHttpContentSerializer` no longer ignores null properties during serialization.
+* Added an overload to the `SetJsonContent` extension which supports setting the `contentType`.
 
 
 ## v0.5.0

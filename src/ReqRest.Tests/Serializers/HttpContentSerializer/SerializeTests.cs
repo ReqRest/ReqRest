@@ -28,7 +28,7 @@
                 SerializeCoreImpl = (c, e) => { encoding = e; return null; }
             };
 
-            serializer.Serialize(null, encoding: null);
+            serializer.Serialize(null, contentType: null, encoding: null);
             encoding.Should().BeSameAs(serializer.DefaultEncoding);
         }
 
@@ -41,7 +41,7 @@
                 SerializeCoreImpl = (c, e) => throw ex,
             };
 
-            Action testCode = () => serializer.Serialize(null, null);
+            Action testCode = () => serializer.Serialize(null, contentType: null, encoding: null);
             testCode.Should().Throw<HttpContentSerializationException>().And.InnerException.Should().BeSameAs(ex);
         }
 
@@ -54,7 +54,7 @@
                 SerializeCoreImpl = (c, e) => throw ex,
             };
 
-            Action testCode = () => serializer.Serialize(null, null);
+            Action testCode = () => serializer.Serialize(null, contentType: null, encoding: null);
             testCode.Should().Throw<HttpContentSerializationException>().Which.Should().BeSameAs(ex);
         }
 

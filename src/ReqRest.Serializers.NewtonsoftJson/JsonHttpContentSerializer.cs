@@ -75,22 +75,22 @@
         }
 
         /// <inheritdoc/>
-        protected override HttpContent? SerializeCore(object? resource, Encoding encoding)
+        protected override HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding)
         {
             using var stringWriter = new StringWriter();
             using var jsonWriter = new JsonTextWriter(stringWriter);
-            ActualJsonSerializer.Serialize(jsonWriter, resource);
+            ActualJsonSerializer.Serialize(jsonWriter, content, contentType);
             return new StringContent(stringWriter.ToString(), encoding, MediaType.ApplicationJson);
         }
 
         /// <inheritdoc/>
         protected override async Task<object?> DeserializeCore(
-            HttpContent httpContent, Type resourceType, CancellationToken cancellationToken)
+            HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
         {
             var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             using var stringReader = new StringReader(json);
             using var jsonReader = new JsonTextReader(stringReader);
-            return ActualJsonSerializer.Deserialize(jsonReader, resourceType);
+            return ActualJsonSerializer.Deserialize(jsonReader, contentType);
         }
 
     }

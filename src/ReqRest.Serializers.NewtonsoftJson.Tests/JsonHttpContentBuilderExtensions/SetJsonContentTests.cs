@@ -1,4 +1,4 @@
-namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentBuilderExtensions
+﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentBuilderExtensions
 {
     using System.Text;
     using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentBuilderExtensi
             var dto = new object();
             
             builder.SetJsonContent(dto, Encoding.ASCII, serializerMock.Object);
-            serializerMock.Verify(x => x.Serialize(dto, Encoding.ASCII));
+            serializerMock.Verify(x => x.Serialize(dto, typeof(object), Encoding.ASCII));
         }
         
     }

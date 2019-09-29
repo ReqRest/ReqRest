@@ -24,7 +24,7 @@
             DeserializeCoreImpl = deserializeCoreImpl;
         }
 
-        protected override HttpContent SerializeCore(object content, Encoding encoding)
+        protected override HttpContent SerializeCore(object content, Type type, Encoding encoding)
         {
             return SerializeCoreImpl is null
                 ? throw new NotImplementedException()

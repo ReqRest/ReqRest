@@ -75,6 +75,10 @@
         public static string HttpContentSerializationException_Message() =>
             "The (de-)serialization failed because of an unknown error. See the inner exception for details (if available).";
 
+        public static string HttpContentSerializer_ContentTypeDoesNotMatchActualType(Type expected, Type actual) =>
+            $"The content to be serialized does not match the specified type. " +
+            $"Expected an instance of the class ${expected.FullName}, but got {actual.FullName}.";
+
         public static string HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent(Type type) =>
             $"Cannot deserialize the type \"{type.FullName}\" because the HTTP response had no content.";
 
