@@ -20,10 +20,7 @@
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
 
-        private static readonly JsonSerializer s_defaultJsonSerializer = new JsonSerializer()
-        {
-            NullValueHandling = NullValueHandling.Ignore,
-        };
+        private static readonly JsonSerializer s_defaultJsonSerializer = new JsonSerializer();
 
         /// <summary>
         ///     Gets a default <see cref="JsonHttpContentSerializer"/> instance which internally
