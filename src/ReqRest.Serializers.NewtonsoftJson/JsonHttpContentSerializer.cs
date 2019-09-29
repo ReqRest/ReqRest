@@ -12,10 +12,6 @@
     /// <summary>
     ///     An <see cref="HttpContent"/> (de-)serializer which uses the <c>Newtonsoft.Json</c>
     ///     library for the (de-)serialization process.
-    ///     
-    ///     Consider using the <see cref="Default"/> property for accessing a default 
-    ///     <see cref="JsonHttpContentSerializer"/> instance if you don't require any specific JSON
-    ///     serialization settings.
     /// </summary>
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
@@ -97,7 +93,7 @@
         }
 
         /// <inheritdoc/>
-        protected override async Task<object?> DeserializeCore(
+        protected override async Task<object?> DeserializeAsyncCore(
             HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
         {
             var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
