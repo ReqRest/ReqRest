@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
     using NCommons.Monads;
     using ReqRest.Serializers;
@@ -44,6 +45,9 @@
         /// <summary>
         ///     Deserializes the HTTP content and returns the deserialized resource.
         /// </summary>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
         /// <returns>
         ///     The deserialized resource represented through a <see cref="Variant{T1, T2, T3, T4, T5, T6, T7, T8}"/>
         ///     which holds a value that matches the response type declared for the response's HTTP status code.
@@ -62,39 +66,42 @@
         ///     <see cref="ResponseTypeInfo"/> returned by 
         ///     <see cref="ApiResponseBase.GetCurrentResponseTypeInfo"/> returned <see langword="null"/>.
         /// </exception>
-        public async Task<Variant<T1, T2, T3, T4, T5, T6, T7, T8>> DeserializeResourceAsync()
+        /// <exception cref="TaskCanceledException">
+        ///     The operation was canceled via the <paramref name="cancellationToken"/>.
+        /// </exception>
+        public async Task<Variant<T1, T2, T3, T4, T5, T6, T7, T8>> DeserializeResourceAsync(CancellationToken cancellationToken = default)
         {
             if (CanDeserializeResource<T1>())
             {
-                return await DeserializeResourceAsync<T1>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T1>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T2>())
             {
-                return await DeserializeResourceAsync<T2>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T2>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T3>())
             {
-                return await DeserializeResourceAsync<T3>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T3>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T4>())
             {
-                return await DeserializeResourceAsync<T4>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T4>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T5>())
             {
-                return await DeserializeResourceAsync<T5>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T5>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T6>())
             {
-                return await DeserializeResourceAsync<T6>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T6>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T7>())
             {
-                return await DeserializeResourceAsync<T7>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T7>(cancellationToken).ConfigureAwait(false);
             }
             else if (CanDeserializeResource<T8>())
             {
-                return await DeserializeResourceAsync<T8>().ConfigureAwait(false);
+                return await DeserializeResourceAsync<T8>(cancellationToken).ConfigureAwait(false);
             }
             else
             {

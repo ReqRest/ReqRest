@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
     using ReqRest.Builders;
     using ReqRest.Internal;
@@ -67,7 +67,6 @@
         ///     <see langword="true"/> if a resource of the specified type can be deserialized;
         ///     <see langword="false"/> if not.
         /// </returns>
-        [ExcludeFromCodeCoverage]
         private protected bool CanDeserializeResource<T>()
         {
             var currentResponseTypeInfo = GetCurrentResponseTypeInfo();
@@ -83,11 +82,13 @@
         /// <typeparam name="T">
         ///     The type of the resource to be deserialized.
         /// </typeparam>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
         /// <returns>
         ///     The deserialized resource or information about a deserialization exception.
         /// </returns>
-        [ExcludeFromCodeCoverage]
-        private protected async Task<T> DeserializeResourceAsync<T>()
+        private protected async Task<T> DeserializeResourceAsync<T>(CancellationToken cancellationToken = default)
         {
             if (GetCurrentResponseTypeInfo() is null)
             {
@@ -102,7 +103,7 @@
 
             try
             {
-                return await deserializer.DeserializeAsync<T>(HttpResponseMessage.Content).ConfigureAwait(false);
+                return await deserializer.DeserializeAsync<T>(HttpResponseMessage.Content, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {

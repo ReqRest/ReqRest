@@ -17,7 +17,7 @@
         {
             var serializer = new NoContentSerializer();
             Func<Task> testCode = async () => await serializer.DeserializeAsync(new ByteArrayContent(Array.Empty<byte>()), typeof(int));
-            (await testCode.Should().ThrowAsync<HttpContentSerializationException>()).WithInnerException<NotSupportedException>();
+            await testCode.Should().ThrowAsync<NotSupportedException>();
         }
 
         [Fact]

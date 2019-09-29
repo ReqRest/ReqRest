@@ -188,7 +188,7 @@
             CancellationToken cancellationToken = default)
         {
             var response = await FetchResponseAsync(completionOption, cancellationToken).ConfigureAwait(false);
-            var resource = await response.DeserializeResourceAsync().ConfigureAwait(false);
+            var resource = await response.DeserializeResourceAsync(cancellationToken).ConfigureAwait(false);
             return (response, resource);
         }
 
@@ -293,7 +293,7 @@
             CancellationToken cancellationToken = default)
         {
             var response = await FetchResponseAsync(completionOption, cancellationToken).ConfigureAwait(false);
-            return await response.DeserializeResourceAsync().ConfigureAwait(false);
+            return await response.DeserializeResourceAsync(cancellationToken).ConfigureAwait(false);
         }
 
     }
