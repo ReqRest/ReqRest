@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReqRest\ReqRest.csproj" />
+    <ProjectReference Include="..\ReqRest.Serializers.Json\ReqRest.Serializers.Json.csproj" />
     <ProjectReference Include="..\ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj" />
   </ItemGroup>
 

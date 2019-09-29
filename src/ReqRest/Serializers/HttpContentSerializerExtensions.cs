@@ -14,7 +14,7 @@
         ///     Serializes the specified <paramref name="content"/> into a new
         ///     <see cref="HttpContent"/> instance.
         ///     
-        ///     This method passes the type type of the generic type parameter <typeparamref name="T"/>
+        ///     This method passes the type of the generic type parameter <typeparamref name="T"/>
         ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="T">

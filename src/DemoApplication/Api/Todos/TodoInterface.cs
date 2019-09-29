@@ -2,7 +2,7 @@
 {
     using ReqRest.Builders;
     using ReqRest;
-    using ReqRest.Serializers.NewtonsoftJson;
+    using ReqRest.Serializers.Json;
 
     public class TodoInterface : RestInterface
     {

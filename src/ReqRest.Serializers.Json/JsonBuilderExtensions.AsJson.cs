@@ -1,8 +1,8 @@
-﻿namespace ReqRest.Serializers.NewtonsoftJson
+﻿namespace ReqRest.Serializers.Json
 {
     using System;
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using System.Text.Json;
     using ReqRest;
     using ReqRest.Http;
 
@@ -68,49 +68,11 @@
         /// <param name="forStatusCodes">
         ///     A set of status codes for which the response type is the result.
         /// </param>
-        /// <param name="jsonSerializer">
-        ///     A <see cref="JsonSerializer"/> which should be used for the deserialization.
-        /// </param>
-        /// <returns>
-        ///     A generic <see cref="ApiRequest"/> variation.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="forStatusCodes"/>
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="forStatusCodes"/> is empty.
-        /// </exception>
-        public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
-            IEnumerable<StatusCodeRange> forStatusCodes,
-            JsonSerializer? jsonSerializer)
-            where T : ApiRequestBase
-        {
-            return AsJson(builder, forStatusCodes, Factory);
-
-            JsonHttpContentSerializer Factory() => 
-                new JsonHttpContentSerializer(jsonSerializer);
-        }
-
-        /// <summary>
-        ///     Declares that an object returned by the API should be deserialized from JSON if the
-        ///     response falls within one of the specified status code ranges.
-        /// </summary>
-        /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="forStatusCodes">
-        ///     A set of status codes for which the response type is the result.
-        /// </param>
-        /// <param name="jsonSerializerSettings">
-        ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
+        /// <param name="jsonSerializerOptions">
+        ///     The options which should be used for (de-)serializing objects
+        ///     to and from JSON.
         ///     
-        ///     This can be <see langword="null"/>.
-        /// </param>
-        /// <param name="useDefaultSettings">
-        ///     If <see langword="true"/>, the serializer created from the settings will use default
-        ///     settings from <see cref="JsonConvert.DefaultSettings"/>.
-        ///     If <see langword="false"/>, that is not the case. 
+        ///     This can be <see langword="null"/>. If so, default options will be used.
         /// </param>
         /// <returns>
         ///     A generic <see cref="ApiRequest"/> variation.
@@ -125,14 +87,13 @@
         public static T AsJson<T>(
             this ResponseTypeInfoBuilder<T> builder,
             IEnumerable<StatusCodeRange> forStatusCodes,
-            JsonSerializerSettings? jsonSerializerSettings,
-            bool useDefaultSettings = false)
+            JsonSerializerOptions? jsonSerializerOptions)
             where T : ApiRequestBase
         {
             return AsJson(builder, forStatusCodes, Factory);
 
             JsonHttpContentSerializer Factory() => 
-                new JsonHttpContentSerializer(jsonSerializerSettings, useDefaultSettings);
+                new JsonHttpContentSerializer(jsonSerializerOptions);
         }
 
         /// <summary>

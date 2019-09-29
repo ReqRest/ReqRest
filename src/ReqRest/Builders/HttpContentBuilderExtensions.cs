@@ -195,7 +195,7 @@
         ///     using the specified <paramref name="serializer"/> and then sets the HTTP content
         ///     which is being built to that <see cref="HttpContent"/>.
         ///     
-        ///     This method passes the type type of the generic type parameter <typeparamref name="TContent"/>
+        ///     This method passes the type of the generic type parameter <typeparamref name="TContent"/>
         ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="TBuilder">The type of the builder.</typeparam>
