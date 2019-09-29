@@ -33,10 +33,6 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="builder"/>
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="content"/> is not a subclass of <paramref name="contentType"/>, i.e.
-        ///     the two types do not match.
-        /// </exception>
         /// <exception cref="HttpContentSerializationException">
         ///     Serializing the <paramref name="content"/> failed.
         /// </exception>

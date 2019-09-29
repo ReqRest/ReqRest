@@ -40,7 +40,11 @@
         public static HttpContent? Serialize<T>(this IHttpContentSerializer serializer, T content, Encoding? encoding)
         {
             _ = serializer ?? throw new ArgumentNullException(nameof(serializer));
-            return serializer.Serialize(content, typeof(T), encoding);
+
+            // Always try to get the most specific type available.
+            // If this is not possible because content is null, use the compile time info.
+            var contentType = content?.GetType() ?? typeof(T);
+            return serializer.Serialize(content, contentType, encoding);
         }
 
     }
