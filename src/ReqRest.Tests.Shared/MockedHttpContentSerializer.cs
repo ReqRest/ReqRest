@@ -31,7 +31,7 @@
                 : SerializeCoreImpl(content, encoding);
         }
 
-        protected override Task<object> DeserializeCore(
+        protected override Task<object> DeserializeAsyncCore(
             HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
         {
             return DeserializeCoreImpl is null
