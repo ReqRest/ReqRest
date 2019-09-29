@@ -3,6 +3,7 @@
     using System;
     using System.Net.Http;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using ReqRest.Http;
     using ReqRest.Resources;
@@ -89,7 +90,10 @@
         protected abstract HttpContent? SerializeCore(object? content, Encoding encoding);
 
         /// <inheritdoc/>
-        public virtual async Task<object?> DeserializeAsync(HttpContent? httpContent, Type contentType)
+        public virtual async Task<object?> DeserializeAsync(
+            HttpContent? httpContent,
+            Type contentType,
+            CancellationToken cancellationToken = default)
         {
             _ = contentType ?? throw new ArgumentNullException(nameof(contentType));
 
@@ -99,11 +103,11 @@
             }
             else
             {
-                return await DeserializeDefault(httpContent, contentType).ConfigureAwait(false);
+                return await DeserializeDefault(httpContent, contentType, cancellationToken).ConfigureAwait(false);
             }
         }
 
-        private async Task<object?> DeserializeDefault(HttpContent? httpContent, Type contentType)
+        private async Task<object?> DeserializeDefault(HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
         {
             // We are not expecting NoContent at this point. This means that an empty HttpContent
             // (i.e. null) should not be legal.
@@ -116,7 +120,7 @@
             
             try
             {
-                return await DeserializeCore(httpContent, contentType).ConfigureAwait(false);
+                return await DeserializeCore(httpContent, contentType, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
@@ -125,7 +129,7 @@
         }
 
         /// <summary>
-        ///     Called by <see cref="DeserializeAsync(HttpContent, Type)"/>.
+        ///     Called by <see cref="DeserializeAsync(HttpContent, Type, CancellationToken)"/>.
         ///     This method should perform the actual deserialization logic, i.e. it should
         ///     deserialize an object of the specified <paramref name="contentType"/> from
         ///     the <paramref name="httpContent"/>.
@@ -136,10 +140,17 @@
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
         /// </param>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeCore(HttpContent httpContent, Type contentType);
+        protected abstract Task<object?> DeserializeCore(
+            HttpContent httpContent,
+            Type contentType,
+            CancellationToken cancellationToken
+        );
 
     }
 

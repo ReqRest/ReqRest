@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -25,6 +26,9 @@
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
         /// </param>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
@@ -34,7 +38,14 @@
         /// <exception cref="HttpContentSerializationException">
         ///     Deserializing the content failed.
         /// </exception>
-        Task<object?> DeserializeAsync(HttpContent? httpContent, Type contentType);
+        /// <exception cref="TaskCanceledException">
+        ///     The operation was canceled via the <paramref name="cancellationToken"/>.
+        /// </exception>
+        Task<object?> DeserializeAsync(
+            HttpContent? httpContent,
+            Type contentType,
+            CancellationToken cancellationToken = default
+        );
 
     }
 

@@ -1,8 +1,9 @@
-namespace ReqRest.Tests.Shared
+﻿namespace ReqRest.Tests.Shared
 {
     using System;
     using System.Net.Http;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using ReqRest.Serializers;
 
@@ -30,7 +31,8 @@ namespace ReqRest.Tests.Shared
                 : SerializeCoreImpl(content, encoding);
         }
 
-        protected override Task<object> DeserializeCore(HttpContent httpContent, Type contentType)
+        protected override Task<object> DeserializeCore(
+            HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
         {
             return DeserializeCoreImpl is null
                 ? throw new NotImplementedException()

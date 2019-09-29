@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
     using FluentAssertions;
     using Moq;
@@ -34,11 +35,12 @@
         {
             var mock = new Mock<IHttpContentDeserializer>();
 
-            mock.Setup(s => s.DeserializeAsync(null, typeof(T))).Throws<ArgumentNullException>();
+            mock.Setup(s => s.DeserializeAsync(null, typeof(T), CancellationToken.None)).Throws<ArgumentNullException>();
 
             mock.Setup(s => s.DeserializeAsync(
                 It.IsAny<HttpContent>(),
-                It.IsAny<Type>()
+                It.IsAny<Type>(),
+                It.IsAny<CancellationToken>()
             )).ReturnsAsync(new T());
 
             return mock.Object;

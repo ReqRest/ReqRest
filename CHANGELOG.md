@@ -1,8 +1,10 @@
 # Changelog
 
-## v0.5.1
+## v0.6.0
 
-* [Package] ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
+* **[Breaking (Authors)]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
+* **[Package]** ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
+* Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
 * Updated certain nullable annotations to accept `null`, for example in `public override bool Equals(object?)`.
 * Updated the XML documentation.

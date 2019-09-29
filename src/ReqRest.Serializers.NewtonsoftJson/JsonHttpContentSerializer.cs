@@ -4,6 +4,7 @@
     using System.IO;
     using System.Net.Http;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
     using ReqRest.Http;
@@ -86,7 +87,8 @@
         }
 
         /// <inheritdoc/>
-        protected override async Task<object?> DeserializeCore(HttpContent httpContent, Type resourceType)
+        protected override async Task<object?> DeserializeCore(
+            HttpContent httpContent, Type resourceType, CancellationToken cancellationToken)
         {
             var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             using var stringReader = new StringReader(json);

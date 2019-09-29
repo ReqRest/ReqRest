@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    ///     A special type which is used by to represent an empty HTTP message content, for example
+    ///     A special type which is used to represent an empty HTTP message content, for example
     ///     when an API returns `204 No Content`.
     /// </summary>
     /// <remarks>
