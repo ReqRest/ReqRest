@@ -46,7 +46,11 @@
             Encoding? encoding = null,
             JsonHttpContentSerializer? serializer = null) where TBuilder : IHttpContentBuilder
         {
-            return builder.SetJsonContent(content, typeof(TContent), encoding, serializer);
+            return builder.SetContent(
+                serializer ?? JsonHttpContentSerializer.Default,
+                content,
+                encoding
+            );
         }
 
         /// <summary>
@@ -93,12 +97,12 @@
             Encoding? encoding = null,
             JsonHttpContentSerializer? serializer = null) where T : IHttpContentBuilder
         {
-            // Validate builder here to stop a potential serialization.
-            _ = builder ?? throw new ArgumentNullException(nameof(builder));
-            serializer ??= JsonHttpContentSerializer.Default;
-            
-            var httpContent = serializer.Serialize(content, contentType, encoding);
-            return builder.SetContent(httpContent);
+            return builder.SetContent(
+                serializer ?? JsonHttpContentSerializer.Default, 
+                content, 
+                contentType, 
+                encoding
+            );
         }
 
     }
