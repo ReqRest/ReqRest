@@ -8,6 +8,10 @@
 - [ ] The `CHANGELOG.md` must be updated with the changes in the PR (if not already done in this PR).
 - [ ] The documentation must be updated to reflect these changes.
 
+## Additional Information
+<!-- Optional. Any information describing the issue. -->
+_None._
+
 ## Open Tasks
 <!-- Optional. Tasks to be done BEFORE the PR will be merged. -->
 _None._
