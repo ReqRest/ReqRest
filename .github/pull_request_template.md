@@ -1,12 +1,3 @@
----
-name: PULL_REQUEST_TEMPLATE
-about: A pull request for adding or updating features.
-title: ''
-labels: ''
-assignees: manuelroemer
-
----
-
 ## What does this PR change?
 <!-- Required. -->
 **TODO**
