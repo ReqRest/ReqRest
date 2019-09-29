@@ -12,7 +12,7 @@
     public class SetJsonContentTests
     {
         
-        private static readonly JsonHttpContentSerializer DefaultSerializer = JsonHttpContentSerializer.Default;
+        private static readonly JsonHttpContentSerializer DefaultSerializer = new JsonHttpContentSerializer();
         private static readonly Encoding DefaultEncoding = Encoding.UTF8;
         
         [Theory]

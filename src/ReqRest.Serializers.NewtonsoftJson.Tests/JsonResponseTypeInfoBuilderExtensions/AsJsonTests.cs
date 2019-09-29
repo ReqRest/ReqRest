@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
+    using Newtonsoft.Json;
     using ReqRest;
     using ReqRest.Http;
     using ReqRest.Serializers.NewtonsoftJson;
@@ -22,7 +23,9 @@
             {
                 (builder, codes) => builder.AsJson(codes?.ToArray()),
                 (builder, codes) => builder.AsJson(codes),
-                (builder, codes) => builder.AsJson(codes, jsonSerializer: null),
+                (builder, codes) => builder.AsJson(codes, (JsonSerializer)null),
+                (builder, codes) => builder.AsJson(codes, (JsonSerializerSettings)null),
+                (builder, codes) => builder.AsJson(codes, (Func<JsonHttpContentSerializer>)null),
             };
 
         [Theory]
