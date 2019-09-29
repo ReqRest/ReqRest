@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Description>
 ReqRest allows you to easily project a RESTful HTTP API to a C#/VB library that feels and behaves like a normal C# API. If you use ReqRest to wrap your REST API, you will end up with a library that is fully typed, has IntelliSense and compiler support and is thus incredibly easy to use.
 
@@ -20,10 +20,6 @@ Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqre
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework) != 'netcoreapp3.0' ">
-    <PackageReference Include="System.Text.Json" Version="4.6.0" />
   </ItemGroup>
 
 </Project>

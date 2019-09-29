@@ -10,8 +10,8 @@
     using ReqRest.Http;
 
     /// <summary>
-    ///     An <see cref="HttpContent"/> (de-)serializer which uses .NET's <see cref="System.Text.Json"/>
-    ///     API for (de-)serializing objects to and from JSON.
+    ///     An <see cref="HttpContent"/> (de-)serializer which uses the <see cref="System.Text.Json"/>
+    ///     members for (de-)serializing objects to and from JSON.
     /// </summary>
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
@@ -41,6 +41,24 @@
         /// <inheritdoc/>
         protected override HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding)
         {
+            // Note for the future:
+            // It can happen that content.GetType() is more specific than contentType, e.g.
+            //
+            // content.GetType(): string
+            // contentType:       object
+            //
+            // This can happen with the generic Serialize<T> method, if T is less specific than the actual object.
+            //
+            // .NET's JsonSerializer doesn't serialize all properties of the sub class in this case,
+            // because it doesn't have any type info about them (after all, the type of the sub class is unknown).
+            // This seems to be intended, because the serializer's generic overload actually documents this.
+            // It's a major difference to Newtonsoft.Json though, so people who switch libraries may find this weird,
+            // even though this is certainly not a bug of this code here.
+            //
+            // If this ever turns out to be a problem, it's possible to overwrite contentType with the more specific
+            // content.GetType() here.
+            // If this is being considered, ensure that this is a feature flag.
+
             // Since .NET's Json members are optimized for UTF-8, it makes sense to use these
             // optimizations if that's the encoding as well.
             if (encoding == Encoding.UTF8)
