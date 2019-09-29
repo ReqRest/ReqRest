@@ -17,6 +17,9 @@
         ///     <paramref name="content"/> is serialized using the specified <paramref name="serializer"/>
         ///     and <paramref name="encoding"/>.
         ///     The serialized HTTP content has the <c>application/json</c> media type.
+        ///     
+        ///     This method passes the type type of the generic type parameter <typeparamref name="TContent"/>
+        ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="TBuilder">The type of the builder.</typeparam>
         /// <typeparam name="TContent">The type of the content to be serialized.</typeparam>
@@ -108,6 +111,9 @@
         ///     <paramref name="content"/> is serialized using the specified <paramref name="serializer"/>
         ///     and <paramref name="encoding"/>.
         ///     The serialized HTTP content has the <c>application/json</c> media type.
+        ///     
+        ///     This method passes the type type of the generic type parameter <typeparamref name="TContent"/>
+        ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="TBuilder">The type of the builder.</typeparam>
         /// <typeparam name="TContent">The type of the content to be serialized.</typeparam>
@@ -187,6 +193,9 @@
         ///     <paramref name="content"/> is serialized using the specified <paramref name="serializer"/>
         ///     and <paramref name="encoding"/>.
         ///     The serialized HTTP content has the <c>application/json</c> media type.
+        ///     
+        ///     This method passes the type type of the generic type parameter <typeparamref name="TContent"/>
+        ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="TBuilder">The type of the builder.</typeparam>
         /// <typeparam name="TContent">The type of the content to be serialized.</typeparam>
@@ -266,6 +275,9 @@
         ///     <paramref name="content"/> is serialized using the specified <paramref name="serializer"/>
         ///     and <paramref name="encoding"/>.
         ///     The serialized HTTP content has the <c>application/json</c> media type.
+        ///     
+        ///     This method passes the type type of the generic type parameter <typeparamref name="TContent"/>
+        ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="TBuilder">The type of the builder.</typeparam>
         /// <typeparam name="TContent">The type of the content to be serialized.</typeparam>
