@@ -131,11 +131,12 @@
             }
             else
             {
-                return await DeserializeDefault(httpContent, contentType, cancellationToken).ConfigureAwait(false);
+                return await DeserializeDefaultAsync(httpContent, contentType, cancellationToken).ConfigureAwait(false);
             }
         }
 
-        private async Task<object?> DeserializeDefault(HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
+        private async Task<object?> DeserializeDefaultAsync(
+            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
         {
             // We are not expecting NoContent at this point. This means that an empty HttpContent
             // (i.e. null) should not be legal.
@@ -148,7 +149,7 @@
             
             try
             {
-                return await DeserializeCore(httpContent, contentType, cancellationToken).ConfigureAwait(false);
+                return await DeserializeAsyncCore(httpContent, contentType, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
@@ -174,7 +175,7 @@
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeCore(
+        protected abstract Task<object?> DeserializeAsyncCore(
             HttpContent httpContent,
             Type contentType,
             CancellationToken cancellationToken
