@@ -13,6 +13,9 @@
         /// <summary>
         ///     Serializes the specified <paramref name="content"/> into a new
         ///     <see cref="HttpContent"/> instance.
+        ///     
+        ///     This method passes the type type of the generic type parameter <typeparamref name="T"/>
+        ///     as the content type to the serializer.
         /// </summary>
         /// <typeparam name="T">
         ///     The target type of the object which is supposed to be serialized.
@@ -40,11 +43,7 @@
         public static HttpContent? Serialize<T>(this IHttpContentSerializer serializer, T content, Encoding? encoding)
         {
             _ = serializer ?? throw new ArgumentNullException(nameof(serializer));
-
-            // Always try to get the most specific type available.
-            // If this is not possible because content is null, use the compile time info.
-            var contentType = content?.GetType() ?? typeof(T);
-            return serializer.Serialize(content, contentType, encoding);
+            return serializer.Serialize(content, typeof(T), encoding);
         }
 
     }
