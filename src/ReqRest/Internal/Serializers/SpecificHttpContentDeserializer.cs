@@ -37,7 +37,14 @@
                 return DefaultValue;
             }
 
-            return await DeserializeCoreAsync(httpContent, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                return await DeserializeCoreAsync(httpContent, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
+            {
+                throw new HttpContentSerializationException(null, ex);
+            }
         }
 
         protected abstract Task<T> DeserializeCoreAsync(HttpContent httpContent, CancellationToken cancellationToken);
