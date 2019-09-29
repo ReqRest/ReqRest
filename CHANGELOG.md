@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.1
+
+* [Package] ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
+* Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
+* Updated certain nullable annotations to accept `null`, for example in `public override bool Equals(object?)`.
+* Updated the XML documentation.
+
+
 ## v0.5.0
 
 _This release tackles another bad decision - splitting up the library into multiple small packages.
