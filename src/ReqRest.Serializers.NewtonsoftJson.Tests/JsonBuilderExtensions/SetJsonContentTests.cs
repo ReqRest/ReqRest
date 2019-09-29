@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonHttpContentBuilderExtensions
+﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonBuilderExtensions
 {
     using System.Text;
     using System.Threading.Tasks;

@@ -6,11 +6,7 @@
     using ReqRest;
     using ReqRest.Http;
 
-    /// <summary>
-    ///     Extends the <see cref="ResponseTypeInfoBuilder{TRequest}"/> class with methods for
-    ///     declaring that a certain response type will be received as JSON.
-    /// </summary>
-    public static partial class JsonResponseTypeInfoBuilderExtensions
+    public static partial class JsonBuilderExtensions
     {
 
         /// <summary>

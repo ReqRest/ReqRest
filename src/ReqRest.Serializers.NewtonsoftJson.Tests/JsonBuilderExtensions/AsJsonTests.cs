@@ -1,4 +1,4 @@
-﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonResponseTypeInfoBuilderExtensions
+﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonBuilderExtensions
 {
     using System;
     using System.Collections.Generic;
