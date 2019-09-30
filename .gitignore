@@ -1,3 +1,7 @@
+# Only includes files that run code generation, but no outputs.
+**/Generated/*
+!**/Generated/**/*.tt
+
 tools
 .vscode
 .idea
