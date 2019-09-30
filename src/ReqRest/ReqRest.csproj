@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+  
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Description>
@@ -22,4 +22,23 @@ Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqre
     </PackageReference>
   </ItemGroup>
 
+  <!-- T4 Templates. -->
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-t4-project-tool" Version="2.0.5" />
+    <TextTemplate Include="**/Generated/**/*.tt" />
+  </ItemGroup>
+
+  <Target Name="TextTemplateTransform" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Compile Remove="**/Generated/**/*.cs" />
+    </ItemGroup>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet t4 %(TextTemplate.Identity)" />
+    <ItemGroup>
+      <Compile Include="**/Generated/**/*.cs" />
+    </ItemGroup>
+    <PropertyGroup>
+      <Nullable>enable</Nullable>
+    </PropertyGroup>
+  </Target>
+  
 </Project>
