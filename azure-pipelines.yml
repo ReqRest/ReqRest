@@ -11,6 +11,8 @@ variables:
   BuildConfiguration: 'Release'
   ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
     BuildLabel: ${{ 'ci-$(Build.BuildNumber)' }}
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+    BuildLabel: ''
 
 steps:
 - task: DotNetCoreInstaller@1
