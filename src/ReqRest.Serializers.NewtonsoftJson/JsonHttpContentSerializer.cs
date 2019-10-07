@@ -16,6 +16,12 @@
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
 
+        /// <summary>
+        ///     Defines if the JSON serializers used by this library use default settings provided
+        ///     by <see cref="JsonConvert.DefaultSettings"/> if not configured otherwise.
+        /// </summary>
+        internal const bool UseDefaultSettings = false;
+
         private static readonly JsonSerializer DefaultJsonSerializer = new JsonSerializer();
 
         /// <summary>
@@ -56,14 +62,14 @@
         /// <param name="settings">
         ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
         ///     
-        ///     This can be <see langword="null"/>.
+        ///     This can be <see langword="null"/>. If so, a default settings instance is used instead.
         /// </param>
         /// <param name="useDefaultSettings">
         ///     If <see langword="true"/>, the serializer created from the settings will use default
         ///     settings from <see cref="JsonConvert.DefaultSettings"/>.
         ///     If <see langword="false"/>, that is not the case. 
         /// </param>
-        public JsonHttpContentSerializer(JsonSerializerSettings? settings, bool useDefaultSettings = false)
+        public JsonHttpContentSerializer(JsonSerializerSettings? settings, bool useDefaultSettings = UseDefaultSettings)
             : this(useDefaultSettings ? JsonSerializer.CreateDefault(settings) : JsonSerializer.Create(settings)) { }
 
         /// <summary>

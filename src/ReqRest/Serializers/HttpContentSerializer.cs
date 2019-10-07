@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Serializers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Net.Http;
     using System.Text;
     using System.Threading;
@@ -54,9 +55,14 @@
             {
                 return null;
             }
-            else
+
+            try
             {
-                return SerializeDefault(content, contentType, encoding);
+                return SerializeCore(content, contentType, encoding ?? DefaultEncoding);
+            }
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
+            {
+                throw new HttpContentSerializationException(null, ex);
             }
         }
 
@@ -74,18 +80,6 @@
 
             // The contentType is optional. In that case, try to get the type on our own.
             return contentType ?? actualContentType;
-        }
-
-        private HttpContent? SerializeDefault(object? content, Type? contentType, Encoding? encoding)
-        {
-            try
-            {
-                return SerializeCore(content, contentType, encoding ?? DefaultEncoding);
-            }
-            catch (Exception ex) when (!(ex is HttpContentSerializationException))
-            {
-                throw new HttpContentSerializationException(null, ex);
-            }
         }
 
         /// <summary>
@@ -129,32 +123,53 @@
             {
                 return new NoContent();
             }
-            else
-            {
-                return await DeserializeDefaultAsync(httpContent, contentType, cancellationToken).ConfigureAwait(false);
-            }
-        }
 
-        private async Task<object?> DeserializeDefaultAsync(
-            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
-        {
-            // We are not expecting NoContent at this point. This means that an empty HttpContent
-            // (i.e. null) should not be legal.
-            if (httpContent is null)
-            {
-                throw new HttpContentSerializationException(
-                    ExceptionStrings.HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent(contentType)
-                );
-            }
-            
             try
             {
+                // An HttpContent which is null is expected to be hard to interpret for deserializers.
+                // For convenience, default handling of that case is added in this base class.
+                // By default, this simply throws. This can be overridden though.
+                if (httpContent is null)
+                {
+                    return await DeserializeWithoutHttpContentAsync(contentType, cancellationToken).ConfigureAwait(false);
+                }
                 return await DeserializeAsyncCore(httpContent, contentType, cancellationToken).ConfigureAwait(false);
             }
             catch (Exception ex) when (!(ex is HttpContentSerializationException))
             {
                 throw new HttpContentSerializationException(null, ex);
             }
+        }
+
+        /// <summary>
+        ///     Called by <see cref="DeserializeAsync(HttpContent, Type, CancellationToken)"/>
+        ///     when the <see cref="HttpContent"/> to be deserialized is <see langword="null"/>.
+        ///     
+        ///     If not overridden, this method throws an <see cref="HttpContentSerializationException"/>
+        ///     indicating that deserializing an <see cref="HttpContent"/> is only possible if
+        ///     the <paramref name="contentType"/> is the type of the <see cref="NoContent"/> class.
+        ///     
+        ///     Override this method if your serializer supports creating default values of a type
+        ///     without having any HTTP content.
+        /// </summary>
+        /// <param name="contentType">
+        ///     The target type of the object which is supposed to be deserialized.
+        /// </param>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
+        /// <returns>
+        ///     If overridden, return an object of type <paramref name="contentType"/>.
+        /// </returns>
+        /// <exception cref="HttpContentSerializationException">
+        ///     This exception gets thrown if the method is not overridden by deriving classes.
+        /// </exception>
+        [DoesNotReturn]
+        protected virtual Task<object?> DeserializeWithoutHttpContentAsync(Type contentType, CancellationToken cancellationToken)
+        {
+            throw new HttpContentSerializationException(
+                ExceptionStrings.HttpContentSerializer_HttpContentIsNull(contentType)
+            );
         }
 
         /// <summary>

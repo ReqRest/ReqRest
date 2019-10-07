@@ -29,9 +29,12 @@
 
             if (contentType != typeof(T))
             {
-                throw new NotSupportedException(ExceptionStrings.Serializer_CanOnlyDeserialize(typeof(string)));
+                throw new NotSupportedException(ExceptionStrings.SpecificHttpContentSerializer_CanOnlyDeserialize(typeof(string)));
             }
 
+            // This class is only inherited by primitive serializers (e.g. string, byte[], ...).
+            // For these, it doesn't make sense to throw an exception here, because 'null' is basically
+            // equal to 'empty' here.
             if (httpContent is null)
             {
                 return DefaultValue;

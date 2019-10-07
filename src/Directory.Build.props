@@ -12,8 +12,9 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <NeutralLanguage>en</NeutralLanguage>
-    
-    <Version Condition=" $(Version) == '' ">0.5.0</Version>
+
+    <VersionPrefix>0.6.0</VersionPrefix>
+    <VersionSuffix>alpha2</VersionSuffix>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>

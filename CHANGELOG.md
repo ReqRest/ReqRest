@@ -15,6 +15,7 @@
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
+* Added the `DeserializeWithoutHttpContentAsync` method to the `HttpContentSerializer` to allow changing the default deserialization behavior if no HttpContent is given.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
@@ -25,6 +26,7 @@
 * **[Breaking]** The `JsonHttpContentSerializer` has been updated with the changes to the serializer interfaces.
 * **[Breaking]** The `JsonHttpContentSerializer.Default` property has been removed.
 * **[Breaking]** Consolidated the existing extension methods into a single `JsonBuilderExtensions` class.
+* **[Breaking]** The order of the parameters in the `AsJson` extension methods has been changed to allow `params StatusCodeRange[]` in every overload.
 * The `JsonHttpContentSerializer.JsonSerializer` property now has a public setter and can be changed.
 * Added new utility constructors to the `JsonHttpContentSerializer` which help to create the desired `JsonSerializer`.
 * Added new `AsJson` overloads.
@@ -32,6 +34,10 @@
 * Added new `PostJson`, `PutJson` and `PatchJson` overloads.
 * The default `JsonHttpContentSerializer` no longer ignores null properties during serialization.
 * Added an overload to the `SetJsonContent` extension which supports setting the `contentType`.
+
+### ReqRest.Serializers.Json
+
+Initial release.
 
 
 ## v0.5.0

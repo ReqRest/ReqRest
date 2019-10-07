@@ -1,0 +1,14 @@
+<Project>
+
+  <!-- Dynamically build a SemVer 2.0 version.
+       This requires the projects to use 'VersionPrefix', 'VersionSuffix' and the custom 'BuildLabel' properties.
+       The final version has this format: "Major.Minor.Patch[-VersionSuffix][+BuildLabel]". 
+       BuildLabel should be set via the CI system, e.g. via "nuget pack /p:BuildLabel=foo". -->
+  <PropertyGroup>
+    <Version Condition=" $(VersionSuffix) == '' And $(BuildLabel) == '' ">$(VersionPrefix)</Version>
+    <Version Condition=" $(VersionSuffix) != '' And $(BuildLabel) == '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" $(VersionSuffix) == '' And $(BuildLabel) != '' ">$(VersionPrefix)+$(BuildLabel)</Version>
+    <Version Condition=" $(VersionSuffix) != '' And $(BuildLabel) != '' ">$(VersionPrefix)-$(VersionSuffix)+$(BuildLabel)</Version>
+  </PropertyGroup>
+
+</Project>
