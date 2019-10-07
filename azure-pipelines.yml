@@ -12,6 +12,7 @@ variables:
   ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
     BuildLabel: ${{ '$(Build.BuildNumber)' }}
 
+steps:
 - task: DotNetCoreInstaller@1
   displayName: 'Install .NET Core 3.0'
   inputs:
