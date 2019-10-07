@@ -25,6 +25,7 @@
 * **[Breaking]** The `JsonHttpContentSerializer` has been updated with the changes to the serializer interfaces.
 * **[Breaking]** The `JsonHttpContentSerializer.Default` property has been removed.
 * **[Breaking]** Consolidated the existing extension methods into a single `JsonBuilderExtensions` class.
+* **[Breaking]** The order of the parameters in the `AsJson` extension methods has been changed to allow `params StatusCodeRange[]` in every overload.
 * The `JsonHttpContentSerializer.JsonSerializer` property now has a public setter and can be changed.
 * Added new utility constructors to the `JsonHttpContentSerializer` which help to create the desired `JsonSerializer`.
 * Added new `AsJson` overloads.

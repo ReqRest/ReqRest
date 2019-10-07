@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using ReqRest;
     using ReqRest.Builders;
-    using ReqRest.Serializers.NewtonsoftJson;
+    using ReqRest.Serializers.Json;
     using System;
     using ReqRest.Http;
 
