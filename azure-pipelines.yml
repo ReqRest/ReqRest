@@ -62,7 +62,7 @@ steps:
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --no-build /p:BuildLabel=$ci-(Date:yyyy-MM-dd).$(Rev:.r)'
+    arguments: '--configuration $(BuildConfiguration) --no-build /p:BuildLabel=ci-$(Date:yyyy-MM-dd).$(Rev:.r)'
     versioningScheme: 'off'
     outputDir: '$(Build.ArtifactStagingDirectory)/CI'
   condition: |
