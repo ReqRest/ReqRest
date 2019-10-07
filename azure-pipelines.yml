@@ -12,9 +12,6 @@ variables:
   ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
     BuildLabel: ${{ '$(Build.BuildNumber)' }}
 
-steps:
-- script: echo $(BuildLabel)
-
 - task: DotNetCoreInstaller@1
   displayName: 'Install .NET Core 3.0'
   inputs:
@@ -48,27 +45,26 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration) /p:BuildLabel=$(BuildLabel) --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: 'Test'
   inputs:
     command: 'test'
     projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --no-build'
+    arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
 
 - script: InheritDoc -o
   displayName: 'Run InheritDoc'
   condition: succeeded()
 
 - task: DotNetCoreCLI@2
-  displayName: 'Pack NuGet Packages (CI)'
+  displayName: 'Pack NuGet Packages'
   inputs:
     command: 'pack'
     packagesToPack: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --no-build /p:BuildLabel=ci-$(Date:yyyy-MM-dd).$(Rev:.r)'
-    versioningScheme: 'off'
-    outputDir: '$(Build.ArtifactStagingDirectory)/CI'
+    arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
+    outputDir: '$(Build.ArtifactStagingDirectory)/NuGet'
   condition: |
     and
     (
@@ -82,10 +78,10 @@ steps:
     )
     
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish NuGet Package Artifact (CI)'
+  displayName: 'Publish NuGet Package Artifact'
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/CI'
-    ArtifactName: 'NuGet Packages (CI)'
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
+    ArtifactName: 'NuGet Packages'
   condition: |
     and
     (
@@ -96,33 +92,4 @@ steps:
         eq(variables['Build.SourceBranch'], 'refs/heads/master'),
         eq(variables['Build.SourceBranch'], 'refs/heads/dev')
       )
-    )
-
-- task: DotNetCoreCLI@2
-  displayName: 'Pack NuGet Packages (Release)'
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --no-build'
-    versioningScheme: 'off'
-    outputDir: '$(Build.ArtifactStagingDirectory)/Release'
-  condition: |
-    and
-    (
-      succeeded(),
-      eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-      eq(variables['system.pullrequest.isfork'], false)
-    )
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish NuGet Package Artifact (Release)'
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/Release'
-    ArtifactName: 'NuGet Packages (Release)'
-  condition: |
-    and
-    (
-      succeeded(),
-      eq(variables['Build.SourceBranch'], 'refs/heads/master'),
-      eq(variables['system.pullrequest.isfork'], false)
     )
