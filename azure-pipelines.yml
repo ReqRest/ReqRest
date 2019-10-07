@@ -10,7 +10,7 @@ pool:
 variables:
   BuildConfiguration: 'Release'
   ${{ if and(eq(variables['system.pullrequest.isfork'], false), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) }}:
-    BuildLabel: ${{ 'ci-$(Date:yyyy-MM-dd).$(Rev:.r)'' }}
+    BuildLabel: ${{ 'ci-$(Date:yyyy-MM-dd).$(Rev:.r)' }}
 
 steps:
 - script: echo $(BuildLabel)
