@@ -1,50 +1,96 @@
 trigger:
 - master
+- dev
 
-name: $(SourceBranchName)_$(Date:yyyy-MM-dd)_$(Rev:.r)
+name: $(Date:yyyy-MM-dd)$(Rev:.r)
 
 pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
-  buildConfiguration: 'Release'
-  buildDir: 'src'
+  BuildConfiguration: 'Release'
+  ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+    BuildLabel: ${{ 'ci-$(Build.BuildNumber)' }}
 
 steps:
 - task: DotNetCoreInstaller@1
-  displayName: Install .NET Core 3.0
+  displayName: 'Install .NET Core 3.0'
   inputs:
     packageType: 'sdk'
-    includePreviewVersions: true
     version: '3.0.x'
-    
+
 - task: DotNetCoreInstaller@1
-  displayName: Install .NET Core 2.1
+  displayName: 'Install .NET Core 2.2'
+  inputs:
+    packageType: 'sdk'
+    version: '2.2.x'
+
+# InheritDocTool requires .NET Core 2.1.
+- task: DotNetCoreInstaller@1
+  displayName: 'Install .NET Core 2.1'
   inputs:
     packageType: 'sdk'
     version: '2.1.x'
 
-- task: Bash@3
-  displayName: Build
-  inputs:
-    filePath: 'build.sh'
-    failOnStderr: true
+- script: dotnet tool install -g InheritDocTool
+  displayName: Install InheritDocTool
 
-- task: PublishTestResults@2
-  displayName: Publish Test Results
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Packages'
   inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '.artifacts/tests/*.trx'
-    failTaskOnFailedTests: true
+    command: 'restore'
+    projects: '**/*.csproj'
 
-- task: PublishBuildArtifacts@1
-  displayName: Publish NuGet Package Artifacts
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
-    pathToPublish: .artifacts/packages
-    artifactName: 'NuGet Packages'
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) /p:BuildLabel=$(BuildLabel) --no-restore'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Test'
+  inputs:
+    command: 'test'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
+
+- script: InheritDoc -o
+  displayName: 'Run InheritDoc'
+  condition: succeeded()
+
+- task: DotNetCoreCLI@2
+  displayName: 'Pack NuGet Packages'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --no-build --no-restore'
+    outputDir: '$(Build.ArtifactStagingDirectory)/NuGet'
   condition: |
     and
     (
       succeeded(),
-      eq(variables['system.pullrequest.isfork'], false)
+      eq(variables['system.pullrequest.isfork'], false),
+      or
+      (
+        eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+        eq(variables['Build.SourceBranch'], 'refs/heads/dev')
+      )
+    )
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish NuGet Package Artifacts'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
+    ArtifactName: 'NuGet Packages'
+  condition: |
+    and
+    (
+      succeeded(),
+      eq(variables['system.pullrequest.isfork'], false),
+      or
+      (
+        eq(variables['Build.SourceBranch'], 'refs/heads/master'),
+        eq(variables['Build.SourceBranch'], 'refs/heads/dev')
+      )
     )

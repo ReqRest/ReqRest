@@ -147,7 +147,7 @@
         ///     Returns a value indicating whether the <paramref name="other"/> specified status
         ///     code range falls within this range.
         ///     This will also return <see langword="true"/> if the ranges have equal values.
-        ///     For example, this will return <see langword="true"/> for <c>(200-300), (250-300)</c>.
+        ///     For example, this will return <see langword="true"/> for <c>[200, 300], [250, 300]</c>.
         /// </summary>
         /// <param name="other">
         ///     The other status code range to be checked.
@@ -169,7 +169,7 @@
         ///     <see langword="true"/> the two objects are considered equal;
         ///     <see langword="false"/> if not.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is StatusCodeRange other)
             {

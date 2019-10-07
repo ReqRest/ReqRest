@@ -26,7 +26,7 @@
     ///     members by ReqRest.
     ///     This is because the two URLs support different methods. While the first one usually
     ///     supports methods like <c>GET</c> and <c>POST</c>, the second one usually supports
-    ///     <c>GET</c>, <c>POST</c>, <c>PUT</c> and <c>DELETE</c>.
+    ///     <c>GET</c>, <c>PUT</c>, <c>PATCH</c> and <c>DELETE</c>.
     ///     Thus, it makes sense to separate them into different classes that make different
     ///     requests available.
     /// </remarks>
@@ -161,7 +161,7 @@
         /// </returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         [ExcludeFromCodeCoverage]
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             base.Equals(obj);
 
         /// <summary>

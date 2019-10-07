@@ -18,10 +18,7 @@
             var serializer = new JsonHttpContentSerializer();
             var serialized = serializer.Serialize(dto, encoding: null);
             var str = await serialized.ReadAsStringAsync();
-            var expected = JsonConvert.SerializeObject(dto, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-            });
+            var expected = JsonConvert.SerializeObject(dto);
             str.Should().Be(expected);
         }
 

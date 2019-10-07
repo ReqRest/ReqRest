@@ -94,7 +94,7 @@ The way that ReqRest is designed makes it incredibly simple to do exactly that.
 As an example, you can send the request from above with a custom header like this:
 
 ```csharp
-var response = await client.Todos().Get(1, 50).AddHeader("x-foo", "bar").FetchResponseAsync();
+var response = await client.Todos().Get(page: 1, pageSize: 50).AddHeader("x-foo", "bar").FetchResponseAsync();
 ```
 
 As a matter of fact, users have access to all methods that are available during the request building
@@ -103,7 +103,7 @@ every request to their needs!
 
 ### :heavy_check_mark: Easy to Extend
 
-Nearly every part of ReqRest can be extended depending on your needs. As a matter of fact, ReqRest's
+Nearly every part of ReqRest can be extended depending on your needs. In fact, ReqRest's
 code base mainly consists of extension methods. If we can extend it this way, so can you!
 
 Say that your API offers the special `CUSTOM` HTTP Method - you can easily add such functionality to ReqRest:

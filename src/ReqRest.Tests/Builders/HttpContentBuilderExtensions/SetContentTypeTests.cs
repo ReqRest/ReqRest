@@ -55,7 +55,7 @@
         public void Single_Parameter_Method_Creates_New_MediaTypeHeaderValue_Instance()
         {
             var initial = new MediaTypeHeaderValue(MediaType.ApplicationJson);
-            Builder.SetContent(MediaType.ApplicationJson);
+            Builder.SetStringContent(MediaType.ApplicationJson);
             ContentType.Should().NotBeSameAs(initial);
         }
 

@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    ///     A special type which is used by to represent an empty HTTP message content, for example
+    ///     A special type which is used to represent an empty HTTP message content, for example
     ///     when an API returns `204 No Content`.
     /// </summary>
     /// <remarks>
@@ -22,7 +22,7 @@
         ///     <see langword="true"/> if <paramref name="obj"/> is of type <see cref="NoContent"/>;
         ///     <see langword="false"/> otherwise.
         /// </returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is NoContent;
 
         /// <summary>

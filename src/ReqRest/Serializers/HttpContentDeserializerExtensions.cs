@@ -2,6 +2,7 @@
 {
     using System;
     using System.Net.Http;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -22,6 +23,9 @@
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
         ///     This can be <see langword="null"/>.
         /// </param>
+        /// <param name="cancellationToken">
+        ///     A cancellation token which can be used to cancel the operation.
+        /// </param>
         /// <returns>
         ///     An object of type <typeparamref name="T"/>.
         /// </returns>
@@ -34,11 +38,17 @@
         /// <exception cref="HttpContentSerializationException">
         ///     Deserializing the content failed.
         /// </exception>
-        public static async Task<T> DeserializeAsync<T>(this IHttpContentDeserializer serializer, HttpContent? httpContent)
+        /// <exception cref="TaskCanceledException">
+        ///     The operation was canceled via the <paramref name="cancellationToken"/>.
+        /// </exception>
+        public static async Task<T> DeserializeAsync<T>(
+            this IHttpContentDeserializer serializer, 
+            HttpContent? httpContent, 
+            CancellationToken cancellationToken = default)
         {
 #nullable disable
             _ = serializer ?? throw new ArgumentNullException(nameof(serializer));
-            return (T)await serializer.DeserializeAsync(httpContent, typeof(T)).ConfigureAwait(false);
+            return (T)await serializer.DeserializeAsync(httpContent, typeof(T), cancellationToken).ConfigureAwait(false);
 #nullable restore
         }
 

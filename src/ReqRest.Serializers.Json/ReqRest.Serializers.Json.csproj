@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
+    <Description>
+An extension package for the ReqRest library.
+
+This package provides a JSON serializer based on the System.Text.Json members.
+
+Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqrest.github.io.
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" $(TargetFramework) != 'netcoreapp3.0' ">
+    <PackageReference Include="System.Text.Json" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ReqRest/ReqRest.csproj" />
+  </ItemGroup>
+
+</Project>

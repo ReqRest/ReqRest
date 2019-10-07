@@ -1,9 +1,10 @@
-﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonResponseTypeInfoBuilderExtensions
+﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests.JsonBuilderExtensions
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using FluentAssertions;
+    using Newtonsoft.Json;
     using ReqRest;
     using ReqRest.Http;
     using ReqRest.Serializers.NewtonsoftJson;
@@ -20,9 +21,16 @@
         public static TheoryData<AsJsonInvoker> AsJsonInvokers { get; } =
             new TheoryData<AsJsonInvoker>()
             {
-                (builder, codes) => builder.AsJson(codes?.ToArray()),
                 (builder, codes) => builder.AsJson(codes),
-                (builder, codes) => builder.AsJson(codes, jsonSerializer: null),
+                (builder, codes) => builder.AsJson(codes?.ToArray()),
+                (builder, codes) => builder.AsJson((JsonSerializer)null, codes),
+                (builder, codes) => builder.AsJson((JsonSerializer)null, codes?.ToArray()),
+                (builder, codes) => builder.AsJson((JsonSerializerSettings)null, forStatusCodes: codes),
+                (builder, codes) => builder.AsJson((JsonSerializerSettings)null, forStatusCodes: codes?.ToArray()),
+                (builder, codes) => builder.AsJson((JsonSerializerSettings)null, useDefaultSettings: false, forStatusCodes: codes),
+                (builder, codes) => builder.AsJson((JsonSerializerSettings)null, useDefaultSettings: false, forStatusCodes: codes?.ToArray()),
+                (builder, codes) => builder.AsJson((Func<JsonHttpContentSerializer>)null, codes),
+                (builder, codes) => builder.AsJson((Func<JsonHttpContentSerializer>)null, codes?.ToArray()),
             };
 
         [Theory]
