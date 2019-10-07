@@ -5,9 +5,16 @@ VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Config", ".Config", "{BF738A1B-E2CA-4887-98B4-6DD4746FB41E}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
+		..\.editorconfig = ..\.editorconfig
+		..\.gitignore = ..\.gitignore
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		CA.ruleset = CA.ruleset
+		..\CHANGELOG.md = ..\CHANGELOG.md
 		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		..\LICENSE = ..\LICENSE
+		nuget.config = nuget.config
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApplication", "DemoApplication\DemoApplication.csproj", "{207C972A-1969-43BA-9852-6A8B909A8CD9}"
@@ -19,14 +26,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Tests", "ReqRest.Tests\ReqRest.Tests.csproj", "{BDCFDFAC-92C2-456D-8560-B53F07831968}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Serializers.NewtonsoftJson", "ReqRest.Serializers.NewtonsoftJson\ReqRest.Serializers.NewtonsoftJson.csproj", "{5311ADD7-58E1-4166-BAC3-4D083DDAFD2D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Repository", ".Repository", "{AE10565A-F091-47AE-9930-BC4DB867FDD5}"
-	ProjectSection(SolutionItems) = preProject
-		..\azure-pipelines.yml = ..\azure-pipelines.yml
-		..\CHANGELOG.md = ..\CHANGELOG.md
-		..\LICENSE = ..\LICENSE
-		..\README.md = ..\README.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Serializers.NewtonsoftJson.Tests", "ReqRest.Serializers.NewtonsoftJson.Tests\ReqRest.Serializers.NewtonsoftJson.Tests.csproj", "{1E7E9EC2-69F8-43F7-86EA-E71D0D964A91}"
 EndProject
