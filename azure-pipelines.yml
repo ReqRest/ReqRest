@@ -9,7 +9,7 @@ pool:
 
 variables:
   BuildConfiguration: 'Release'
-  ${{ if neq(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
+  ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master')) }}:
     BuildLabel: ${{ '$(Build.BuildNumber)' }}
 
 steps:
