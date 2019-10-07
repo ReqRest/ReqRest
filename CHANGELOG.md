@@ -34,6 +34,10 @@
 * The default `JsonHttpContentSerializer` no longer ignores null properties during serialization.
 * Added an overload to the `SetJsonContent` extension which supports setting the `contentType`.
 
+### ReqRest.Serializers.Json
+
+Initial release.
+
 
 ## v0.5.0
 
