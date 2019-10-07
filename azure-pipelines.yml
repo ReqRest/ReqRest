@@ -10,7 +10,7 @@ pool:
 variables:
   BuildConfiguration: 'Release'
   ${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}:
-    BuildLabel: ${{ '$(Build.BuildNumber)' }}
+    BuildLabel: ${{ 'ci-$(Build.BuildNumber)' }}
 
 steps:
 - task: DotNetCoreInstaller@1
