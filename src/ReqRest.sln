@@ -34,7 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest", "ReqRest\ReqRest.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Tests.Shared", "ReqRest.Tests.Shared\ReqRest.Tests.Shared.csproj", "{D7078917-06DD-405A-8E32-9C90AADCF358}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReqRest.Serializers.Json", "ReqRest.Serializers.Json\ReqRest.Serializers.Json.csproj", "{9B76726D-14A3-470C-8460-8A0E07B8DEFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReqRest.Serializers.Json", "ReqRest.Serializers.Json\ReqRest.Serializers.Json.csproj", "{9B76726D-14A3-470C-8460-8A0E07B8DEFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReqRest.Serializers.Json.Tests", "ReqRest.Serializers.Json.Tests\ReqRest.Serializers.Json.Tests.csproj", "{090805DE-2080-4E60-A4EC-49BCF41E0D54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +132,18 @@ Global
 		{9B76726D-14A3-470C-8460-8A0E07B8DEFE}.Release|x64.Build.0 = Release|Any CPU
 		{9B76726D-14A3-470C-8460-8A0E07B8DEFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B76726D-14A3-470C-8460-8A0E07B8DEFE}.Release|x86.Build.0 = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|x64.Build.0 = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Debug|x86.Build.0 = Debug|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|x64.ActiveCfg = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|x64.Build.0 = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|x86.ActiveCfg = Release|Any CPU
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +156,7 @@ Global
 		{4DD568D9-8C48-4D5D-A4F7-70C29966021A} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 		{D7078917-06DD-405A-8E32-9C90AADCF358} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 		{9B76726D-14A3-470C-8460-8A0E07B8DEFE} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
+		{090805DE-2080-4E60-A4EC-49BCF41E0D54} = {B093C6D5-B9F9-459F-BCED-2859A38B0744}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09A1C97D-6B57-4AAD-9978-691CF49CAE7E}
