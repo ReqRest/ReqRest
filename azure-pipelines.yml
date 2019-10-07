@@ -11,7 +11,7 @@ variables:
   BuildConfiguration: 'Release'
 
   ${{ if and(eq(variables['system.pullrequest.isfork'], false), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) }}:
-    BuildLabel: ${{ $(Build.BuildNumber) }}
+    BuildLabel: ${{ '$(Build.BuildNumber)' }}
 
 steps:
 - script: echo $(BuildLabel)
