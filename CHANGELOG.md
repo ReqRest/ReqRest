@@ -15,6 +15,7 @@
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
+* Added the `DeserializeWithoutHttpContentAsync` method to the `HttpContentSerializer` to allow changing the default deserialization behavior if no HttpContent is given.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
