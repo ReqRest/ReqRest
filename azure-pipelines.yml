@@ -79,7 +79,7 @@ steps:
     )
     
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish NuGet Package Artifact'
+  displayName: 'Publish NuGet Package Artifacts'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
     ArtifactName: 'NuGet Packages'
