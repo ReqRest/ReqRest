@@ -2,15 +2,16 @@ trigger:
 - master
 - dev
 
-name: $(SourceBranchName)_$(Date:yyyy-MM-dd)_$(Rev:.r)
+name: $(Date:yyyy-MM-dd)-$(Rev:.r)
 
 pool:
   vmImage: 'Ubuntu-16.04'
 
 variables:
   BuildConfiguration: 'Release'
+
   ${{ if and(eq(variables['system.pullrequest.isfork'], false), eq(variables['Build.SourceBranch'], 'refs/heads/dev')) }}:
-    BuildLabel: ${{ 'ci-$(Date:yyyy-MM-dd).$(Rev:.r)' }}
+    BuildLabel: ${{ $(Build.BuildNumber) }}
 
 steps:
 - script: echo $(BuildLabel)
