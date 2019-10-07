@@ -14,7 +14,7 @@
     <NeutralLanguage>en</NeutralLanguage>
 
     <VersionPrefix>0.6.0</VersionPrefix>
-    <VersionSuffix>alpha1</VersionSuffix>
+    <VersionSuffix>alpha2</VersionSuffix>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>

@@ -3,7 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using ReqRest.Builders;
     using ReqRest.Http;
+    using ReqRest.Serializers;
 
     /// <summary>
     ///     Provides static methods which return exception message strings for the various exceptions
@@ -18,18 +20,20 @@
         #region ReqRest
 
         public static string ApiResponse_InvalidResponseDeserializer() =>
-            "The IHttpContentDeserializer factory for the current response type returned null " +
-            "instead of a deserializer instance.";
+            $"The {nameof(IHttpContentDeserializer)} factory for the current response type returned " +
+            $"null (Nothing in VB) instead of an actual deserializer instance.";
 
         public static string ApiResponse_NoResponseTypeInfoForResponse() =>
-            $"The response had a status code which was not configured. " +
-            $"When building a request via the ApiRequest API, ensure that you declare a possible " +
+            $"The response had a status code which has not been declared before. " +
+            $"When building a request via the {nameof(ApiRequest)} API, ensure that you declare a possible " +
             $"response for this status code via the \"{nameof(ApiRequest.Receive)}\" methods, " +
-            $"so that a response to the request knows which type to deserialize for the given status code.";
+            $"so that a response to the request knows which type should be deserialized for the given status code.";
 
         public static string HttpClientProvider_Returned_Null() =>
-            "The configured HttpClient provider function returned null. " +
-            "Ensure that the function returns a valid HttpClient instance.";
+            $"The configured HttpClient provider function returned null (Nothing in VB). " +
+            $"If you are seeing this exception while using a {nameof(RestClient)}, you can most " +
+            $"likely fix this error by setting the {nameof(RestClientConfiguration)}.{nameof(RestClientConfiguration.HttpClientProvider)} " +
+            $"property to a function which returns an actual HttpClient instance.";
 
         public static string ResponseTypeInfo_MustProvideAtLeastOneStatusCode() =>
             "At least one status code or status code range must be provided.";
@@ -50,15 +54,21 @@
                 $"{conflictingStr}";
         }
 
-        public static string Serializer_CanOnlyDeserialize(Type type) =>
-            $"The serializer can only deserialize objects of type {type.FullName}.";
+        #endregion
+
+        #region ReqRest.Internal
+
+        public static string SpecificHttpContentSerializer_CanOnlyDeserialize(Type type) =>
+            $"The serializer can only deserialize objects of type \"{type.FullName}\".";
 
         #endregion
 
         #region ReqRest.Builders
 
         public static string HttpContentBuilderExtensions_NoHttpContentHeaders() =>
-            "Cannot interact with the content headers, because the HttpContent which is being built is null.";
+            $"The headers of the HttpContent cannot be configured, because the HttpContent is " +
+            $"null (Nothing in VB). Ensure that the {nameof(IHttpContentBuilder.Content)} property " +
+            $"is set to an actual HttpContent instance.";
 
         #endregion
 
@@ -73,14 +83,21 @@
         #region ReqRest.Serializers
 
         public static string HttpContentSerializationException_Message() =>
-            "The (de-)serialization failed because of an unknown error. See the inner exception for details (if available).";
+            "The (de-)serialization failed because of an arbitrary error. This most likely happened, " +
+            "because an inner serializer failed to (de-)serialize the given data. " +
+            "See the inner exception for details (if available).";
 
         public static string HttpContentSerializer_ContentTypeDoesNotMatchActualType(Type expected, Type actual) =>
             $"The content to be serialized does not match the specified type. " +
-            $"Expected an instance of the class ${expected.FullName}, but got {actual.FullName}.";
+            $"Expected an instance of the class \"${expected.FullName}\", but got \"{actual.FullName}\".";
 
-        public static string HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent(Type type) =>
-            $"Cannot deserialize the type \"{type.FullName}\" because the HTTP response had no content.";
+        public static string HttpContentSerializer_HttpContentIsNull(Type contentType) =>
+            $"The HttpContent to be deserialized into an object of type \"{contentType.FullName}\" " +
+            $"was null (Nothing in VB). An HttpContent which is null cannot be deserialized by this " +
+            $"serializer.\n" +
+            $"If you know that the HttpContent is always going to be null, ensure that you deserialize " +
+            $"the special \"{typeof(NoContent).FullName}\" type. This type can always be deserialized, even " +
+            $"if no HttpContent is given.";
 
         #endregion
 
