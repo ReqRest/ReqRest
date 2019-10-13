@@ -4,6 +4,7 @@
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using ReqRest.Resources;
 
     /// <summary>
     ///     Implements several builder interfaces which enable fluent building of
@@ -12,6 +13,7 @@
     public class HttpResponseMessageBuilder :
         IHttpResponseMessageBuilder,
         IHttpHeadersBuilder<HttpResponseHeaders>,
+        IHttpHeadersBuilder<HttpContentHeaders>,
         IHttpContentBuilder,
         IHttpProtocolVersionBuilder,
         IHttpResponseReasonPhraseBuilder,
@@ -27,7 +29,27 @@
             set => _httpResponseMessage = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        ///     Gets the content headers of the underlying <see cref="HttpContent"/>, if one exists.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        ///     The underlying <see cref="HttpContent"/> is <see langword="null"/>.
+        /// </exception>
+        HttpContentHeaders IHttpHeadersBuilder<HttpContentHeaders>.Headers
+        {
+            get
+            {
+                if (Content is null)
+                {
+                    throw new InvalidOperationException(ExceptionStrings.HttpContentHeaders_HttpContent_Is_Null());
+                }
+                return Content.Headers;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the value of the <see cref="Headers"/> property.
+        /// </summary>
         HttpHeaders IHttpHeadersBuilder.Headers => Headers;
 
         /// <summary>

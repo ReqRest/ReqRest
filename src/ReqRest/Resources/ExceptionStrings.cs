@@ -65,7 +65,7 @@
 
         #region ReqRest.Builders
 
-        public static string HttpContentBuilderExtensions_NoHttpContentHeaders() =>
+        public static string HttpContentHeaders_HttpContent_Is_Null() =>
             $"The headers of the HttpContent cannot be configured, because the HttpContent is " +
             $"null (Nothing in VB). Ensure that the {nameof(IHttpContentBuilder.Content)} property " +
             $"is set to an actual HttpContent instance.";

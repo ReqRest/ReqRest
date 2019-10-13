@@ -91,7 +91,7 @@ namespace ReqRest.Builders
     }
 
     /// <summary>
-    ///     Represents a builder which is able to build an <see cref="System.Net.Http.HttpMethod"/>.
+    ///     Represents a builder which is able to build an <see cref="HttpMethod"/>.
     /// </summary>
     /// <seealso cref="HttpRequestMessageBuilder"/>
     /// <seealso cref="HttpMethodBuilderExtensions"/>

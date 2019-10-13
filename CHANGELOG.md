@@ -15,10 +15,13 @@
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
+* **[Breaking]** The `UriBuilderExtensions.AppendPath(string? path)` method no longer appends a trailing `/` if `path` is `null` or empty.
 * Added the `DeserializeWithoutHttpContentAsync` method to the `HttpContentSerializer` to allow changing the default deserialization behavior if no HttpContent is given.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
+* Added the optional `UriKind uriKind = UriKind.RelativeOrAbsolute` parameter to `RequestUriBuilderExtensions.SetRequestUri(IRequestUriBuilder, string)`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
+* Fixed the `HttpRequestPropertiesBuilderExtensions.RemoveProperty` to not throw an `ArgumentNullException` for the `builder` parameter if the `IEnumerable<string?>? names` parameter is `null`.
 * Updated certain nullable annotations to accept `null`, for example in `public override bool Equals(object?)`.
 
 ### ReqRest.Serializers.NewtonsoftJson

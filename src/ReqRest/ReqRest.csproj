@@ -2,6 +2,7 @@
   
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <IsPackable>true</IsPackable>
     <Description>
 ReqRest allows you to easily project a RESTful HTTP API to a C#/VB library that feels and behaves like a normal C# API. If you use ReqRest to wrap your REST API, you will end up with a library that is fully typed, has IntelliSense and compiler support and is thus incredibly easy to use.
 
