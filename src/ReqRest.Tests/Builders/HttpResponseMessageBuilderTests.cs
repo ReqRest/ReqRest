@@ -1,15 +1,13 @@
 ﻿namespace ReqRest.Tests.Builders
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
     using ReqRest.Builders;
     using Xunit;
     using System.Net.Http;
     using System.Net;
     using ReqRest.Tests.Sdk.TestRecipes;
     using ReqRest.Tests.Sdk.TestBases;
+    using System.Net.Http.Headers;
 
     public class HttpResponseMessageBuilderTests
     {
@@ -51,7 +49,7 @@
             [Fact]
             public void Headers_Wraps_HttpRequestMessage_Property()
             {
-                var wrappedHeaders = ((IHttpHeadersBuilder)Service).Headers;
+                var wrappedHeaders = ((IHttpHeadersBuilder<HttpResponseHeaders>)Service).Headers;
                 Assert.Same(Service.HttpResponseMessage.Headers, wrappedHeaders);
             }
 

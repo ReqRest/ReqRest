@@ -18,10 +18,10 @@
         IHttpRequestMessageBuilder,
         IHttpResponseMessageBuilder,
         IHttpContentBuilder,
-        IHttpHeadersBuilder,
-        IHttpHeadersBuilder<HttpContentHeaders>,
         IHttpHeadersBuilder<HttpRequestHeaders>,
         IHttpHeadersBuilder<HttpResponseHeaders>,
+        IHttpHeadersBuilder<HttpContentHeaders>,
+        IHttpContentHeadersBuilder,
         IHttpMethodBuilder,
         IHttpProtocolVersionBuilder,
         IHttpRequestPropertiesBuilder,
@@ -44,11 +44,6 @@
         ///     Gets or sets the content for the <see cref="IHttpContentBuilder"/>.
         /// </summary>
         public HttpContent? Content { get; set; }
-
-        /// <summary>
-        ///     Gets the headers for the <see cref="IHttpHeadersBuilder"/>.
-        /// </summary>
-        public HttpHeaders Headers { get; } = new HttpRequestMessage().Headers;
 
         HttpContentHeaders IHttpHeadersBuilder<HttpContentHeaders>.Headers => ContentHeaders;
 

@@ -2,14 +2,16 @@
 {
     using System;
     using System.Linq;
+    using System.Net.Http.Headers;
     using ReqRest.Builders;
     using ReqRest.Tests.Sdk.Data;
     using ReqRest.Tests.Sdk.TestBases;
     using Xunit;
     using static ReqRest.Tests.Sdk.Data.ParameterNullability;
 
-    public abstract class RemoveHeaderExtensionRecipe<TBuilder> : HttpHeadersBuilderTestBase<TBuilder>
-        where TBuilder : IHttpHeadersBuilder
+    public abstract class RemoveHeaderExtensionRecipe<TBuilder, THeaders> : HttpHeadersBuilderTestBase<TBuilder, THeaders>
+        where TBuilder : IHttpHeadersBuilder<THeaders>
+        where THeaders : HttpHeaders
     {
 
         protected abstract void RemoveHeader(TBuilder builder, params string?[]? names);

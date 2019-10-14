@@ -9,6 +9,8 @@
 ### ReqRest
 
 * **[Package]** ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
+* **[Breaking]** The `IHttpHeadersBuilder` has been removed in favor of the reworked `IHttpHeadersBuilder<out T>` interface.
+* **[Breaking]** Updated the extension methods interacting with the `IHttpHeadersBuilder` to use the new `IHttpHeadersBuilder<out T>` interface. Extension methods having the `ContentHeaders` suffix have been moved into a separate class.
 * **[Breaking]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
 * **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.

@@ -11,10 +11,13 @@
     ///     <see cref="System.Net.Http.HttpResponseMessage"/> objects.
     /// </summary>
     public class HttpResponseMessageBuilder :
+        IBuilder,
         IHttpResponseMessageBuilder,
+        IHttpHeadersBuilder<HttpHeaders>,
         IHttpHeadersBuilder<HttpResponseHeaders>,
         IHttpHeadersBuilder<HttpContentHeaders>,
         IHttpContentBuilder,
+        IHttpContentHeadersBuilder,
         IHttpProtocolVersionBuilder,
         IHttpResponseReasonPhraseBuilder,
         IHttpStatusCodeBuilder
@@ -41,7 +44,7 @@
             {
                 if (Content is null)
                 {
-                    throw new InvalidOperationException(ExceptionStrings.HttpContentHeaders_HttpContent_Is_Null());
+                    throw new InvalidOperationException(ExceptionStrings.IHttpContentHeadersBuilder_HttpContent_Is_Null());
                 }
                 return Content.Headers;
             }
@@ -49,8 +52,10 @@
 
         /// <summary>
         ///     Gets the value of the <see cref="Headers"/> property.
+        ///     These are the headers that are configured by default when using the
+        ///     non-generic extension methods provided by <see cref="HttpHeadersBuilderExtensions"/>.
         /// </summary>
-        HttpHeaders IHttpHeadersBuilder.Headers => Headers;
+        HttpHeaders IHttpHeadersBuilder<HttpHeaders>.Headers => Headers;
 
         /// <summary>
         ///     Gets the collection of HTTP response headers

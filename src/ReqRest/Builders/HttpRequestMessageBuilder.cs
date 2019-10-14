@@ -11,11 +11,14 @@
     ///     <see cref="System.Net.Http.HttpRequestMessage"/> objects.
     /// </summary>
     public class HttpRequestMessageBuilder :
+        IBuilder,
         IHttpRequestMessageBuilder,
+        IHttpHeadersBuilder<HttpHeaders>,
         IHttpHeadersBuilder<HttpRequestHeaders>,
         IHttpHeadersBuilder<HttpContentHeaders>,
-        IHttpRequestPropertiesBuilder,
         IHttpContentBuilder,
+        IHttpContentHeadersBuilder,
+        IHttpRequestPropertiesBuilder,
         IHttpProtocolVersionBuilder,
         IRequestUriBuilder,
         IHttpMethodBuilder
@@ -31,7 +34,8 @@
         }
 
         /// <summary>
-        ///     Gets the content headers of the underlying <see cref="HttpContent"/>, if one exists.
+        ///     Gets the <see cref="HttpContentHeaders"/> of the underlying 
+        ///     <see cref="HttpContent"/>, if one exists.
         /// </summary>
         /// <exception cref="InvalidOperationException">
         ///     The underlying <see cref="HttpContent"/> is <see langword="null"/>.
@@ -42,7 +46,7 @@
             {
                 if (Content is null)
                 {
-                    throw new InvalidOperationException(ExceptionStrings.HttpContentHeaders_HttpContent_Is_Null());
+                    throw new InvalidOperationException(ExceptionStrings.IHttpContentHeadersBuilder_HttpContent_Is_Null());
                 }
                 return Content.Headers;
             }
@@ -50,8 +54,10 @@
 
         /// <summary>
         ///     Gets the value of the <see cref="Headers"/> property.
+        ///     These are the headers that are configured by default when using the
+        ///     non-generic extension methods provided by <see cref="HttpHeadersBuilderExtensions"/>.
         /// </summary>
-        HttpHeaders IHttpHeadersBuilder.Headers => Headers;
+        HttpHeaders IHttpHeadersBuilder<HttpHeaders>.Headers => Headers;
 
         /// <summary>
         ///     Gets the collection of HTTP request headers

@@ -3,14 +3,16 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http.Headers;
     using ReqRest.Builders;
     using ReqRest.Tests.Sdk.Data;
     using ReqRest.Tests.Sdk.TestBases;
     using Xunit;
     using static ReqRest.Tests.Sdk.Data.ParameterNullability;
 
-    public abstract class SetHeaderExtensionTestRecipe<TBuilder> : HttpHeadersBuilderTestBase<TBuilder>
-        where TBuilder : IHttpHeadersBuilder
+    public abstract class SetHeaderExtensionRecipe<TBuilder, THeaders> : HttpHeadersBuilderTestBase<TBuilder, THeaders>
+        where TBuilder : IHttpHeadersBuilder<THeaders>
+        where THeaders : HttpHeaders
     {
 
         protected abstract void SetHeader(TBuilder builder, string name);

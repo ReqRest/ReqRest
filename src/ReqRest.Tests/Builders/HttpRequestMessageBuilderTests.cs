@@ -6,6 +6,7 @@
     using ReqRest.Tests.Sdk.TestRecipes;
     using Xunit;
     using ReqRest.Tests.Sdk.TestBases;
+    using System.Net.Http.Headers;
 
     public class HttpRequestMessageBuilderTests
     {
@@ -47,7 +48,7 @@
             [Fact]
             public void Headers_Wraps_HttpRequestMessage_Property()
             {
-                var wrappedHeaders = ((IHttpHeadersBuilder)Service).Headers;
+                var wrappedHeaders = ((IHttpHeadersBuilder<HttpRequestHeaders>)Service).Headers;
                 Assert.Same(Service.HttpRequestMessage.Headers, wrappedHeaders);
             }
 

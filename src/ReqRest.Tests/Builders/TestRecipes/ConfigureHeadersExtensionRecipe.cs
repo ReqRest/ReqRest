@@ -8,8 +8,8 @@
     using Xunit;
     using static ReqRest.Tests.Sdk.Data.ParameterNullability;
 
-    public abstract class ConfigureHeadersExtensionRecipe<TBuilder, THeaders> : HttpHeadersBuilderTestBase<TBuilder>
-        where TBuilder : IHttpHeadersBuilder
+    public abstract class ConfigureHeadersExtensionRecipe<TBuilder, THeaders> : HttpHeadersBuilderTestBase<TBuilder, THeaders>
+        where TBuilder : IHttpHeadersBuilder<THeaders>
         where THeaders : HttpHeaders
     {
 
