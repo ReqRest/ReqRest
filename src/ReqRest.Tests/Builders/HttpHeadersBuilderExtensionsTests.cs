@@ -24,7 +24,7 @@
     // This ensures that everything has been written/configured properly and that the CLR/compiler
     // plays along with the method design.
 
-    public class HttpHeadersBuilderExtensionsTests
+    public partial class HttpHeadersBuilderExtensionsTests
     {
 
         public class NonGenericAddHeaderTests : AddHeaderExtensionRecipe<IHttpHeadersBuilder<HttpHeaders>, HttpHeaders>
