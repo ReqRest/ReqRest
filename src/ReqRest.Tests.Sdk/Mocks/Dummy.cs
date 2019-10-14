@@ -67,6 +67,10 @@
             {
                 return ForValueType(type);
             }
+            else if (type.IsArray)
+            {
+                return ForArray(type);
+            }
             else if (type.IsClass && !typeof(Delegate).IsAssignableFrom(type))
             {
                 return ForClass(type);
@@ -87,6 +91,12 @@
         {
             // Since structs always have a parameter-less constructor, simply fall back to Activator.
             return Activator.CreateInstance(valueType);
+        }
+        
+        private static object ForArray(Type type)
+        {
+            // An empty array should be enough.
+            return Activator.CreateInstance(type, new object[] { 0 });
         }
 
         private static object ForClass(Type type)

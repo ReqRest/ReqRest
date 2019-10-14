@@ -54,6 +54,7 @@
         public static T SetFormUrlEncodedContent<T>(
             this T builder, IEnumerable<(string Key, string Value)> content) where T : IHttpContentBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = content ?? throw new ArgumentNullException(nameof(content));
             return builder.SetFormUrlEncodedContent(
                 content.Select(x => new KeyValuePair<string, string>(x.Key, x.Value))
@@ -97,6 +98,7 @@
         public static T SetFormUrlEncodedContent<T>(
             this T builder, IEnumerable<KeyValuePair<string, string>> content) where T : IHttpContentBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = content ?? throw new ArgumentNullException(nameof(content));
             return builder.SetContent(new FormUrlEncodedContent(content));
         }
