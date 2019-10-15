@@ -16,7 +16,7 @@ Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqre
 
   <ItemGroup>
     <PackageReference Include="NCommons.Monads" Version="1.3.2" />
-    <PackageReference Include="Nullable" Version="1.1.0">
+    <PackageReference Include="Nullable" Version="1.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
