@@ -239,15 +239,15 @@
         public class ToStringTests : ToStringRecipe<StatusCodeRange>
         {
 
-            protected override TheoryData<StatusCodeRange, string?> Expectations => new TheoryData<StatusCodeRange, string?>()
+            protected override TheoryData<StatusCodeRange, Func<StatusCodeRange, string?>> Expectations => new TheoryData<StatusCodeRange, Func<StatusCodeRange, string?>>()
             {
-                { StatusCodeRange.All, "*" },
-                { (200, 200), "200" },
-                { (null, 200), "[*, 200]" },
-                { (200, null), "[200, *]" },
-                { (200, 300), "[200, 300]" },
-                { (-300, 200), "[-300, 200]" },
-                { (-300, -200), "[-300, -200]" }
+                { StatusCodeRange.All, _ => "*" },
+                { (200, 200), _ => "200" },
+                { (null, 200), _ => "[*, 200]" },
+                { (200, null), _ => "[200, *]" },
+                { (200, 300), _ => "[200, 300]" },
+                { (-300, 200), _ => "[-300, 200]" },
+                { (-300, -200), _ => "[-300, -200]" }
             };
 
         }

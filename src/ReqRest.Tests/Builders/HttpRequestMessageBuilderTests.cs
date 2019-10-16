@@ -96,9 +96,9 @@
         public class ToStringTests : ToStringRecipe<HttpRequestMessageBuilder>
         {
 
-            protected override TheoryData<HttpRequestMessageBuilder, string?> Expectations => new TheoryData<HttpRequestMessageBuilder, string?>()
+            protected override TheoryData<HttpRequestMessageBuilder, Func<HttpRequestMessageBuilder, string?>> Expectations => new TheoryData<HttpRequestMessageBuilder, Func<HttpRequestMessageBuilder, string?>>()
             {
-                { new HttpRequestMessageBuilder(), new HttpRequestMessage().ToString() },
+                { new HttpRequestMessageBuilder(), builder => builder.HttpRequestMessage.ToString() },
             };
 
         }
