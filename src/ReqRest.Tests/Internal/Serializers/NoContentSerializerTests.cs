@@ -19,7 +19,7 @@
                 var serializer = new NoContentSerializer();
                 await Assert.ThrowsAsync<NotSupportedException>(
                     async () => await serializer.DeserializeAsync(new ByteArrayContent(Array.Empty<byte>()), typeof(int)
-                );
+                ).ConfigureAwait(false);
             }
 
             [Fact]
