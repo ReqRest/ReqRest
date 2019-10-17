@@ -4,6 +4,7 @@
     using ReqRest.Tests.Sdk.Utilities;
     using Moq;
     using System.Reflection;
+    using System.Linq;
 
     /// <summary>
     ///     Defines static helper methods for creating "dummy" objects, i.e. mocks that have no
@@ -106,6 +107,7 @@
             // optional parameters with the right overload.
             // If no constructor without parameters is possible, try to use dummies for the creation.
             return TryCreateFromParameterlessConstructor(type)
+                ?? TryCreateUsingCtorsRecursively(type)
                 ?? throw new ArgumentException(
                        $"Cannot create an instance of the type {type.FullName}, " +
                        $"because no appropriate constructor can be called."
@@ -122,6 +124,30 @@
             {
                 return null;
             }
+        }
+
+        private static object? TryCreateUsingCtorsRecursively(Type type)
+        {
+            // Try to create an instance using each constructor, beginning with the one having the
+            // least number of parameters.
+            var ctors = type.GetConstructors().OrderBy(ctor => ctor.GetParameters().Length);
+
+            foreach (var ctor in ctors)
+            {
+                try
+                {
+                    var parameters = ctor.GetParameters();
+                    var parameterInstances = parameters.Select(param => For(param));
+                    return ReflectionHelper.CreateInstanceWithOptionalParameters(type, parameterInstances.ToArray());
+                }
+                catch
+                { 
+                    // On errors, simply try the next constructor.
+                }
+            }
+
+            // If we get here, no constructor could be used, i.e. this method failed.
+            return null;
         }
 
         private static object UsingMocks(Type typeToMock)

@@ -32,7 +32,7 @@
             public void Throws_ArgumentException_For_Empty_StatusCodes()
             {
                 Assert.Throws<ArgumentException>(
-                    () => new ResponseTypeInfo(typeof(object), Array.Empty<StatusCodeRange>(), () => null)
+                    () => new ResponseTypeInfo(typeof(object), Array.Empty<StatusCodeRange>(), () => null!)
                 );
             }
 

@@ -46,7 +46,7 @@
                 var collection = new ResponseTypeInfoCollection()
                 {
                     a,
-                    new ResponseTypeInfo(typeof(object), new StatusCodeRange[] { 0 }, () => null),
+                    new ResponseTypeInfo(typeof(object), new StatusCodeRange[] { 0 }, () => null!),
                 };
                 Assert.Throws<InvalidOperationException>(() => collection[1] = b);
             }

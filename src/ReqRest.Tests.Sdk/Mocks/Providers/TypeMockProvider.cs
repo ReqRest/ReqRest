@@ -8,9 +8,9 @@
 
         public Type Type { get; }
 
-        public TypeMockProvider(Type type)
+        public TypeMockProvider(Type? type = null)
         {
-            Type = type ?? throw new ArgumentNullException(nameof(type));
+            Type = type ?? typeof(object);
         }
 
         public override Type Create() =>
