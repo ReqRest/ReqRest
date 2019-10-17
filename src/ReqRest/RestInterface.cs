@@ -53,6 +53,11 @@
         /// <summary>
         ///     Gets the URL which was built for the <see cref="RestInterface"/>.
         /// </summary>
+        /// <remarks>
+        ///     This property is evaluated once and from then on cached.
+        ///     Cast this class to an <see cref="IUrlProvider"/> and use its
+        ///     <see cref="IUrlProvider.GetUrlBuilder"/> to force-create a new <see cref="Uri"/>.
+        /// </remarks>
         protected internal Uri Url => _url ??= this.GetUrl();
 
         /// <summary>
