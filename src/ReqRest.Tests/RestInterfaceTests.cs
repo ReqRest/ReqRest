@@ -1,21 +1,44 @@
 ﻿namespace ReqRest.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
-    using ReqRest.Tests.Sdk.TestBases;
-    using Xunit;
-    using ReqRest.Tests.Sdk.Data;
-    using static ReqRest.Tests.Sdk.Data.ParameterNullability;
-    using System.Reflection;
     using Moq;
     using ReqRest.Builders;
+    using ReqRest.Tests.Sdk.TestBases;
+    using Xunit;
 
-    public class RestInterfaceTests
+    public abstract class RestInterfaceTests : TestBase<RestInterface>
     {
 
-        public class ConstructorTests : RestInterfaceTestBase
+        protected virtual RestClient DefaultRestClient => new Mock<RestClient>(new RestClientConfiguration()).Object;
+
+        protected virtual IUrlProvider DefaultBaseUrlProvider
+        {
+            get
+            {
+                var mock = new Mock<IUrlProvider>();
+                mock.Setup(x => x.GetUrlBuilder()).Returns(new UrlBuilder());
+                return mock.Object;
+            }
+        }
+
+        protected virtual Func<UrlBuilder, UrlBuilder> DefaultBuildUrl => builder => builder;
+
+        protected override RestInterface CreateService()
+        {
+            return CreateService(DefaultRestClient, DefaultBaseUrlProvider, DefaultBuildUrl);
+        }
+
+        protected virtual RestInterface CreateService(
+            RestClient restClient,
+            IUrlProvider? baseUrlProvider,
+            Func<UrlBuilder, UrlBuilder> buildUrl)
+        {
+            var mock = new Mock<RestInterface>(restClient, baseUrlProvider) { CallBase = true };
+            mock.Setup(x => x.BuildUrl(It.IsAny<UrlBuilder>())).Returns(buildUrl);
+            return mock.Object;
+        }
+
+        public class ConstructorTests : RestInterfaceTests
         {
 
             [Fact]
@@ -43,7 +66,7 @@
 
         }
 
-        public class UrlTests : RestInterfaceTestBase
+        public class UrlTests : RestInterfaceTests
         {
 
             [Fact]
@@ -55,7 +78,7 @@
 
         }
 
-        public class BuildRequestTests : RestInterfaceTestBase
+        public class BuildRequestTests : RestInterfaceTests
         {
 
             [Fact]
@@ -82,7 +105,7 @@
 
         }
 
-        public class GetUrlBuilderTests : RestInterfaceTestBase
+        public class GetUrlBuilderTests : RestInterfaceTests
         {
 
             [Fact]
@@ -131,7 +154,7 @@
 
         }
 
-        public class ToStringTests : RestInterfaceTestBase
+        public class ToStringTests : RestInterfaceTests
         {
 
             [Fact]
