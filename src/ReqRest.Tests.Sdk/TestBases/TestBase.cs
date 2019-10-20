@@ -1,6 +1,7 @@
 ﻿namespace ReqRest.Tests.Sdk.TestBases
 {
     using System;
+    using ReqRest.Tests.Sdk.Mocks;
     using ReqRest.Tests.Sdk.Utilities;
 
     /// <summary>
@@ -44,7 +45,9 @@
         /// </returns>
         protected virtual T CreateService()
         {
-            return (T)ReflectionHelper.CreateInstanceWithOptionalParameters(typeof(T));
+            // Dummy creates real instances of classes using mocks, so this is fine.
+            // For interfaces, it creates mocks, so that's perfect too.
+            return Dummy.For<T>();
         }
 
     }
