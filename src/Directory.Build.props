@@ -13,8 +13,8 @@
     <NoWarn>$(NoWarn);CS1591</NoWarn>
 
     <VersionPrefix>0.6.0</VersionPrefix>
-    <IsPackable>false</IsPackable>
     <VersionSuffix>alpha2</VersionSuffix>
+    <IsPackable>false</IsPackable>
     <Product>ReqRest</Product>
     <Authors>Manuel Römer</Authors>
     <NeutralLanguage>en</NeutralLanguage>

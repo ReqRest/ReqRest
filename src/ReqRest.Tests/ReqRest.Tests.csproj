@@ -1,19 +1,41 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    <PackageReference Include="coverlet.collector" Version="1.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReqRest.Serializers.Json\ReqRest.Serializers.Json.csproj" />
     <ProjectReference Include="..\ReqRest.Tests.Sdk\ReqRest.Tests.Sdk.csproj" />
   </ItemGroup>
+
+  <!-- T4 Templates. -->
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-t4-project-tool" Version="2.0.5" />
+    <TextTemplate Include="**/Generated/**/*.tt" />
+  </ItemGroup>
+
+  <Target Name="TextTemplateTransform" BeforeTargets="BeforeBuild">
+    <ItemGroup>
+      <Compile Remove="**/Generated/**/*.cs" />
+    </ItemGroup>
+    <Exec WorkingDirectory="$(ProjectDir)" Command="dotnet t4 %(TextTemplate.Identity)" />
+    <ItemGroup>
+      <Compile Include="**/Generated/**/*.cs" />
+    </ItemGroup>
+    <PropertyGroup>
+      <Nullable>enable</Nullable>
+    </PropertyGroup>
+  </Target>
 
 </Project>

@@ -4,7 +4,7 @@
 
     /// <summary>
     ///     A special type which is used to represent an empty HTTP message content, for example
-    ///     when an API returns `204 No Content`.
+    ///     when an API returns <c>204 No Content</c>.
     /// </summary>
     /// <remarks>
     ///     This class is treated with special logic during (de-)serialization and is thus the preferred
