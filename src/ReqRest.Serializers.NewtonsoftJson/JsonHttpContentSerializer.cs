@@ -27,7 +27,7 @@
         /// <summary>
         ///     Gets a factory function returning the <see cref="Default"/> value.
         /// </summary>
-        internal static Func<JsonHttpContentSerializer> DefaultFactory { get; } = () => Default;
+        internal static Func<JsonHttpContentSerializer> DefaultProvider { get; } = () => Default;
 
         /// <summary>
         ///     Gets a default <see cref="JsonHttpContentSerializer"/> instance which is used

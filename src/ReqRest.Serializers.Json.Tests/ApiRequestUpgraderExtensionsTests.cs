@@ -3,17 +3,13 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using ReqRest.Http;
     using ReqRest.Serializers.Json;
     using ReqRest.Tests.Sdk.TestBases;
     using Xunit;
-    using ReqRest.Tests.Sdk.Models;
-    using ReqRest.Serializers.Json.Tests.TestData;
     using System.Text.Json;
 
-    public class JsonBuilderExtensionsTests
+    public class ApiRequestUpgraderExtensionsTests
     {
 
         public class AsJsonTests : ApiRequestUpgraderTestBase
@@ -66,24 +62,6 @@
             public void Throws_ArgumentException_For_Empty_ForStatusCodes(AsJsonInvoker asJson)
             {
                 Assert.Throws<ArgumentException>(() => asJson(Service, Array.Empty<StatusCodeRange>()));
-            }
-
-        }
-
-        public class SetJsonContentTests : BuilderTestBase
-        {
-
-            [Theory]
-            [MemberData(nameof(JsonTestData.Dtos), MemberType = typeof(JsonTestData))]
-            public async Task Serializes_Object_And_Sets_Content(SerializationDto dto)
-            {
-                var serializer = new JsonHttpContentSerializer();
-                var expectedContent = serializer.Serialize(dto, Encoding.UTF8)!;
-                var actualContent = Service.SetJsonContent(dto).Content!;
-
-                var expectedString = await expectedContent.ReadAsStringAsync();
-                var actualString = await actualContent.ReadAsStringAsync();
-                Assert.Equal(expectedString, actualString);
             }
 
         }

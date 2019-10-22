@@ -12,7 +12,7 @@
     using Xunit;
     using static ReqRest.Tests.Sdk.Data.ParameterNullability;
 
-    public class ResponseTypeInfoBuilderTests
+    public class ApiRequestUpgraderTests
     {
 
         public class ConstructorTests
@@ -23,12 +23,12 @@
                 ApiRequest request, 
                 [MockUsing(typeof(TypeMockProvider))] Type responseType)
             {
-                Assert.Throws<ArgumentNullException>(() => new ResponseTypeInfoBuilder<ApiRequest>(request, responseType));
+                Assert.Throws<ArgumentNullException>(() => new ApiRequestUpgrader<ApiRequest>(request, responseType));
             }
 
         }
 
-        public class BuildTests : ResponseTypeInfoBuilderTestBase
+        public class UpgradeTests : ApiRequestUpgraderTestBase
         {
 
             [Theory, ArgumentNullExceptionData(NotNull, NotNull)]
@@ -36,22 +36,22 @@
                 Func<IHttpContentDeserializer> responseDeserializerFactory,
                 IEnumerable<StatusCodeRange> forStatusCodes)
             {
-                Assert.Throws<ArgumentNullException>(() => Service.Build(responseDeserializerFactory, forStatusCodes));
+                Assert.Throws<ArgumentNullException>(() => Service.Upgrade(responseDeserializerFactory, forStatusCodes));
             }
 
             [Fact]
             public void Throws_ArgumentException_For_Empty_forStatusCodes()
             {
                 var statusCodes = Array.Empty<StatusCodeRange>();
-                Assert.Throws<ArgumentException>(() => Service.Build(() => null!, statusCodes));
+                Assert.Throws<ArgumentException>(() => Service.Upgrade(() => null!, statusCodes));
             }
 
             [Fact]
             public void Returns_Same_Request_As_Specified_In_Constructor()
             {
                 var request = new ApiRequest(() => null!);
-                var builder = new ResponseTypeInfoBuilder<ApiRequest>(request, typeof(object));
-                var upgraded = builder.Build(() => null!, new[] { StatusCodeRange.All });
+                var builder = new ApiRequestUpgrader<ApiRequest>(request, typeof(object));
+                var upgraded = builder.Upgrade(() => null!, new[] { StatusCodeRange.All });
                 Assert.Same(request, upgraded);
             }
 
@@ -59,10 +59,10 @@
             public void Adds_Expected_ResponseTypeDescriptor_To_Request()
             {
                 Func<IHttpContentDeserializer> responseDeserializerFactory = () => null!;
-                var responseType = typeof(ResponseTypeInfoBuilderTests); // Any type is fine.
+                var responseType = typeof(ApiRequestUpgraderTests); // Any type is fine.
                 var statusCodes = new[] { StatusCodeRange.All, 13, 7 };
-                var builder = new ResponseTypeInfoBuilder<ApiRequest>(new ApiRequest(() => null!), responseType);
-                var upgraded = builder.Build(responseDeserializerFactory, statusCodes);
+                var builder = new ApiRequestUpgrader<ApiRequest>(new ApiRequest(() => null!), responseType);
+                var upgraded = builder.Upgrade(responseDeserializerFactory, statusCodes);
                 var descriptor = upgraded.PossibleResponseTypes.First();
 
                 Assert.Equal(responseType, descriptor.ResponseType);

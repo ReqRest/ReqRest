@@ -6,7 +6,11 @@
     using ReqRest;
     using ReqRest.Http;
 
-    public static partial class JsonBuilderExtensions
+    /// <summary>
+    ///     Defines extension methods for the <see cref="ApiRequestUpgrader{TUpgradedRequest}"/>
+    ///     class which allow upgrading a request using the <see cref="JsonHttpContentSerializer"/>.
+    /// </summary>
+    public static class ApiRequestUpgraderExtensions
     {
 
         /// <summary>
@@ -14,7 +18,7 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="forStatusCodes">
         ///     A set of status codes for which the response type is the result.
         /// </param>
@@ -22,41 +26,16 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
-        public static T AsJson<T>(this ResponseTypeInfoBuilder<T> builder, params StatusCodeRange[] forStatusCodes) 
+        public static T AsJson<T>(this ApiRequestUpgrader<T> requestUpgrader, params StatusCodeRange[] forStatusCodes) 
             where T : ApiRequestBase
         {
-            return builder.AsJson((IEnumerable<StatusCodeRange>)forStatusCodes);
-        }
-        
-        /// <summary>
-        ///     Declares that an object returned by the API should be deserialized from JSON if the
-        ///     response falls within one of the specified status code ranges.
-        /// </summary>
-        /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="forStatusCodes">
-        ///     A set of status codes for which the response type is the result.
-        /// </param>
-        /// <returns>
-        ///     A generic <see cref="ApiRequest"/> variation.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="forStatusCodes"/>
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="forStatusCodes"/> is empty.
-        /// </exception>
-        public static T AsJson<T>(this ResponseTypeInfoBuilder<T> builder, IEnumerable<StatusCodeRange> forStatusCodes) 
-            where T : ApiRequestBase
-        {
-            return builder.AsJson((Func<JsonHttpContentSerializer>?)null, forStatusCodes);
+            return requestUpgrader.AsJson((IEnumerable<StatusCodeRange>)forStatusCodes);
         }
 
         /// <summary>
@@ -64,7 +43,32 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
+        /// <param name="forStatusCodes">
+        ///     A set of status codes for which the response type is the result.
+        /// </param>
+        /// <returns>
+        ///     A generic <see cref="ApiRequest"/> variation.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        ///     * <paramref name="requestUpgrader"/>
+        ///     * <paramref name="forStatusCodes"/>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     <paramref name="forStatusCodes"/> is empty.
+        /// </exception>
+        public static T AsJson<T>(this ApiRequestUpgrader<T> requestUpgrader, IEnumerable<StatusCodeRange> forStatusCodes) 
+            where T : ApiRequestBase
+        {
+            return requestUpgrader.AsJson((Func<JsonHttpContentSerializer>?)null, forStatusCodes);
+        }
+
+        /// <summary>
+        ///     Declares that an object returned by the API should be deserialized from JSON if the
+        ///     response falls within one of the specified status code ranges.
+        /// </summary>
+        /// <typeparam name="T">The request.</typeparam>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializer">
         ///     A <see cref="JsonSerializer"/> which should be used for the deserialization.
         /// </param>
@@ -75,27 +79,27 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializer? jsonSerializer,
             params StatusCodeRange[] forStatusCodes)
             where T : ApiRequestBase
         {
-            return builder.AsJson(jsonSerializer, (IEnumerable<StatusCodeRange>)forStatusCodes);
+            return requestUpgrader.AsJson(jsonSerializer, (IEnumerable<StatusCodeRange>)forStatusCodes);
         }
-        
+
         /// <summary>
         ///     Declares that an object returned by the API should be deserialized from JSON if the
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializer">
         ///     A <see cref="JsonSerializer"/> which should be used for the deserialization.
         /// </param>
@@ -106,21 +110,21 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializer? jsonSerializer,
             IEnumerable<StatusCodeRange> forStatusCodes)
             where T : ApiRequestBase
         {
-            return AsJson(builder, Factory, forStatusCodes);
+            return AsJson(requestUpgrader, Provider, forStatusCodes);
 
-            JsonHttpContentSerializer Factory() => 
+            JsonHttpContentSerializer Provider() => 
                 new JsonHttpContentSerializer(jsonSerializer);
         }
 
@@ -129,12 +133,12 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializerSettings">
         ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
         ///     
         ///     These settings are not merged with the default settings defined by <see cref="JsonConvert.DefaultSettings"/>.
-        ///     Use the <see cref="AsJson{T}(ResponseTypeInfoBuilder{T}, JsonSerializerSettings, bool, StatusCodeRange[])"/>
+        ///     Use the <see cref="AsJson{T}(ApiRequestUpgrader{T}, JsonSerializerSettings, bool, StatusCodeRange[])"/>
         ///     overload for changing this behavior.
         ///     
         ///     This can be <see langword="null"/>. If so, a default settings instance is used instead.
@@ -146,19 +150,19 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializerSettings? jsonSerializerSettings,
             params StatusCodeRange[] forStatusCodes)
             where T : ApiRequestBase
         {
-            return builder.AsJson(jsonSerializerSettings, (IEnumerable<StatusCodeRange>)forStatusCodes);
+            return requestUpgrader.AsJson(jsonSerializerSettings, (IEnumerable<StatusCodeRange>)forStatusCodes);
         }
 
         /// <summary>
@@ -166,12 +170,12 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializerSettings">
         ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
         ///     
         ///     These settings are not merged with the default settings defined by <see cref="JsonConvert.DefaultSettings"/>.
-        ///     Use the <see cref="AsJson{T}(ResponseTypeInfoBuilder{T}, JsonSerializerSettings, bool, IEnumerable{StatusCodeRange})"/>
+        ///     Use the <see cref="AsJson{T}(ApiRequestUpgrader{T}, JsonSerializerSettings, bool, IEnumerable{StatusCodeRange})"/>
         ///     overload for changing this behavior.
         ///     
         ///     This can be <see langword="null"/>. If so, a default settings instance is used instead.
@@ -183,19 +187,19 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializerSettings? jsonSerializerSettings,
             IEnumerable<StatusCodeRange> forStatusCodes)
             where T : ApiRequestBase
         {
-            return builder.AsJson(jsonSerializerSettings, JsonHttpContentSerializer.UseDefaultSettings, forStatusCodes);
+            return requestUpgrader.AsJson(jsonSerializerSettings, JsonHttpContentSerializer.UseDefaultSettings, forStatusCodes);
         }
 
         /// <summary>
@@ -203,7 +207,7 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializerSettings">
         ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
         ///     
@@ -221,28 +225,28 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializerSettings? jsonSerializerSettings,
             bool useDefaultSettings,
             params StatusCodeRange[] forStatusCodes)
             where T : ApiRequestBase
         {
-            return builder.AsJson(jsonSerializerSettings, useDefaultSettings, (IEnumerable<StatusCodeRange>)forStatusCodes);
+            return requestUpgrader.AsJson(jsonSerializerSettings, useDefaultSettings, (IEnumerable<StatusCodeRange>)forStatusCodes);
         }
-        
+
         /// <summary>
         ///     Declares that an object returned by the API should be deserialized from JSON if the
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
+        /// <param name="requestUpgrader">The request upgrader.</param>
         /// <param name="jsonSerializerSettings">
         ///     The settings from which a new <see cref="JsonSerializer"/> should be created.
         ///     
@@ -260,22 +264,22 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
+            this ApiRequestUpgrader<T> requestUpgrader,
             JsonSerializerSettings? jsonSerializerSettings,
             bool useDefaultSettings,
             IEnumerable<StatusCodeRange> forStatusCodes)
             where T : ApiRequestBase
         {
-            return AsJson(builder, Factory, forStatusCodes);
+            return AsJson(requestUpgrader, Provider, forStatusCodes);
 
-            JsonHttpContentSerializer Factory() => 
+            JsonHttpContentSerializer Provider() => 
                 new JsonHttpContentSerializer(jsonSerializerSettings, useDefaultSettings);
         }
 
@@ -284,13 +288,13 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="jsonHttpContentDeserializerFactory">
-        ///     A factory function which creates a <see cref="JsonHttpContentSerializer"/>
+        /// <param name="requestUpgrader">The request upgrader.</param>
+        /// <param name="jsonHttpContentDeserializerProvider">
+        ///     A function which creates a <see cref="JsonHttpContentSerializer"/>
         ///     which should be used for the deserialization.
         ///     
         ///     This can be <see langword="null"/>.
-        ///     If so, a factory returning a default <see cref="JsonHttpContentSerializer"/> will be used.
+        ///     If so, a function returning a default <see cref="JsonHttpContentSerializer"/> will be used.
         /// </param>
         /// <param name="forStatusCodes">
         ///     A set of status codes for which the response type is the result.
@@ -299,19 +303,22 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
-            Func<JsonHttpContentSerializer>? jsonHttpContentDeserializerFactory,
+            this ApiRequestUpgrader<T> requestUpgrader,
+            Func<JsonHttpContentSerializer>? jsonHttpContentDeserializerProvider,
             params StatusCodeRange[] forStatusCodes)
             where T : ApiRequestBase
         {
-            return builder.AsJson(jsonHttpContentDeserializerFactory, (IEnumerable<StatusCodeRange>)forStatusCodes);
+            return requestUpgrader.AsJson(
+                jsonHttpContentDeserializerProvider, 
+                (IEnumerable<StatusCodeRange>)forStatusCodes
+            );
         }
 
         /// <summary>
@@ -319,13 +326,13 @@
         ///     response falls within one of the specified status code ranges.
         /// </summary>
         /// <typeparam name="T">The request.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="jsonHttpContentDeserializerFactory">
-        ///     A factory function which creates a <see cref="JsonHttpContentSerializer"/>
+        /// <param name="requestUpgrader">The request upgrader.</param>
+        /// <param name="jsonHttpContentDeserializerProvider">
+        ///     A function which creates a <see cref="JsonHttpContentSerializer"/>
         ///     which should be used for the deserialization.
         ///     
         ///     This can be <see langword="null"/>.
-        ///     If so, a factory returning a default <see cref="JsonHttpContentSerializer"/> will be used.
+        ///     If so, a function returning a default <see cref="JsonHttpContentSerializer"/> will be used.
         /// </param>
         /// <param name="forStatusCodes">
         ///     A set of status codes for which the response type is the result.
@@ -334,24 +341,24 @@
         ///     A generic <see cref="ApiRequest"/> variation.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
+        ///     * <paramref name="requestUpgrader"/>
         ///     * <paramref name="forStatusCodes"/>
         /// </exception>
         /// <exception cref="ArgumentException">
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public static T AsJson<T>(
-            this ResponseTypeInfoBuilder<T> builder,
-            Func<JsonHttpContentSerializer>? jsonHttpContentDeserializerFactory,
+            this ApiRequestUpgrader<T> requestUpgrader,
+            Func<JsonHttpContentSerializer>? jsonHttpContentDeserializerProvider,
             IEnumerable<StatusCodeRange> forStatusCodes)
             where T : ApiRequestBase
         {
-            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+            _ = requestUpgrader ?? throw new ArgumentNullException(nameof(requestUpgrader));
             _ = forStatusCodes ?? throw new ArgumentNullException(nameof(forStatusCodes));
-            jsonHttpContentDeserializerFactory ??= JsonHttpContentSerializer.DefaultFactory;
+            jsonHttpContentDeserializerProvider ??= JsonHttpContentSerializer.DefaultProvider;
 
-            return builder.Build(
-                jsonHttpContentDeserializerFactory,
+            return requestUpgrader.Upgrade(
+                jsonHttpContentDeserializerProvider,
                 forStatusCodes
             );
         }
