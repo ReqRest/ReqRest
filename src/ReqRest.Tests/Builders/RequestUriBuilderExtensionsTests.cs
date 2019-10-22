@@ -120,7 +120,7 @@
                 // The easiest way to ensure this is to specify a different-than-default UriKind
                 // and wait for an exception.
                 Assert.Throws<UriFormatException>(
-                    () => Service.SetRequestUri("/relative", UriKind.Absolute)
+                    () => Service.SetRequestUri("../relative", UriKind.Absolute)
                 );
             }
 
