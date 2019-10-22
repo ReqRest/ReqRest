@@ -126,18 +126,18 @@ namespace ReqRest.Tests
 
         <# if (!isLastT) { #>
 
-        protected void TestExpectedResponseTypeInfo<TNext>(
+        protected void TestExpectedResponseTypeDescriptor<TNext>(
             Type expectedType,
             Type expectedSerializerType,
             Func<ApiRequest<#= TDeclaration #>, ApiRequest<<#= Upgrade("TNext") #>>> receive,
             params StatusCodeRange[] expectedStatusCodes)
         {
             var upgraded = receive(Service);
-            var info = upgraded.PossibleResponseTypes.Last();
+            var descriptor = upgraded.PossibleResponseTypes.Last();
 
-            Assert.Equal(expectedType, info.ResponseType);
-            Assert.Equal(expectedStatusCodes, info.StatusCodes);
-            Assert.IsType(expectedSerializerType, info.ResponseDeserializerFactory());
+            Assert.Equal(expectedType, descriptor.ResponseType);
+            Assert.Equal(expectedStatusCodes, descriptor.StatusCodes);
+            Assert.IsType(expectedSerializerType, descriptor.HttpContentDeserializerProvider());
         }
         
         <# } #>        
@@ -192,9 +192,9 @@ namespace ReqRest.Tests
         {
         
             [Fact]
-            public void Default_Adds_Expected_ResponseTypeInfo()
+            public void Default_Adds_Expected_ResponseTypeDescriptor()
             {
-                TestExpectedResponseTypeInfo<NoContent>(
+                TestExpectedResponseTypeDescriptor<NoContent>(
                     typeof(NoContent),
                     typeof(NoContentSerializer),
                     req => req.ReceiveNoContent(), 
@@ -203,9 +203,9 @@ namespace ReqRest.Tests
             }
 
             [Fact]
-            public void StatusCodeRangeArray_Adds_Expected_ResponseTypeInfo()
+            public void StatusCodeRangeArray_Adds_Expected_ResponseTypeDescriptor()
             {
-                TestExpectedResponseTypeInfo<NoContent>(
+                TestExpectedResponseTypeDescriptor<NoContent>(
                     typeof(NoContent),
                     typeof(NoContentSerializer),
                     req => req.ReceiveNoContent((StatusCodeRange[])DefaultStatusCodes),
@@ -214,9 +214,9 @@ namespace ReqRest.Tests
             }
             
             [Fact]
-            public void StatusCodeRangeEnumerable_Adds_Expected_ResponseTypeInfo()
+            public void StatusCodeRangeEnumerable_Adds_Expected_ResponseTypeDescriptor()
             {
-                TestExpectedResponseTypeInfo<NoContent>(
+                TestExpectedResponseTypeDescriptor<NoContent>(
                     typeof(NoContent),
                     typeof(NoContentSerializer),
                     req => req.ReceiveNoContent((IEnumerable<StatusCodeRange>)DefaultStatusCodes),
@@ -230,9 +230,9 @@ namespace ReqRest.Tests
         {
             
             [Fact]
-            public void StatusCodeRangeArray_Adds_Expected_ResponseTypeInfo()
+            public void StatusCodeRangeArray_Adds_Expected_ResponseTypeDescriptor()
             {
-                TestExpectedResponseTypeInfo(
+                TestExpectedResponseTypeDescriptor(
                     typeof(string),
                     typeof(StringSerializer),
                     req => req.ReceiveString((StatusCodeRange[])DefaultStatusCodes),
@@ -241,9 +241,9 @@ namespace ReqRest.Tests
             }
 
             [Fact]
-            public void StatusCodeRangeEnumerable_Adds_Expected_ResponseTypeInfo()
+            public void StatusCodeRangeEnumerable_Adds_Expected_ResponseTypeDescriptor()
             {
-                TestExpectedResponseTypeInfo(
+                TestExpectedResponseTypeDescriptor(
                     typeof(string),
                     typeof(StringSerializer),
                     req => req.ReceiveString((IEnumerable<StatusCodeRange>)DefaultStatusCodes),
@@ -257,9 +257,9 @@ namespace ReqRest.Tests
         {
             
             [Fact]
-            public void ReceiveByteArray_Adds_Expected_ResponseTypeInfo_StatusCodeRangeArray()
+            public void ReceiveByteArray_Adds_Expected_ResponseTypeDescriptor_StatusCodeRangeArray()
             {
-                TestExpectedResponseTypeInfo(
+                TestExpectedResponseTypeDescriptor(
                     typeof(byte[]),
                     typeof(ByteArraySerializer),
                     req => req.ReceiveByteArray((StatusCodeRange[])DefaultStatusCodes),
@@ -268,9 +268,9 @@ namespace ReqRest.Tests
             }
 
             [Fact]
-            public void ReceiveByteArray_Adds_Expected_ResponseTypeInfo_StatusCodeRangeEnumerable()
+            public void ReceiveByteArray_Adds_Expected_ResponseTypeDescriptor_StatusCodeRangeEnumerable()
             {
-                TestExpectedResponseTypeInfo(
+                TestExpectedResponseTypeDescriptor(
                     typeof(byte[]),
                     typeof(ByteArraySerializer),
                     req => req.ReceiveByteArray((IEnumerable<StatusCodeRange>)DefaultStatusCodes),

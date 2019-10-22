@@ -91,7 +91,7 @@ namespace ReqRest.Tests
         }
 
         protected ApiResponse<#= TDeclaration #> CreateService(
-            HttpResponseMessage? httpResponseMessage, IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
+            HttpResponseMessage? httpResponseMessage, IEnumerable<ResponseTypeDescriptor>? possibleResponseTypes)
         {
             return new ApiResponse<#= TDeclaration #>(httpResponseMessage, possibleResponseTypes);
         }
@@ -110,12 +110,12 @@ namespace ReqRest.Tests
             [Fact]
             public void Uses_Specified_PossibleResponseTypes()
             {
-                var types = new[]
+                var descriptors = new[]
                 {
-                    new ResponseTypeInfo(typeof(int), new StatusCodeRange[] { 200 }, () => null!),
+                    new ResponseTypeDescriptor(typeof(int), new StatusCodeRange[] { 200 }, () => null!),
                 };
-                var service = CreateService(null, types);
-                Assert.Equal(types, service.PossibleResponseTypes);
+                var service = CreateService(null, descriptors);
+                Assert.Equal(descriptors, service.PossibleResponseTypes);
             }
 
         }
@@ -148,16 +148,16 @@ namespace ReqRest.Tests
                     return mock.Object;
                 };
 
-                var responseTypes = new List<ResponseTypeInfo>()
+                var responseTypes = new List<ResponseTypeDescriptor>()
                 {
-                    new ResponseTypeInfo(typeof(Dto1), new StatusCodeRange[] { Dto1StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto2), new StatusCodeRange[] { Dto2StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto3), new StatusCodeRange[] { Dto3StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto4), new StatusCodeRange[] { Dto4StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto5), new StatusCodeRange[] { Dto5StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto6), new StatusCodeRange[] { Dto6StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto7), new StatusCodeRange[] { Dto7StatusCode }, responseDeserializerFactory),
-                    new ResponseTypeInfo(typeof(Dto8), new StatusCodeRange[] { Dto8StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto1), new StatusCodeRange[] { Dto1StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto2), new StatusCodeRange[] { Dto2StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto3), new StatusCodeRange[] { Dto3StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto4), new StatusCodeRange[] { Dto4StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto5), new StatusCodeRange[] { Dto5StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto6), new StatusCodeRange[] { Dto6StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto7), new StatusCodeRange[] { Dto7StatusCode }, responseDeserializerFactory),
+                    new ResponseTypeDescriptor(typeof(Dto8), new StatusCodeRange[] { Dto8StatusCode }, responseDeserializerFactory),
                 };
                 var httpResponseMessage = new HttpResponseMessage()
                 {

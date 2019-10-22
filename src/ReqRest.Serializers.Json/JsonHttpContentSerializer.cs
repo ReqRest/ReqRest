@@ -16,7 +16,7 @@
     public class JsonHttpContentSerializer : HttpContentSerializer
     {
 
-        internal static Func<JsonHttpContentSerializer> DefaultFactory { get; } = () => Default;
+        internal static Func<JsonHttpContentSerializer> DefaultProvider { get; } = () => Default;
         internal static JsonHttpContentSerializer Default { get; } = new JsonHttpContentSerializer();
 
         /// <summary>

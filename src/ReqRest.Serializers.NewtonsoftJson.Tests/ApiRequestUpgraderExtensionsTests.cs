@@ -1,26 +1,22 @@
-﻿namespace ReqRest.Serializers.Json.Tests
+﻿namespace ReqRest.Serializers.NewtonsoftJson.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using Newtonsoft.Json;
     using ReqRest.Http;
-    using ReqRest.Serializers.Json;
+    using ReqRest.Serializers.NewtonsoftJson;
     using ReqRest.Tests.Sdk.TestBases;
     using Xunit;
-    using ReqRest.Tests.Sdk.Models;
-    using ReqRest.Serializers.Json.Tests.TestData;
-    using System.Text.Json;
 
-    public class JsonBuilderExtensionsTests
+    public class ApiRequestUpgraderExtensionsTests
     {
 
         public class AsJsonTests : ApiRequestUpgraderTestBase
         {
 
             public delegate ApiRequest AsJsonInvoker(
-                ApiRequestUpgrader<ApiRequest> requestUpgrader,
+                ApiRequestUpgrader<ApiRequest> upgrader,
                 IEnumerable<StatusCodeRange> forStatusCodes
             );
 
@@ -32,8 +28,12 @@
             {
                 (upgrader, codes) => upgrader.AsJson(codes),
                 (upgrader, codes) => upgrader.AsJson(codes.ToArray()),
-                (upgrader, codes) => upgrader.AsJson((JsonSerializerOptions?)null, codes),
-                (upgrader, codes) => upgrader.AsJson((JsonSerializerOptions?)null, codes.ToArray()),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializer?)null, codes),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializer?)null, codes.ToArray()),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializerSettings?)null, forStatusCodes: codes),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializerSettings?)null, forStatusCodes: codes.ToArray()),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializerSettings?)null, useDefaultSettings: false, forStatusCodes: codes),
+                (upgrader, codes) => upgrader.AsJson((JsonSerializerSettings?)null, useDefaultSettings: false, forStatusCodes: codes.ToArray()),
                 (upgrader, codes) => upgrader.AsJson((Func<JsonHttpContentSerializer>?)null, codes),
                 (upgrader, codes) => upgrader.AsJson((Func<JsonHttpContentSerializer>?)null, codes.ToArray()),
             };
@@ -66,24 +66,6 @@
             public void Throws_ArgumentException_For_Empty_ForStatusCodes(AsJsonInvoker asJson)
             {
                 Assert.Throws<ArgumentException>(() => asJson(Service, Array.Empty<StatusCodeRange>()));
-            }
-
-        }
-
-        public class SetJsonContentTests : BuilderTestBase
-        {
-
-            [Theory]
-            [MemberData(nameof(JsonTestData.Dtos), MemberType = typeof(JsonTestData))]
-            public async Task Serializes_Object_And_Sets_Content(SerializationDto dto)
-            {
-                var serializer = new JsonHttpContentSerializer();
-                var expectedContent = serializer.Serialize(dto, Encoding.UTF8)!;
-                var actualContent = Service.SetJsonContent(dto).Content!;
-
-                var expectedString = await expectedContent.ReadAsStringAsync();
-                var actualString = await actualContent.ReadAsStringAsync();
-                Assert.Equal(expectedString, actualString);
             }
 
         }

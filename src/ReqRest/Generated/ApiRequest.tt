@@ -157,7 +157,7 @@ namespace ReqRest
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public ApiRequest<<#= Upgrade("NoContent") #>> ReceiveNoContent(IEnumerable<StatusCodeRange> forStatusCodes) =>
-            Receive<NoContent>().Build(NoContentSerializer.DefaultFactory, forStatusCodes);
+            Receive<NoContent>().Upgrade(NoContentSerializer.DefaultFactory, forStatusCodes);
 
         /// <inheritdoc cref="ReceiveByteArray(IEnumerable{StatusCodeRange})"/>
         public ApiRequest<<#= Upgrade("byte[]") #>> ReceiveByteArray(params StatusCodeRange[] forStatusCodes) =>
@@ -180,7 +180,7 @@ namespace ReqRest
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public ApiRequest<<#= Upgrade("byte[]") #>> ReceiveByteArray(IEnumerable<StatusCodeRange> forStatusCodes) =>
-            Receive<byte[]>().Build(ByteArraySerializer.DefaultFactory, forStatusCodes);
+            Receive<byte[]>().Upgrade(ByteArraySerializer.DefaultFactory, forStatusCodes);
 
         /// <inheritdoc cref="ReceiveString(IEnumerable{StatusCodeRange})"/>
         public ApiRequest<<#= Upgrade("string") #>> ReceiveString(params StatusCodeRange[] forStatusCodes) =>
@@ -203,7 +203,7 @@ namespace ReqRest
         ///     <paramref name="forStatusCodes"/> is empty.
         /// </exception>
         public ApiRequest<<#= Upgrade("string") #>> ReceiveString(IEnumerable<StatusCodeRange> forStatusCodes) =>
-            Receive<string>().Build(StringSerializer.DefaultFactory, forStatusCodes);
+            Receive<string>().Upgrade(StringSerializer.DefaultFactory, forStatusCodes);
 
         /// <summary>
         ///     Declares that the response to this request may have a content of type <typeparamref name="<#= TNext #>"/>.
@@ -214,11 +214,11 @@ namespace ReqRest
         ///     The .NET type which may be returned by the response following this request.
         /// </typeparam>
         /// <returns>
-        ///     An <see cref="ResponseTypeInfoBuilder{TRequest}"/> instance which must be used
+        ///     An <see cref="ApiRequestUpgrader{TUpgradedRequest}"/> instance which must be used
         ///     to specify additional information about the possible response.
         /// </returns>
-        public ResponseTypeInfoBuilder<ApiRequest<#= TNextDeclaration #>> Receive<<#= TNext #>>() =>
-            new ResponseTypeInfoBuilder<ApiRequest<#= TNextDeclaration #>>(
+        public ApiRequestUpgrader<ApiRequest<#= TNextDeclaration #>> Receive<<#= TNext #>>() =>
+            new ApiRequestUpgrader<ApiRequest<#= TNextDeclaration #>>(
                 new ApiRequest<#= TNextDeclaration #>(this), typeof(<#= TNext #>));
 <#      } #>
 

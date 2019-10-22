@@ -35,13 +35,13 @@
         ///     Gets a list of elements which declare what possible .NET types the API may
         ///     return for this request, depending on the result's status code.
         /// </summary>
-        public IReadOnlyCollection<ResponseTypeInfo> PossibleResponseTypes { get; }
+        public IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
         
         /// <summary>
         ///     Gets a modifiable list of elements which declare what possible .NET types the API may
         ///     return for this request, depending on the result's status code.
         /// </summary>
-        internal ResponseTypeInfoCollection PossibleResponseTypesInternal { get; }
+        internal ResponseTypeDescriptorCollection PossibleResponseTypesInternal { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance with the specified
@@ -60,7 +60,7 @@
         ///     * <paramref name="httpClientProvider"/>
         /// </exception>
         public ApiRequestBase(Func<HttpClient> httpClientProvider, HttpRequestMessage? httpRequestMessage = null)
-            : this(httpClientProvider, httpRequestMessage, new ResponseTypeInfoCollection()) { }
+            : this(httpClientProvider, httpRequestMessage, new ResponseTypeDescriptorCollection()) { }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance which re-uses the properties
@@ -71,18 +71,18 @@
             : this(
                 request.HttpClientProvider, 
                 request.HttpRequestMessage,
-                new ResponseTypeInfoCollection(request.PossibleResponseTypes.ToList())
+                new ResponseTypeDescriptorCollection(request.PossibleResponseTypes.ToList())
               ) { }
 
         private ApiRequestBase(
             Func<HttpClient> httpClientProvider,
             HttpRequestMessage? httpRequestMessage,
-            ResponseTypeInfoCollection possibleResponseTypes)
+            ResponseTypeDescriptorCollection possibleResponseTypes)
             : base(httpRequestMessage)
         {
             _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
             PossibleResponseTypesInternal = possibleResponseTypes;
-            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(PossibleResponseTypesInternal);
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeDescriptor>(PossibleResponseTypesInternal);
         }
 
         /// <summary>

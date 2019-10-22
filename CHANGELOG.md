@@ -14,6 +14,11 @@
 * **[Breaking]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
 * **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.
+* **[Breaking]** Renamed `ResponseTypeInfo` to `ResponseTypeDescriptor`.
+* **[Breaking]** Renamed `ResponseTypeInfo.ResponseDeserializerFactory` to `HttpContentDeserializerProvider`.
+* **[Breaking]** renamed the `ResponseTypeInfoBuilder` to `ApiRequestUpgrader`.
+* **[Breaking]** renamed the `ResponseTypeInfoBuilder.Build` method to `Upgrade`.
+* **[Breaking]** The `ResponseTypeDescriptor.StatusCodes` property now returns an `IReadOnlyCollection<StatusCodeRange>` instead of the previously used `ISet<StatusCodeRange`.
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** The `HttpContentSerializer.DeserializeCore` method's `HttpContent` parameter is now nullable.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
