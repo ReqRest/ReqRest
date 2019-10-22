@@ -39,13 +39,13 @@
             };
 
             [Theory, MemberData(nameof(AsJsonInvokers))]
-            public void Adds_Expected_ResponseTypeInfo(AsJsonInvoker asJson)
+            public void Adds_Expected_ResponseTypeDescriptor(AsJsonInvoker asJson)
             {
                 var upgraded = asJson(Service, new StatusCodeRange[] { StatusCodeRange.All });
-                var info = upgraded.PossibleResponseTypes.First();
-                var serializer = info.ResponseDeserializerFactory();
+                var descriptor = upgraded.PossibleResponseTypes.First();
+                var serializer = descriptor.HttpContentDeserializerProvider();
 
-                Assert.Equal(new[] { StatusCodeRange.All }, info.StatusCodes);
+                Assert.Equal(new[] { StatusCodeRange.All }, descriptor.StatusCodes);
                 Assert.NotNull(serializer);
                 Assert.IsType<JsonHttpContentSerializer>(serializer);
             }

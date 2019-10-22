@@ -8,7 +8,7 @@
     using ReqRest.Http;
     using ReqRest.Internal;
 
-    public class ResponseTypeInfoCollectionTests
+    public class ResponseTypeDescriptorCollectionTests
     {
 
         public class ThrowsForConflictsTests
@@ -18,44 +18,44 @@
                 StatusCodeRangeTestData.ConflictingRanges
                     .Select(parameters =>
                         parameters.Select(range =>
-                            (object)new ResponseTypeInfo(
+                            (object)new ResponseTypeDescriptor(
                                 typeof(object), new StatusCodeRange[] { (StatusCodeRange)range }, () => null!)
                         )
                         .ToArray());
 
             [Theory]
             [MemberData(nameof(ConflictData))]
-            public void Add_Throws_For_Conflicts(ResponseTypeInfo a, ResponseTypeInfo b)
+            public void Add_Throws_For_Conflicts(ResponseTypeDescriptor a, ResponseTypeDescriptor b)
             {
-                var collection = new ResponseTypeInfoCollection() { a };
+                var collection = new ResponseTypeDescriptorCollection() { a };
                 Assert.Throws<InvalidOperationException>(() => collection.Add(b));
             }
 
             [Theory]
             [MemberData(nameof(ConflictData))]
-            public void Insert_Throws_For_Conflicts(ResponseTypeInfo a, ResponseTypeInfo b)
+            public void Insert_Throws_For_Conflicts(ResponseTypeDescriptor a, ResponseTypeDescriptor b)
             {
-                var collection = new ResponseTypeInfoCollection() { a };
+                var collection = new ResponseTypeDescriptorCollection() { a };
                 Assert.Throws<InvalidOperationException>(() => collection.Insert(0, b));
             }
 
             [Theory]
             [MemberData(nameof(ConflictData))]
-            public void Indexer_Throws_For_Conflicts(ResponseTypeInfo a, ResponseTypeInfo b)
+            public void Indexer_Throws_For_Conflicts(ResponseTypeDescriptor a, ResponseTypeDescriptor b)
             {
-                var collection = new ResponseTypeInfoCollection()
+                var collection = new ResponseTypeDescriptorCollection()
                 {
                     a,
-                    new ResponseTypeInfo(typeof(object), new StatusCodeRange[] { 0 }, () => null!),
+                    new ResponseTypeDescriptor(typeof(object), new StatusCodeRange[] { 0 }, () => null!),
                 };
                 Assert.Throws<InvalidOperationException>(() => collection[1] = b);
             }
 
             [Theory]
             [MemberData(nameof(ConflictData))]
-            public void Indexer_Doesnt_Throw_If_Replacing_Conflicting(ResponseTypeInfo a, ResponseTypeInfo b)
+            public void Indexer_Doesnt_Throw_If_Replacing_Conflicting(ResponseTypeDescriptor a, ResponseTypeDescriptor b)
             {
-                var collection = new ResponseTypeInfoCollection() { a };
+                var collection = new ResponseTypeDescriptorCollection() { a };
                 collection[0] = b; // Should not throw.
             }
 

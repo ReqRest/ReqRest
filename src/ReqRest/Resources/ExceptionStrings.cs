@@ -23,7 +23,7 @@
             $"The {nameof(IHttpContentDeserializer)} factory for the current response type returned " +
             $"null (Nothing in VB) instead of an actual deserializer instance.";
 
-        public static string ApiResponse_NoResponseTypeInfoForResponse() =>
+        public static string ApiResponse_NoResponseTypeDescriptorForResponse() =>
             $"The response had a status code which has not been declared before. " +
             $"When building a request via the {nameof(ApiRequest)} API, ensure that you declare a possible " +
             $"response for this status code via the \"{nameof(ApiRequest.Receive)}\" methods, " +
@@ -35,10 +35,10 @@
             $"likely fix this error by setting the {nameof(RestClientConfiguration)}.{nameof(RestClientConfiguration.HttpClientProvider)} " +
             $"property to a function which returns an actual HttpClient instance.";
 
-        public static string ResponseTypeInfo_MustProvideAtLeastOneStatusCode() =>
+        public static string ResponseTypeDescriptor_MustProvideAtLeastOneStatusCode() =>
             "At least one status code or status code range must be provided.";
 
-        public static string ResponseTypeInfoCollection_ConflictingStatusCodeRanges(
+        public static string ResponseTypeDescriptorCollection_ConflictingStatusCodeRanges(
             IEnumerable<(StatusCodeRange, StatusCodeRange)> conflictingStatusCodes)
         {
             var conflictingStr = string.Join(

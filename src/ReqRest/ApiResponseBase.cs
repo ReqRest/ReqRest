@@ -30,7 +30,7 @@
         ///     Gets a set of elements that declare which .NET types may have been returned by the
         ///     HTTP API in this response.
         /// </summary>
-        protected internal IReadOnlyCollection<ResponseTypeInfo> PossibleResponseTypes { get; }
+        protected internal IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiResponseBase"/> instance with the specified values.
@@ -47,18 +47,18 @@
         /// </param>
         public ApiResponseBase(
             HttpResponseMessage? httpResponseMessage,
-            IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
+            IEnumerable<ResponseTypeDescriptor>? possibleResponseTypes)
             : base(httpResponseMessage)
         {
-            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(
-                possibleResponseTypes?.ToArray() ?? Array.Empty<ResponseTypeInfo>()
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeDescriptor>(
+                possibleResponseTypes?.ToArray() ?? Array.Empty<ResponseTypeDescriptor>()
             );
         }
 
         /// <summary>
         ///     Returns a value indicating whether a resource of the specified type <typeparamref name="T"/>
         ///     can be deserialized from this response's content.
-        ///     The value is determined based on <see cref="GetCurrentResponseTypeInfo"/>.
+        ///     The value is determined based on <see cref="GetCurrentResponseTypeDescriptor"/>.
         /// </summary>
         /// <typeparam name="T">
         ///     The type of the resource to be deserialized.
@@ -69,9 +69,9 @@
         /// </returns>
         private protected bool CanDeserializeResource<T>()
         {
-            var currentResponseTypeInfo = GetCurrentResponseTypeInfo();
-            return !(currentResponseTypeInfo is null)
-                && typeof(T).IsAssignableFrom(currentResponseTypeInfo.ResponseType);
+            var currentResponseTypeDescriptor = GetCurrentResponseTypeDescriptor();
+            return !(currentResponseTypeDescriptor is null)
+                && typeof(T).IsAssignableFrom(currentResponseTypeDescriptor.ResponseType);
         }
 
         /// <summary>
@@ -90,12 +90,12 @@
         /// </returns>
         private protected async Task<T> DeserializeResourceAsync<T>(CancellationToken cancellationToken = default)
         {
-            if (GetCurrentResponseTypeInfo() is null)
+            if (GetCurrentResponseTypeDescriptor() is null)
             {
-                throw new InvalidOperationException(ExceptionStrings.ApiResponse_NoResponseTypeInfoForResponse());
+                throw new InvalidOperationException(ExceptionStrings.ApiResponse_NoResponseTypeDescriptorForResponse());
             }
 
-            var deserializer = GetCurrentResponseTypeInfo().ResponseDeserializerFactory();
+            var deserializer = GetCurrentResponseTypeDescriptor().HttpContentDeserializerProvider();
             if (deserializer is null)
             {
                 throw new InvalidOperationException(ExceptionStrings.ApiResponse_InvalidResponseDeserializer());
@@ -113,26 +113,26 @@
         }
 
         /// <summary>
-        ///     Returns the <see cref="ResponseTypeInfo"/> from the <see cref="PossibleResponseTypes"/>
+        ///     Returns the <see cref="ResponseTypeDescriptor"/> from the <see cref="PossibleResponseTypes"/>
         ///     set which is the most appropriate one for the response's current status code.
         ///     
         ///     This is <see langword="null"/> if the <see cref="PossibleResponseTypes"/>
         ///     property doesn't contain any information which matches the response's status code.
         /// </summary>
         /// <returns>
-        ///     The <see cref="ResponseTypeInfo"/> from the <see cref="PossibleResponseTypes"/> set
+        ///     The <see cref="ResponseTypeDescriptor"/> from the <see cref="PossibleResponseTypes"/> set
         ///     which is the most specific match for the response's current HTTP status code.
         ///     If there are multiple instances that match this status code with equal specificness,
         ///     it returns the first one.
         /// </returns>
-        protected internal ResponseTypeInfo GetCurrentResponseTypeInfo()
+        protected internal ResponseTypeDescriptor GetCurrentResponseTypeDescriptor()
         {
             // Lazily compute this (every time) because the status code may change in between calls.
             var possibleTypes =
-                from info in PossibleResponseTypes
-                from statusCodeRange in info.StatusCodes
+                from reponseTypeDescriptor in PossibleResponseTypes
+                from statusCodeRange in reponseTypeDescriptor.StatusCodes
                 where statusCodeRange.IsInRange((int)StatusCode)
-                select new { StatusCodeRange = statusCodeRange, Info = info };
+                select new { StatusCodeRange = statusCodeRange, Info = reponseTypeDescriptor };
 
             return possibleTypes
                 .OrderByDescending(x => x.StatusCodeRange, StatusCodeRangeSpecificnessComparer.Default)

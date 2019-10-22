@@ -96,7 +96,7 @@ namespace ReqRest
         /// </param>
         internal ApiResponse(
             HttpResponseMessage? httpResponseMessage,
-            IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
+            IEnumerable<ResponseTypeDescriptor>? possibleResponseTypes)
             : base(httpResponseMessage, possibleResponseTypes) { }
 
 <#      if (hasTParam) { #>
@@ -116,13 +116,13 @@ namespace ReqRest
         ///     threw an exception while deserializing the resource.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        ///     <see cref="ApiResponseBase.GetCurrentResponseTypeInfo"/> returned <see langword="null"/>.
+        ///     <see cref="ApiResponseBase.GetCurrentResponseTypeDescriptor"/> returned <see langword="null"/>.
         ///     
         ///     --or--
         ///     
-        ///     The <see cref="ResponseTypeInfo.ResponseDeserializerFactory"/> of the 
-        ///     <see cref="ResponseTypeInfo"/> returned by 
-        ///     <see cref="ApiResponseBase.GetCurrentResponseTypeInfo"/> returned <see langword="null"/>.
+        ///     The <see cref="ResponseTypeDescriptor.HttpContentDeserializerProvider"/> of the 
+        ///     <see cref="ResponseTypeDescriptor"/> returned by 
+        ///     <see cref="ApiResponseBase.GetCurrentResponseTypeDescriptor"/> returned <see langword="null"/>.
         /// </exception>
         /// <exception cref="TaskCanceledException">
         ///     The operation was canceled via the <paramref name="cancellationToken"/>.

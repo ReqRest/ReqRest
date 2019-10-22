@@ -35,7 +35,7 @@
         }
 
         /// <summary>
-        ///     Creates a new <see cref="ResponseTypeInfo"/> instance with the specified values
+        ///     Creates a new <see cref="ResponseTypeDescriptor"/> instance with the specified values
         ///     and adds it to the request's <see cref="ApiRequestBase.PossibleResponseTypes"/>
         ///     list.
         ///     Afterwards, the request is returned to allow continuous request info building.
@@ -64,8 +64,8 @@
             _ = responseDeserializerFactory ?? throw new ArgumentNullException(nameof(responseDeserializerFactory));
             _ = forStatusCodes ?? throw new ArgumentNullException(nameof(forStatusCodes));
 
-            var responseTypeInfo = new ResponseTypeInfo(_responseType, forStatusCodes, responseDeserializerFactory);
-            _request.PossibleResponseTypesInternal.Add(responseTypeInfo);
+            var responseTypeDescriptor = new ResponseTypeDescriptor(_responseType, forStatusCodes, responseDeserializerFactory);
+            _request.PossibleResponseTypesInternal.Add(responseTypeDescriptor);
             return _request;
         }
 

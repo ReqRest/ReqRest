@@ -8,19 +8,19 @@
     using ReqRest.Resources;
 
     /// <summary>
-    ///     A collection of <see cref="ResponseTypeInfo"/> instances which ensures that
-    ///     no <see cref="ResponseTypeInfo"/> with conflicting status code ranges can be added.
+    ///     A collection of <see cref="ResponseTypeDescriptor"/> instances which ensures that
+    ///     no <see cref="ResponseTypeDescriptor"/> with conflicting status code ranges can be added.
     /// </summary>
-    internal class ResponseTypeInfoCollection : Collection<ResponseTypeInfo>
+    internal class ResponseTypeDescriptorCollection : Collection<ResponseTypeDescriptor>
     {
 
-        public ResponseTypeInfoCollection()
+        public ResponseTypeDescriptorCollection()
             : base() { }
 
-        public ResponseTypeInfoCollection(IList<ResponseTypeInfo> list)
+        public ResponseTypeDescriptorCollection(IList<ResponseTypeDescriptor> list)
             : base(list) { }
 
-        protected override void SetItem(int index, ResponseTypeInfo item)
+        protected override void SetItem(int index, ResponseTypeDescriptor item)
         {
             // This method is replacing an old item with new item. We don't care if the item to be
             // replaced conflicts with the new item.
@@ -30,27 +30,27 @@
             base.SetItem(index, item);
         }
 
-        protected override void InsertItem(int index, ResponseTypeInfo item)
+        protected override void InsertItem(int index, ResponseTypeDescriptor item)
         {
             VerifyNotConflicting(item, this);
             base.InsertItem(index, item);
         }
 
-        private static void VerifyNotConflicting(ResponseTypeInfo item, IEnumerable<ResponseTypeInfo> items)
+        private static void VerifyNotConflicting(ResponseTypeDescriptor item, IEnumerable<ResponseTypeDescriptor> items)
         {
             var conflicting = FindConflictingStatusCodes(item, items);
             if (conflicting.Any())
             {
                 throw new InvalidOperationException(
-                    ExceptionStrings.ResponseTypeInfoCollection_ConflictingStatusCodeRanges(conflicting)
+                    ExceptionStrings.ResponseTypeDescriptorCollection_ConflictingStatusCodeRanges(conflicting)
                 );
             }
         }
 
         private static IEnumerable<(StatusCodeRange, StatusCodeRange)> FindConflictingStatusCodes(
-            ResponseTypeInfo newItem, IEnumerable<ResponseTypeInfo> items) => 
-                from info in items
-                from currentStatusCode in info.StatusCodes
+            ResponseTypeDescriptor newItem, IEnumerable<ResponseTypeDescriptor> items) => 
+                from descriptor in items
+                from currentStatusCode in descriptor.StatusCodes
                 from newStatusCode in newItem.StatusCodes
                 where newStatusCode.ConflictsWith(currentStatusCode)
                 select (currentStatusCode, newStatusCode);

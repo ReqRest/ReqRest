@@ -56,18 +56,18 @@
             }
 
             [Fact]
-            public void Adds_Expected_ResponseTypeInfo_To_Request()
+            public void Adds_Expected_ResponseTypeDescriptor_To_Request()
             {
                 Func<IHttpContentDeserializer> responseDeserializerFactory = () => null!;
                 var responseType = typeof(ResponseTypeInfoBuilderTests); // Any type is fine.
                 var statusCodes = new[] { StatusCodeRange.All, 13, 7 };
                 var builder = new ResponseTypeInfoBuilder<ApiRequest>(new ApiRequest(() => null!), responseType);
                 var upgraded = builder.Build(responseDeserializerFactory, statusCodes);
-                var info = upgraded.PossibleResponseTypes.First();
+                var descriptor = upgraded.PossibleResponseTypes.First();
 
-                Assert.Equal(responseType, info.ResponseType);
-                Assert.Equal(responseDeserializerFactory, info.ResponseDeserializerFactory);
-                Assert.Equal(statusCodes, info.StatusCodes);
+                Assert.Equal(responseType, descriptor.ResponseType);
+                Assert.Equal(responseDeserializerFactory, descriptor.HttpContentDeserializerProvider);
+                Assert.Equal(statusCodes, descriptor.StatusCodes);
             }
 
         }

@@ -18,7 +18,7 @@
             return CreateService(null, null);
         }
 
-        protected ApiResponseBase CreateService(HttpResponseMessage? httpResponseMessage, IEnumerable<ResponseTypeInfo>? possibleResponseTypes)
+        protected ApiResponseBase CreateService(HttpResponseMessage? httpResponseMessage, IEnumerable<ResponseTypeDescriptor>? possibleResponseTypes)
         {
             return new Mock<ApiResponseBase>(httpResponseMessage, possibleResponseTypes) { CallBase = true }.Object;
         }
@@ -46,7 +46,7 @@
             {
                 var types = new[]
                 {
-                    new ResponseTypeInfo(typeof(int), new StatusCodeRange[] { 200 }, () => null!),
+                    new ResponseTypeDescriptor(typeof(int), new StatusCodeRange[] { 200 }, () => null!),
                 };
 
                 var service = CreateService(null, types);
@@ -64,19 +64,19 @@
 
         }
 
-        public class GetCurrentResponseTypeInfoTests : ApiResponseBaseTests
+        public class GetCurrentResponseTypeDescriptorTests : ApiResponseBaseTests
         {
 
             [Theory]
             [MemberData(nameof(ResponseTypeData))]
             public void Holds_Correct_Value(
-                IEnumerable<ResponseTypeInfo> possibleResponseTypes,
+                IEnumerable<ResponseTypeDescriptor> possibleResponseTypes,
                 int? expectedIndex,
                 int forStatusCode)
             {
                 // The property can be null, if the status code doesn't match any info.
                 // -> Thus, the index can be null too.
-                ResponseTypeInfo? expected = null;
+                ResponseTypeDescriptor? expected = null;
                 if (!(expectedIndex is null))
                 {
                     expected = possibleResponseTypes.ElementAt(expectedIndex.Value);
@@ -85,16 +85,16 @@
                 var response = CreateService(null, possibleResponseTypes)
                     .SetStatusCode(forStatusCode);
 
-                Assert.Same(expected, response.GetCurrentResponseTypeInfo());
+                Assert.Same(expected, response.GetCurrentResponseTypeDescriptor());
             }
 
-            public static TheoryData<IEnumerable<ResponseTypeInfo>, int?, int> ResponseTypeData()
+            public static TheoryData<IEnumerable<ResponseTypeDescriptor>, int?, int> ResponseTypeData()
             {
-                return new TheoryData<IEnumerable<ResponseTypeInfo>, int?, int>()
+                return new TheoryData<IEnumerable<ResponseTypeDescriptor>, int?, int>()
                 {
                     // Empty collection.
                     {
-                        Array.Empty<ResponseTypeInfo>(),
+                        Array.Empty<ResponseTypeDescriptor>(),
                         /* expectedIndex: */ null,
                         /* forStatusCode: */ 200
                     },
@@ -250,8 +250,8 @@
                     },
                 };
 
-                static ResponseTypeInfo CreateInfo(params StatusCodeRange[] statusCodes) =>
-                    new ResponseTypeInfo(typeof(object), statusCodes, () => null!);
+                static ResponseTypeDescriptor CreateInfo(params StatusCodeRange[] statusCodes) =>
+                    new ResponseTypeDescriptor(typeof(object), statusCodes, () => null!);
             }
 
         }
