@@ -31,7 +31,7 @@
         IHttpRequestMessageBuilder,
         IHttpResponseMessageBuilder,
         IHttpContentBuilder,
-        IHttpHeadersBuilder,
+        IHttpHeadersBuilder<HttpHeaders>,
         IHttpHeadersBuilder<HttpContentHeaders>,
         IHttpHeadersBuilder<HttpRequestHeaders>,
         IHttpHeadersBuilder<HttpResponseHeaders>,
@@ -59,7 +59,7 @@
         public HttpContent? Content { get; set; }
 
         /// <summary>
-        ///     Gets the headers for the <see cref="IHttpHeadersBuilder"/>.
+        ///     Gets the headers for the <see cref="IHttpHeadersBuilder{HttpHeaders}"/>.
         /// </summary>
         public HttpHeaders Headers { get; } = new HttpRequestMessage().Headers;
 

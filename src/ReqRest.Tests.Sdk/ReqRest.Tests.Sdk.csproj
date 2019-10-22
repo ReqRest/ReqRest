@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ReqRest\ReqRest.csproj" />
+    <ProjectReference Include="../ReqRest/ReqRest.csproj" />
   </ItemGroup>
 
 </Project>
