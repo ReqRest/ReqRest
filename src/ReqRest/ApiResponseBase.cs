@@ -70,7 +70,7 @@
         private protected bool CanDeserializeResource<T>()
         {
             var currentResponseTypeInfo = GetCurrentResponseTypeInfo();
-            return currentResponseTypeInfo != null
+            return !(currentResponseTypeInfo is null)
                 && typeof(T).IsAssignableFrom(currentResponseTypeInfo.ResponseType);
         }
 

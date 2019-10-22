@@ -100,9 +100,9 @@
 
         /// <inheritdoc/>
         protected override async Task<object?> DeserializeAsyncCore(
-            HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
+            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
         {
-            var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
+            var json = httpContent is null ? "" : await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             using var stringReader = new StringReader(json);
             using var jsonReader = new JsonTextReader(stringReader);
             return ActualJsonSerializer.Deserialize(jsonReader, contentType);

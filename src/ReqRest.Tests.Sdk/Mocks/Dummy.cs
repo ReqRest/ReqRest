@@ -33,7 +33,7 @@
             }
 
             var mockUsingAttribute = parameter.GetCustomAttribute<MockUsingAttribute>();
-            if (mockUsingAttribute != null)
+            if (!(mockUsingAttribute is null))
             {
                 return mockUsingAttribute.GetMockDataProvider().Create();
             }

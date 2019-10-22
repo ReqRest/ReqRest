@@ -95,7 +95,7 @@
 
         /// <inheritdoc/>
         protected override async Task<object?> DeserializeAsyncCore(
-            HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
+            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
         {
             // While we'd ideally read directly from the stream here (if UTF-8), this is a lot of messy work.
             // For one, we don't know if the encoding is UTF-8 and finding this out is hard to do
@@ -104,7 +104,7 @@
             // For the moment, simply fall back to simple string deserialization and optimize this later,
             // if required.
             // If this is an absolute must, people can still derive from this class and override the method.
-            var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
+            var json = httpContent is null ? "" : await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             return JsonSerializer.Deserialize(json, contentType, JsonSerializerOptions);
         }
 

@@ -73,7 +73,7 @@
 
             Assert.Contains(Builder.Headers, header =>
                 header.Key == name &&
-                (values == null || !values.Where(v => v != null).Any())
+                (values == null || !values.Where(v => !(v is null)).Any())
                     ? header.Value.SequenceEqual(new string[] { "" })
                     : header.Value.SequenceEqual(values)
             );

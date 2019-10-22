@@ -95,7 +95,7 @@
             {
                 foreach (var name in names)
                 {
-                    if (name != null)
+                    if (!(name is null))
                     {
                         p.Remove(name);
                     }

@@ -304,7 +304,7 @@
         {
             _ = builder ?? throw new ArgumentNullException(nameof(builder));
 
-            if (parameters != null)
+            if (!(parameters is null))
             {
                 foreach (var param in parameters)
                 {

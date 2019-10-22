@@ -13,6 +13,7 @@
     using Xunit;
     using ReqRest.Tests.Sdk.Models;
     using ReqRest.Serializers.NewtonsoftJson.Tests.TestData;
+    using Moq.Protected;
 
     public class JsonBuilderExtensionsTests
     {
@@ -98,7 +99,7 @@
                 var dto = new SerializationDto();
 
                 Service.SetJsonContent(dto, Encoding.ASCII, serializerMock.Object);
-                serializerMock.Verify(x => x.Serialize(dto, typeof(SerializationDto), Encoding.ASCII));
+                serializerMock.Protected().Verify("SerializeCore", Times.Once(), dto, typeof(SerializationDto), Encoding.ASCII);
             }
 
         }
