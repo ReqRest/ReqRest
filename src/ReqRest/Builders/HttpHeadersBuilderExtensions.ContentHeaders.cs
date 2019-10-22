@@ -42,7 +42,7 @@
             };
 
             // It sucks that the parameters cannot be set directly. This only leaves enumeration.
-            if (parameters != null)
+            if (!(parameters is null))
             {
                 foreach (var param in parameters)
                 {

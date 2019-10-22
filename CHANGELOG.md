@@ -15,10 +15,10 @@
 * **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
+* **[Breaking]** The `HttpContentSerializer.DeserializeCore` method's `HttpContent` parameter is now nullable.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
 * **[Breaking]** The `UriBuilderExtensions.AppendPath(string? path)` method no longer appends a trailing `/` if `path` is `null` or empty.
-* Added the `DeserializeWithoutHttpContentAsync` method to the `HttpContentSerializer` to allow changing the default deserialization behavior if no HttpContent is given.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Added the optional `UriKind uriKind = UriKind.RelativeOrAbsolute` parameter to `RequestUriBuilderExtensions.SetRequestUri(IRequestUriBuilder, string)`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.

@@ -91,14 +91,6 @@
             $"The content to be serialized does not match the specified type. " +
             $"Expected an instance of the class \"${expected.FullName}\", but got \"{actual.FullName}\".";
 
-        public static string HttpContentSerializer_HttpContentIsNull(Type contentType) =>
-            $"The HttpContent to be deserialized into an object of type \"{contentType.FullName}\" " +
-            $"was null (Nothing in VB). An HttpContent which is null cannot be deserialized by this " +
-            $"serializer.\n" +
-            $"If you know that the HttpContent is always going to be null, ensure that you deserialize " +
-            $"the special \"{typeof(NoContent).FullName}\" type. This type can always be deserialized, even " +
-            $"if no HttpContent is given.";
-
         #endregion
 
     }
