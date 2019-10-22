@@ -1,9 +1,6 @@
 ﻿namespace ReqRest.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Linq;
     using Xunit;
     using System.Net.Http;
     using ReqRest.Tests.Sdk.TestBases;

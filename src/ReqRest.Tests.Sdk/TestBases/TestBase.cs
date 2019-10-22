@@ -2,7 +2,6 @@
 {
     using System;
     using ReqRest.Tests.Sdk.Mocks;
-    using ReqRest.Tests.Sdk.Utilities;
 
     /// <summary>
     ///     Defines an abstract base class for test suites which need to test a service of a

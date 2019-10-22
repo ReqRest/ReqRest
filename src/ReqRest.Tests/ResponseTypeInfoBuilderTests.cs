@@ -28,11 +28,8 @@
 
         }
 
-        public class BuildTests : TestBase<ResponseTypeInfoBuilder<ApiRequest>>
+        public class BuildTests : ResponseTypeInfoBuilderTestBase
         {
-
-            protected override ResponseTypeInfoBuilder<ApiRequest> CreateService() =>
-                new ResponseTypeInfoBuilder<ApiRequest>(new ApiRequest(() => null!), typeof(object));
 
             [Theory, ArgumentNullExceptionData(NotNull, NotNull)]
             public void Throws_ArgumentNullException(
