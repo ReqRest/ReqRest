@@ -18,8 +18,7 @@
     ///     Request upgrading refers to adding type information to an <see cref="ApiRequestBase"/>
     ///     instance.
     ///     
-    ///     For example, assume that a user starts with a plain <see cref="ApiRequest"/> instance as
-    ///     in the following code:
+    ///     For example, have a look at the following code:
     ///     
     ///     <code>
     ///     using ReqRest.Serializers.Json; 
