@@ -4,16 +4,21 @@
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
+    using ReqRest.Resources;
 
     /// <summary>
     ///     Implements several builder interfaces which enable fluent building of
     ///     <see cref="System.Net.Http.HttpRequestMessage"/> objects.
     /// </summary>
     public class HttpRequestMessageBuilder :
+        IBuilder,
         IHttpRequestMessageBuilder,
+        IHttpHeadersBuilder<HttpHeaders>,
         IHttpHeadersBuilder<HttpRequestHeaders>,
-        IHttpRequestPropertiesBuilder,
+        IHttpHeadersBuilder<HttpContentHeaders>,
         IHttpContentBuilder,
+        IHttpContentHeadersBuilder,
+        IHttpRequestPropertiesBuilder,
         IHttpProtocolVersionBuilder,
         IRequestUriBuilder,
         IHttpMethodBuilder
@@ -28,8 +33,31 @@
             set => _httpRequestMessage = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        /// <inheritdoc/>
-        HttpHeaders IHttpHeadersBuilder.Headers => Headers;
+        /// <summary>
+        ///     Gets the <see cref="HttpContentHeaders"/> of the underlying 
+        ///     <see cref="HttpContent"/>, if one exists.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        ///     The underlying <see cref="HttpContent"/> is <see langword="null"/>.
+        /// </exception>
+        HttpContentHeaders IHttpHeadersBuilder<HttpContentHeaders>.Headers
+        {
+            get
+            {
+                if (Content is null)
+                {
+                    throw new InvalidOperationException(ExceptionStrings.IHttpContentHeadersBuilder_HttpContent_Is_Null());
+                }
+                return Content.Headers;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the value of the <see cref="Headers"/> property.
+        ///     These are the headers that are configured by default when using the
+        ///     non-generic extension methods provided by <see cref="HttpHeadersBuilderExtensions"/>.
+        /// </summary>
+        HttpHeaders IHttpHeadersBuilder<HttpHeaders>.Headers => Headers;
 
         /// <summary>
         ///     Gets the collection of HTTP request headers

@@ -18,7 +18,7 @@
         /// <typeparam name="T">
         ///     The target type of the object which is supposed to be deserialized.
         /// </typeparam>
-        /// <param name="serializer">The serializer.</param>
+        /// <param name="deserializer">The serializer.</param>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
         ///     This can be <see langword="null"/>.
@@ -30,7 +30,7 @@
         ///     An object of type <typeparamref name="T"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="serializer"/>
+        ///     * <paramref name="deserializer"/>
         /// </exception>
         /// <exception cref="InvalidCastException">
         ///     The serializer returned an object which is not of type <typeparamref name="T"/>.
@@ -42,13 +42,13 @@
         ///     The operation was canceled via the <paramref name="cancellationToken"/>.
         /// </exception>
         public static async Task<T> DeserializeAsync<T>(
-            this IHttpContentDeserializer serializer, 
+            this IHttpContentDeserializer deserializer, 
             HttpContent? httpContent, 
             CancellationToken cancellationToken = default)
         {
 #nullable disable
-            _ = serializer ?? throw new ArgumentNullException(nameof(serializer));
-            return (T)await serializer.DeserializeAsync(httpContent, typeof(T), cancellationToken).ConfigureAwait(false);
+            _ = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
+            return (T)await deserializer.DeserializeAsync(httpContent, typeof(T), cancellationToken).ConfigureAwait(false);
 #nullable restore
         }
 

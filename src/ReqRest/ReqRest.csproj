@@ -2,6 +2,7 @@
   
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <IsPackable>true</IsPackable>
     <Description>
 ReqRest allows you to easily project a RESTful HTTP API to a C#/VB library that feels and behaves like a normal C# API. If you use ReqRest to wrap your REST API, you will end up with a library that is fully typed, has IntelliSense and compiler support and is thus incredibly easy to use.
 
@@ -16,10 +17,7 @@ Learn more about ReqRest at https://github.com/ReqRest/ReqRest and https://reqre
 
   <ItemGroup>
     <PackageReference Include="NCommons.Monads" Version="1.3.2" />
-    <PackageReference Include="Nullable" Version="1.1.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Nullable" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
   <!-- T4 Templates. -->

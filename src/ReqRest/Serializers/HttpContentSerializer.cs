@@ -44,7 +44,7 @@
         ///     the user.
         ///     If not overridden, this is <see cref="Encoding.UTF8"/>.
         /// </summary>
-        protected virtual Encoding DefaultEncoding => Encoding.UTF8;
+        protected internal virtual Encoding DefaultEncoding => Encoding.UTF8;
 
         /// <inheritdoc/>
         public virtual HttpContent? Serialize(object? content, Type? contentType, Encoding? encoding)
@@ -109,7 +109,7 @@
         ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>
         ///     or <see langword="null"/>.
         /// </returns>
-        protected abstract HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding);
+        protected internal abstract HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding);
 
         /// <inheritdoc/>
         public virtual async Task<object?> DeserializeAsync(
@@ -165,7 +165,7 @@
         ///     This exception gets thrown if the method is not overridden by deriving classes.
         /// </exception>
         [DoesNotReturn]
-        protected virtual Task<object?> DeserializeWithoutHttpContentAsync(Type contentType, CancellationToken cancellationToken)
+        protected internal virtual Task<object?> DeserializeWithoutHttpContentAsync(Type contentType, CancellationToken cancellationToken)
         {
             throw new HttpContentSerializationException(
                 ExceptionStrings.HttpContentSerializer_HttpContentIsNull(contentType)
@@ -190,7 +190,7 @@
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeAsyncCore(
+        protected internal abstract Task<object?> DeserializeAsyncCore(
             HttpContent httpContent,
             Type contentType,
             CancellationToken cancellationToken

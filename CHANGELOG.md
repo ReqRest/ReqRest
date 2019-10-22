@@ -9,16 +9,21 @@
 ### ReqRest
 
 * **[Package]** ReqRest now targets both `netstandard2.0` and `netstandard2.1`. Reason: `netstandard2.1` introduced new nullable attributes.
+* **[Breaking]** The `IHttpHeadersBuilder` has been removed in favor of the reworked `IHttpHeadersBuilder<out T>` interface.
+* **[Breaking]** Updated the extension methods interacting with the `IHttpHeadersBuilder` to use the new `IHttpHeadersBuilder<out T>` interface. Extension methods having the `ContentHeaders` suffix have been moved into a separate class.
 * **[Breaking]** The `IHttpContentDeserializer.DeserializeAsync` method has been extended with a `CancellationToken` parameter.
 * **[Breaking]** The `IHttpContentSerializer.Serialize` method has been extended with the `Type contentType` parameter that allows users to specify the type of the object to be serialized.
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
+* **[Breaking]** The `UriBuilderExtensions.AppendPath(string? path)` method no longer appends a trailing `/` if `path` is `null` or empty.
 * Added the `DeserializeWithoutHttpContentAsync` method to the `HttpContentSerializer` to allow changing the default deserialization behavior if no HttpContent is given.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
+* Added the optional `UriKind uriKind = UriKind.RelativeOrAbsolute` parameter to `RequestUriBuilderExtensions.SetRequestUri(IRequestUriBuilder, string)`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.
 * Annotated the library with .NET's new nullable attributes. The `netstandard2.0` target uses a polyfill (via the `Nullable` NuGet package), while `netstandard2.1` uses .NET's default attributes.
+* Fixed the `HttpRequestPropertiesBuilderExtensions.RemoveProperty` to not throw an `ArgumentNullException` for the `builder` parameter if the `IEnumerable<string?>? names` parameter is `null`.
 * Updated certain nullable annotations to accept `null`, for example in `public override bool Equals(object?)`.
 
 ### ReqRest.Serializers.NewtonsoftJson

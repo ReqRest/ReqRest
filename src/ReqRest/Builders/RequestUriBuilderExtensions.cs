@@ -90,13 +90,17 @@
         ///     A string which represents the request <see cref="Uri"/> to be used.
         ///     This can be <see langword="null"/>.
         /// </param>
+        /// <param name="uriKind">
+        ///     The kind of the <see cref="Uri"/>.
+        /// </param>
         /// <returns>The specified <paramref name="builder"/>.</returns>
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="builder"/>
         /// </exception>
         [DebuggerStepThrough]
-        public static T SetRequestUri<T>(this T builder, string? requestUri) where T : IRequestUriBuilder =>
-            builder.SetRequestUri(requestUri is null ? null : new Uri(requestUri));
+        public static T SetRequestUri<T>(this T builder, string? requestUri, UriKind uriKind = UriKind.RelativeOrAbsolute) 
+            where T : IRequestUriBuilder =>
+                builder.SetRequestUri(requestUri is null ? null : new Uri(requestUri, uriKind));
 
         /// <summary>
         ///     Sets the request <see cref="Uri"/> which is being built.
