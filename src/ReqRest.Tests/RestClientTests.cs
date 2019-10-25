@@ -60,7 +60,7 @@
 
         }
 
-        public class GetUrlBuilderTests : RestClientTests
+        public class BuildBaseUrlTests : RestClientTests
         {
 
             [Fact]
@@ -91,7 +91,7 @@
 
             private static UrlBuilder GetBuilder(RestClient client)
             {
-                return ((IUrlProvider)client).GetUrlBuilder();
+                return ((IBaseUrlProvider)client).BuildBaseUrl();
             }
 
         }

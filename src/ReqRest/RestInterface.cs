@@ -30,7 +30,7 @@
     ///     Thus, it makes sense to separate them into different classes that make different
     ///     requests available.
     /// </remarks>
-    public abstract class RestInterface : IUrlProvider
+    public abstract class RestInterface : IBaseUrlProvider
     {
 
         private Uri? _url;
@@ -43,35 +43,36 @@
         protected internal RestClient Client { get; }
 
         /// <summary>
-        ///     Gets an <see cref="IUrlProvider"/> which is the logical parent of this
+        ///     Gets an <see cref="IBaseUrlProvider"/> which is the logical parent of this
         ///     interface.
-        ///     The URL which is returned by this <see cref="IUrlProvider"/> is used as this
+        ///     The URL which is returned by this <see cref="IBaseUrlProvider"/> is used as this
         ///     interface's base url.
         /// </summary>
-        protected internal IUrlProvider BaseUrlProvider { get; }
+        protected internal IBaseUrlProvider BaseUrlProvider { get; }
 
         /// <summary>
-        ///     Gets the URL which was built for the <see cref="RestInterface"/>.
+        ///     Gets the final URL which was built for the <see cref="RestInterface"/>.
         /// </summary>
         /// <remarks>
         ///     This property is evaluated once and from then on cached.
-        ///     Cast this class to an <see cref="IUrlProvider"/> and use its
-        ///     <see cref="IUrlProvider.GetUrlBuilder"/> to force-create a new <see cref="Uri"/>.
+        ///     Cast this class to an <see cref="IBaseUrlProvider"/> and use its
+        ///     <see cref="IBaseUrlProvider.BuildBaseUrl"/> to force the creation of a new
+        ///     <see cref="Uri"/> instance.
         /// </remarks>
-        protected internal Uri Url => _url ??= this.GetUrl();
+        protected internal Uri Url => _url ??= ((IBaseUrlProvider)this).BuildBaseUrl().Uri;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RestInterface"/> class whose full URL
-        ///     depends on another <see cref="IUrlProvider"/>.
+        ///     depends on another <see cref="IBaseUrlProvider"/>.
         /// </summary>
         /// <param name="restClient">
         ///     The <see cref="RestClient"/> which ultimately manages (or rather "contains")
         ///     this interface.
         /// </param>
         /// <param name="baseUrlProvider">
-        ///     An <see cref="IUrlProvider"/> which is the logical parent of this
+        ///     An <see cref="IBaseUrlProvider"/> which is the logical parent of this
         ///     interface.
-        ///     The URL which is provided by this <see cref="IUrlProvider"/> is used as this
+        ///     The URL which is provided by this <see cref="IBaseUrlProvider"/> is used as this
         ///     interface's base url.
         ///     
         ///     If <see langword="null"/>, the <paramref name="restClient"/> is used instead.
@@ -79,16 +80,16 @@
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="restClient"/>
         /// </exception>
-        public RestInterface(RestClient restClient, IUrlProvider? baseUrlProvider = null)
+        public RestInterface(RestClient restClient, IBaseUrlProvider? baseUrlProvider = null)
         {
             Client = restClient ?? throw new ArgumentNullException(nameof(restClient));
             BaseUrlProvider = baseUrlProvider ?? restClient;
         }
 
         /// <inheritdoc/>
-        UrlBuilder IUrlProvider.GetUrlBuilder()
+        UrlBuilder IBaseUrlProvider.BuildBaseUrl()
         {
-            var baseUrlBuilder = BaseUrlProvider.GetUrlBuilder();
+            var baseUrlBuilder = BaseUrlProvider.BuildBaseUrl();
             return BuildUrl(baseUrlBuilder);
         }
 
@@ -233,22 +234,22 @@
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RestInterface"/> class whose full URL
-        ///     depends on another <see cref="IUrlProvider"/>.
+        ///     depends on another <see cref="IBaseUrlProvider"/>.
         /// </summary>
         /// <param name="client">
         ///     The <typeparamref name="TClient"/> which ultimately manages (or rather "contains")
         ///     this interface.
         /// </param>
         /// <param name="baseUrlProvider">
-        ///     An <see cref="IUrlProvider"/> which is the logical parent of this
+        ///     An <see cref="IBaseUrlProvider"/> which is the logical parent of this
         ///     interface.
-        ///     The URL which is returned by this <see cref="IUrlProvider"/> is used as this
+        ///     The URL which is returned by this <see cref="IBaseUrlProvider"/> is used as this
         ///     interface's base url.
         /// </param>
         /// <exception cref="ArgumentNullException">
         ///     * <paramref name="client"/>
         /// </exception>
-        public RestInterface(TClient client, IUrlProvider? baseUrlProvider = null)
+        public RestInterface(TClient client, IBaseUrlProvider? baseUrlProvider = null)
             : base(client, baseUrlProvider) { }
 
     }
