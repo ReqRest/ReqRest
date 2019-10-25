@@ -27,10 +27,21 @@
         // For this, the builder APIs are quite helpful.
 
         /// <summary>
-        ///     Gets a set of elements that declare which .NET types may have been returned by the
-        ///     HTTP API in this response.
+        ///     Gets a list of <see cref="ResponseTypeDescriptor"/> instances which describe the
+        ///     possible response types that this response's data can potentially have.
+        ///     This response's HTTP content can be deserialized to the appropriate type based on
+        ///     this data and the current HTTP status code.
         /// </summary>
-        protected internal IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
+        /// <remarks>
+        ///     The items in this list map directly to the generic type parameters of this response,
+        ///     i.e. the first item in the list describes the first type parameter, the second item
+        ///     describes the second type parameter, etc.
+        ///     If this response has no type parameters (for example if this is an <see cref="ApiResponse"/>
+        ///     instance), it will be empty.
+        /// </remarks>
+        /// <seealso cref="ResponseTypeDescriptor"/>
+        /// <seealso cref="ApiRequestUpgrader{TUpgradedRequest}"/>
+        public IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiResponseBase"/> instance with the specified values.
@@ -125,7 +136,7 @@
         ///     If there are multiple instances that match this status code with equal specificness,
         ///     it returns the first one.
         /// </returns>
-        protected internal ResponseTypeDescriptor GetCurrentResponseTypeDescriptor()
+        internal ResponseTypeDescriptor GetCurrentResponseTypeDescriptor()
         {
             // Lazily compute this (every time) because the status code may change in between calls.
             var possibleTypes =

@@ -25,6 +25,7 @@
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
 * **[Breaking]** The `UriBuilderExtensions.AppendPath(string? path)` method no longer appends a trailing `/` if `path` is `null` or empty.
 * **[Breaking]** Removed the `Uri UrlBuilder.op_implicit` operator.
+* **[Breaking]** Made the `ApiResponseBase.GetCurrentResponseTypeDescriptor()` method internal.
 * Added a new `RequestUriBuilderExtensions.T ConfigureRequestUri<T>(this T builder, Func<UrlBuilder, UriBuilder?> configure) where T : IRequestUriBuilder` overload.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Added the optional `UriKind uriKind = UriKind.RelativeOrAbsolute` parameter to `RequestUriBuilderExtensions.SetRequestUri(IRequestUriBuilder, string)`.

@@ -32,9 +32,18 @@
         }
 
         /// <summary>
-        ///     Gets a list of elements which declare what possible .NET types the API may
-        ///     return for this request, depending on the result's status code.
+        ///     Gets a list of <see cref="ResponseTypeDescriptor"/> instances which describe the
+        ///     possible response types that a response to this request may have.
         /// </summary>
+        /// <remarks>
+        ///     The items in this list map directly to the generic type parameters of this request,
+        ///     i.e. the first item in the list describes the first type parameter, the second item
+        ///     describes the second type parameter, etc.
+        ///     If this request has no type parameters (for example if this is an <see cref="ApiRequest"/>
+        ///     instance), it will be empty.
+        /// </remarks>
+        /// <seealso cref="ResponseTypeDescriptor"/>
+        /// <seealso cref="ApiRequestUpgrader{TUpgradedRequest}"/>
         public IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
         
         /// <summary>
