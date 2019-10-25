@@ -11,12 +11,12 @@
 
         protected virtual RestClient DefaultRestClient => new Mock<RestClient>(new RestClientConfiguration()).Object;
 
-        protected virtual IUrlProvider DefaultBaseUrlProvider
+        protected virtual IBaseUrlProvider DefaultBaseUrlProvider
         {
             get
             {
-                var mock = new Mock<IUrlProvider>();
-                mock.Setup(x => x.GetUrlBuilder()).Returns(new UrlBuilder());
+                var mock = new Mock<IBaseUrlProvider>();
+                mock.Setup(x => x.BuildBaseUrl()).Returns(new UrlBuilder());
                 return mock.Object;
             }
         }
@@ -30,7 +30,7 @@
 
         protected virtual RestInterface CreateService(
             RestClient restClient,
-            IUrlProvider? baseUrlProvider,
+            IBaseUrlProvider? baseUrlProvider,
             Func<UrlBuilder, UrlBuilder> buildUrl)
         {
             var mock = new Mock<RestInterface>(restClient, baseUrlProvider) { CallBase = true };
@@ -58,7 +58,7 @@
             [Fact]
             public void Sets_BaseUrlProvider_To_Specified_Value_If_Not_Null()
             {
-                var baseUrlProvider = new Mock<IUrlProvider>().Object;
+                var baseUrlProvider = new Mock<IBaseUrlProvider>().Object;
                 var restClient = new Mock<RestClient>(new RestClientConfiguration());
                 var service = CreateService(restClient.Object, baseUrlProvider, builder => builder);
                 Assert.Same(baseUrlProvider, service.BaseUrlProvider);
@@ -72,7 +72,7 @@
             [Fact]
             public void Url_Returns_Uri_Built_Via_GetUrlBuilder()
             {
-                var builtUrl = ((IUrlProvider)Service).GetUrlBuilder().Uri;
+                var builtUrl = ((IBaseUrlProvider)Service).BuildBaseUrl().Uri;
                 Assert.Same(builtUrl, Service.Url);
             }
 
@@ -105,18 +105,18 @@
 
         }
 
-        public class GetUrlBuilderTests : RestInterfaceTests
+        public class BuildBaseUrlTests : RestInterfaceTests
         {
 
             [Fact]
             public void Returns_UrlBuilder_Of_BaseUrlProvider()
             {
                 var builder = new UrlBuilder();
-                var baseUrlProviderMock = new Mock<IUrlProvider>();
-                baseUrlProviderMock.Setup(x => x.GetUrlBuilder()).Returns(builder);
+                var baseUrlProviderMock = new Mock<IBaseUrlProvider>();
+                baseUrlProviderMock.Setup(x => x.BuildBaseUrl()).Returns(builder);
                 var service = CreateService(DefaultRestClient, baseUrlProviderMock.Object, DefaultBuildUrl);
 
-                Assert.Same(builder, ((IUrlProvider)service).GetUrlBuilder());
+                Assert.Same(builder, ((IBaseUrlProvider)service).BuildBaseUrl());
             }
 
             [Fact]
@@ -129,7 +129,7 @@
                     builder => { wasCalled = true; return builder; }
                 );
 
-                ((IUrlProvider)service).GetUrlBuilder();
+                ((IBaseUrlProvider)service).BuildBaseUrl();
                 Assert.True(wasCalled);
             }
 
@@ -137,7 +137,7 @@
             public void Calls_BuildUrl_With_UrlBuilder_Of_BaseUrlProvider()
             {
                 var builder = new UrlBuilder();
-                var baseUrlProviderMock = new Mock<IUrlProvider>();
+                var baseUrlProviderMock = new Mock<IBaseUrlProvider>();
                 var service = CreateService(
                     DefaultRestClient,
                     baseUrlProviderMock.Object,
@@ -148,8 +148,8 @@
                     }
                 ); ;
                 
-                baseUrlProviderMock.Setup(x => x.GetUrlBuilder()).Returns(builder);
-                ((IUrlProvider)service).GetUrlBuilder();
+                baseUrlProviderMock.Setup(x => x.BuildBaseUrl()).Returns(builder);
+                ((IBaseUrlProvider)service).BuildBaseUrl();
             }
 
         }

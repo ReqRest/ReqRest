@@ -69,30 +69,6 @@
 
         }
 
-        public class ImplicitOperatorTests
-        {
-
-            [Fact]
-            public void To_Uri()
-            {
-                var builder = new UrlBuilder("https://test.com?foo=bar");
-                var explicitUri = builder.Uri;
-                var implicitUri = (Uri)builder!;
-                Assert.Equal(explicitUri, implicitUri);
-            }
-
-            [Fact]
-            public void Throws_UriFormatException_For_Invalid_Uri()
-            {
-                var builder = new UrlBuilder()
-                {
-                    Host = "foo\\\\",
-                };
-                Assert.Throws<UriFormatException>(() => _ = (Uri?)builder);
-            }
-
-        }
-
         public class AndOperatorTests : TestBase<UrlBuilder>
         {
 

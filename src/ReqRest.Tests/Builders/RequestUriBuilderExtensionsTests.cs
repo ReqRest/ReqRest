@@ -26,7 +26,20 @@
             }
 
             [Fact]
-            public void Func_Creates_UrlBuilder_With_Current_Uri()
+            public void Func_UrlBuilder_Creates_UrlBuilder_With_Current_Uri()
+            {
+                var uri = new Uri("http://foo.bar");
+                Service.SetRequestUri(uri);
+
+                Service.ConfigureRequestUri(urlBuilder =>
+                {
+                    Assert.Equal(urlBuilder.Uri, uri);
+                    return urlBuilder;
+                });
+            }
+
+            [Fact]
+            public void Func_Uri_Creates_UrlBuilder_With_Current_Uri()
             {
                 var uri = new Uri("http://foo.bar");
                 Service.SetRequestUri(uri);
@@ -49,7 +62,18 @@
             }
 
             [Fact]
-            public void Func_Creates_Default_UrlBuilder_If_RequestUri_Is_Null()
+            public void Func_UrlBuilder_Creates_Default_UrlBuilder_If_RequestUri_Is_Null()
+            {
+                var expected = new UrlBuilder().Uri;
+                Service.ConfigureRequestUri(urlBuilder =>
+                {
+                    Assert.Equal(expected, urlBuilder.Uri);
+                    return urlBuilder;
+                });
+            }
+
+            [Fact]
+            public void Func_Uri_Creates_Default_UrlBuilder_If_RequestUri_Is_Null()
             {
                 var expected = new UrlBuilder().Uri;
                 Service.ConfigureRequestUri(urlBuilder =>
@@ -66,12 +90,20 @@
                 Service.ConfigureRequestUri(urlBuilder => wasCalled = true);
                 Assert.True(wasCalled);
             }
-            
+
             [Fact]
-            public void Func_Calls_Configure()
+            public void Func_UrlBuilder_Calls_Configure()
             {
                 var wasCalled = false;
                 Service.ConfigureRequestUri(urlBuilder => { wasCalled = true; return urlBuilder; });
+                Assert.True(wasCalled);
+            }
+
+            [Fact]
+            public void Func_Uri_Calls_Configure()
+            {
+                var wasCalled = false;
+                Service.ConfigureRequestUri(urlBuilder => { wasCalled = true; return urlBuilder.Uri; });
                 Assert.True(wasCalled);
             }
 
@@ -82,7 +114,13 @@
             }
             
             [Theory, ArgumentNullExceptionData(NotNull, NotNull)]
-            public void Func_Throws_ArgumentNullException(IRequestUriBuilder builder, Func<UrlBuilder, Uri?> configure)
+            public void Func_UrlBuilder_Throws_ArgumentNullException(IRequestUriBuilder builder, Func<UrlBuilder, UriBuilder?> configure)
+            {
+                Assert.Throws<ArgumentNullException>(() => RequestUriBuilderExtensions.ConfigureRequestUri(builder, configure));
+            }
+            
+            [Theory, ArgumentNullExceptionData(NotNull, NotNull)]
+            public void Func_Uri_Throws_ArgumentNullException(IRequestUriBuilder builder, Func<UrlBuilder, Uri?> configure)
             {
                 Assert.Throws<ArgumentNullException>(() => RequestUriBuilderExtensions.ConfigureRequestUri(builder, configure));
             }

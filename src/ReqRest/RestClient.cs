@@ -18,7 +18,7 @@
     ///     <see cref="RestInterface"/> instances that allow the user to create and make requests
     ///     to the API.
     /// </summary>
-    public abstract class RestClient : IUrlProvider
+    public abstract class RestClient : IBaseUrlProvider
     {
 
         private RestClientConfiguration _configuration;
@@ -52,7 +52,7 @@
         ///     Returns a new <see cref="UriBuilder"/> which starts building on the configured
         ///     <see cref="RestClientConfiguration.BaseUrl"/>.
         /// </summary>
-        UrlBuilder IUrlProvider.GetUrlBuilder()
+        UrlBuilder IBaseUrlProvider.BuildBaseUrl()
         {
             return Configuration.BaseUrl is null
                 ? new UrlBuilder()

@@ -16,14 +16,19 @@
 * **[Breaking]** The `HttpContentSerializer` implements these interface changes.
 * **[Breaking]** Renamed `ResponseTypeInfo` to `ResponseTypeDescriptor`.
 * **[Breaking]** Renamed `ResponseTypeInfo.ResponseDeserializerFactory` to `HttpContentDeserializerProvider`.
-* **[Breaking]** renamed the `ResponseTypeInfoBuilder` to `ApiRequestUpgrader`.
-* **[Breaking]** renamed the `ResponseTypeInfoBuilder.Build` method to `Upgrade`.
+* **[Breaking]** Renamed the `ResponseTypeInfoBuilder` to `ApiRequestUpgrader`.
+* **[Breaking]** Renamed the `ResponseTypeInfoBuilder.Build` method to `Upgrade`.
+* **[Breaking]** Renamed the `IUrlProvider` interface to `IBaseUrlProvider`.
+* **[Breaking]** Renamed the `IBaseUrlProvider.GetUrlBuilder()` method to `BuildBaseUrl()`.
 * **[Breaking]** The `ResponseTypeDescriptor.StatusCodes` property now returns an `IReadOnlyCollection<StatusCodeRange>` instead of the previously used `ISet<StatusCodeRange`.
 * **[Breaking]** Renamed `HttpContentSerializer.DeserializeCore` to `DeserializeAsyncCore`.
 * **[Breaking]** The `HttpContentSerializer.DeserializeCore` method's `HttpContent` parameter is now nullable.
 * **[Breaking]** Renamed `SetContent(byte[], ...)` to `SetByteArrayContent`.
 * **[Breaking]** Renamed `SetContent(string, ...)` to `SetStringContent`.
 * **[Breaking]** The `UriBuilderExtensions.AppendPath(string? path)` method no longer appends a trailing `/` if `path` is `null` or empty.
+* **[Breaking]** Removed the `Uri UrlBuilder.op_implicit` operator.
+* **[Breaking]** Made the `ApiResponseBase.GetCurrentResponseTypeDescriptor()` method internal.
+* Added a new `RequestUriBuilderExtensions.T ConfigureRequestUri<T>(this T builder, Func<UrlBuilder, UriBuilder?> configure) where T : IRequestUriBuilder` overload.
 * Added new `SetContent(IHttpContentSerializer, ...)` overloads to the `HttpContentBuilderExtensions`.
 * Added the optional `UriKind uriKind = UriKind.RelativeOrAbsolute` parameter to `RequestUriBuilderExtensions.SetRequestUri(IRequestUriBuilder, string)`.
 * Several methods like `ApiResponse{T}.DeserializeResourceAsync` now support an additional `CancellationToken` parameter.

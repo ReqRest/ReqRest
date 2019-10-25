@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
     // Before editing this class, consider editing the UriBuilderExtensions first.
     // This class is basically introduced for custom operators.
@@ -10,22 +9,40 @@
     // to implement them as extension methods.
 
     /// <summary>
-    ///     An extension of the <see cref="UriBuilder"/> which is specifically tailored for
-    ///     convenience and expressive code during URL creation.
-    ///     It additionally implements <see cref="IBuilder"/>, thus enabling the default set
-    ///     of builder extension methods on this class.
+    ///     An extension of the <see cref="UriBuilder"/> which overloads certain operators for
+    ///     conveniently building URLs.
+    ///     See remarks for details.
     /// </summary>
+    /// <remarks>
+    ///     Most features of this class are also available when using a normal <see cref="UriBuilder"/>
+    ///     instance (via extension methods provided by the <see cref="UriBuilderExtensions"/> class).
+    ///     This class is essentially introduced with the intention of overloading certain operators
+    ///     so that URL building becomes more convenient and expressive. For example, the following
+    ///     C# snippets have the same result:
+    ///     
+    ///     <code>
+    ///     using ReqRest.Builders;
+    ///     
+    ///     UriBuilder uriBuilder = new UriBuilder();
+    ///     UrlBuilder urlBuilder = new UrlBuilder();
+    ///     
+    ///     _ = uriBuilder.AppendPath("foo").AppendPath("bar");
+    ///     _ = urlBuilder / "foo" / "bar";
+    ///     
+    ///     _ = uriBuilder.AppendQueryParameter("foo", "bar");
+    ///     _ = urlBuilder &amp; ("foo", "bar");
+    ///     </code>
+    ///     
+    ///     One difference between the <see cref="UriBuilder"/> and <see cref="UrlBuilder"/> is that
+    ///     <see cref="UrlBuilder"/> implements the <see cref="IBuilder"/> interface. Therefore,
+    ///     a variety of additional extension methods is available for this class.
+    /// </remarks>
     public class UrlBuilder : UriBuilder, IBuilder
     {
 
-        // These values match the default .NET implementation.
-        private const int NoPort = -1;
-        private const string DefaultScheme = "http";
-        private const string DefaultHost = "localhost";
-
         /// <summary>
         ///     Initializes a new <see cref="UrlBuilder"/> instance which starts building
-        ///     on the specified <paramref name="uri"/>.
+        ///     on the specified <paramref name="uri"/> string.
         /// </summary>
         /// <param name="uri">A string representing a URL.</param>
         /// <exception cref="ArgumentNullException">
@@ -47,20 +64,20 @@
 
         /// <summary>
         ///     Initializes a new <see cref="UrlBuilder"/> instance which starts building on
-        ///     an URL built from the specified values.
+        ///     the specified URI component values.
         /// </summary>
-        /// <param name="scheme">The URL's scheme.</param>
-        /// <param name="host">The URL's host.</param>
-        /// <param name="port">The URL's port.</param>
-        /// <param name="path">The URL's path.</param>
-        /// <param name="extraValue">The URL's extra value.</param>
+        /// <param name="scheme">An Internet access protocol.</param>
+        /// <param name="host">A DNS-style domain name or IP address.</param>
+        /// <param name="port">An IP port number for the service.</param>
+        /// <param name="path">The path to the internet resource.</param>
+        /// <param name="extraValue">A query string and/or fragment identifier.</param>
         public UrlBuilder(
-            string? scheme = DefaultScheme,
-            string? host = DefaultHost,
-            int? port = NoPort,
+            string? scheme = "http",
+            string? host = "localhost",
+            int? port = -1,
             string? path = null,
             string? extraValue = null)
-            : base(scheme, host, port ?? NoPort, path, extraValue) { }
+            : base(scheme, host, port ?? -1, path, extraValue) { }
 
         /// <summary>
         ///     Appends the specified <paramref name="pathSegment"/> to the builder's
@@ -145,22 +162,6 @@
         /// </exception>
         public static UrlBuilder operator &(UrlBuilder builder, string? queryParameter) =>
             builder.AppendQueryParameter(queryParameter);
-
-        /// <summary>
-        ///     Implicitly converts the specified <paramref name="builder"/> to an <see cref="Uri"/>
-        ///     by returning the value of the <see cref="UriBuilder.Uri"/> property.
-        /// </summary>
-        /// <param name="builder">The builder.</param>
-        /// <returns>
-        ///     The <see cref="Uri"/> built by the builder or <see langword="null"/> if
-        ///     <paramref name="builder"/> is <see langword="null"/>.
-        /// </returns>
-        /// <exception cref="UriFormatException">
-        ///     The URI constructed by the <see cref="UriBuilder"/> properties is invalid.
-        /// </exception>
-        [return: NotNullIfNotNull("builder")]
-        public static implicit operator Uri?(UrlBuilder? builder) =>
-            builder?.Uri;
 
     }
 
