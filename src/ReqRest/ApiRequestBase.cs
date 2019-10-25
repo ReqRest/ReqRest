@@ -32,16 +32,25 @@
         }
 
         /// <summary>
-        ///     Gets a list of elements which declare what possible .NET types the API may
-        ///     return for this request, depending on the result's status code.
+        ///     Gets a list of <see cref="ResponseTypeDescriptor"/> instances which describe the
+        ///     possible response types that a response to this request may have.
         /// </summary>
-        public IReadOnlyCollection<ResponseTypeInfo> PossibleResponseTypes { get; }
+        /// <remarks>
+        ///     The items in this list map directly to the generic type parameters of this request,
+        ///     i.e. the first item in the list describes the first type parameter, the second item
+        ///     describes the second type parameter, etc.
+        ///     If this request has no type parameters (for example if this is an <see cref="ApiRequest"/>
+        ///     instance), it will be empty.
+        /// </remarks>
+        /// <seealso cref="ResponseTypeDescriptor"/>
+        /// <seealso cref="ApiRequestUpgrader{TUpgradedRequest}"/>
+        public IReadOnlyCollection<ResponseTypeDescriptor> PossibleResponseTypes { get; }
         
         /// <summary>
         ///     Gets a modifiable list of elements which declare what possible .NET types the API may
         ///     return for this request, depending on the result's status code.
         /// </summary>
-        internal ResponseTypeInfoCollection PossibleResponseTypesInternal { get; }
+        internal ResponseTypeDescriptorCollection PossibleResponseTypesInternal { get; }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance with the specified
@@ -60,7 +69,7 @@
         ///     * <paramref name="httpClientProvider"/>
         /// </exception>
         public ApiRequestBase(Func<HttpClient> httpClientProvider, HttpRequestMessage? httpRequestMessage = null)
-            : this(httpClientProvider, httpRequestMessage, new ResponseTypeInfoCollection()) { }
+            : this(httpClientProvider, httpRequestMessage, new ResponseTypeDescriptorCollection()) { }
 
         /// <summary>
         ///     Initializes a new <see cref="ApiRequestBase"/> instance which re-uses the properties
@@ -71,18 +80,18 @@
             : this(
                 request.HttpClientProvider, 
                 request.HttpRequestMessage,
-                new ResponseTypeInfoCollection(request.PossibleResponseTypes.ToList())
+                new ResponseTypeDescriptorCollection(request.PossibleResponseTypes.ToList())
               ) { }
 
         private ApiRequestBase(
             Func<HttpClient> httpClientProvider,
             HttpRequestMessage? httpRequestMessage,
-            ResponseTypeInfoCollection possibleResponseTypes)
+            ResponseTypeDescriptorCollection possibleResponseTypes)
             : base(httpRequestMessage)
         {
             _httpClientProvider = httpClientProvider ?? throw new ArgumentNullException(nameof(httpClientProvider));
             PossibleResponseTypesInternal = possibleResponseTypes;
-            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeInfo>(PossibleResponseTypesInternal);
+            PossibleResponseTypes = new ReadOnlyCollection<ResponseTypeDescriptor>(PossibleResponseTypesInternal);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-namespace ReqRest.Builders
+﻿namespace ReqRest.Builders
 {
     using System;
     using System.Collections.Generic;
@@ -38,40 +38,53 @@ namespace ReqRest.Builders
     }
 
     /// <summary>
-    ///     Represents a builder which is able to build a set of <see cref="HttpHeaders"/>.
-    /// </summary>
-    /// <seealso cref="IHttpHeadersBuilder{T}"/>
-    /// <seealso cref="HttpRequestMessageBuilder"/>
-    /// <seealso cref="HttpResponseMessageBuilder"/>
-    /// <seealso cref="HttpHeadersBuilderExtensions"/>
-    public interface IHttpHeadersBuilder : IBuilder
-    {
-
-        /// <summary>
-        ///     Gets the collection of HTTP headers which the builder builds.
-        /// </summary>
-        HttpHeaders Headers { get; }
-
-    }
-
-    /// <summary>
     ///     Represents a builder which is able to build a set of <see cref="HttpHeaders"/> of a specific type.
     /// </summary>
     /// <typeparam name="T">
     ///     The <see cref="HttpHeaders"/> type to be built.
     /// </typeparam>
-    /// <seealso cref="IHttpHeadersBuilder"/>
     /// <seealso cref="HttpRequestMessageBuilder"/>
     /// <seealso cref="HttpResponseMessageBuilder"/>
     /// <seealso cref="HttpHeadersBuilderExtensions"/>
-    public interface IHttpHeadersBuilder<T> : IHttpHeadersBuilder where T : HttpHeaders
+    public interface IHttpHeadersBuilder<out T> : IBuilder where T : HttpHeaders
     {
 
         /// <summary>
         ///     Gets the collection of HTTP headers which the builder builds.
         /// </summary>
-        new T Headers { get; }
+        T Headers { get; }
 
+    }
+
+    /// <summary>
+    ///     Represents a builder which is able to build the <see cref="HttpContentHeaders"/> of
+    ///     an <see cref="HttpContent"/>.
+    ///     
+    ///     By implementing this interface, the implementer gains access to additional extension
+    ///     methods defined in <see cref="HttpContentHeadersBuilderExtensions"/>.
+    ///     See remarks for details.
+    /// </summary>
+    /// <remarks>
+    ///     This interface is introduced so that classes which implement the <see cref="IHttpHeadersBuilder{T}"/>
+    ///     interface multiple times (for example the <see cref="HttpRequestMessageBuilder"/>) gain
+    ///     access to convenience extension methods that allow users to easily interact with the
+    ///     headers of an <see cref="HttpContent"/>.
+    ///     
+    ///     If you don't want this behavior, implement the <see cref="IHttpContentBuilder"/>
+    ///     and <see cref="IHttpHeadersBuilder{HttpContentHeaders}"/> separately.
+    /// </remarks>
+    /// <seealso cref="HttpContentHeadersBuilderExtensions"/>
+    /// <seealso cref="HttpRequestMessageBuilder"/>
+    /// <seealso cref="HttpResponseMessageBuilder"/>
+    public interface IHttpContentHeadersBuilder : IHttpContentBuilder, IHttpHeadersBuilder<HttpContentHeaders> 
+    {
+        // This interface is basically a hack which allows the HttpRequestMessageBuilder and HttpResponseMessageBuilder
+        // classes to have the AddContentHeader(), ... extension methods so that there can be no amiguity
+        // regarding the "default" AddHeader(IHttpHeadersBuilder), ... methods.
+        // 
+        // This interface basically says:
+        // The class already implements an IHttpHeadersBuilder of some kind, but it also has
+        // an HttpContent which should have fluent builder methods.
     }
 
     /// <summary>
@@ -91,7 +104,7 @@ namespace ReqRest.Builders
     }
 
     /// <summary>
-    ///     Represents a builder which is able to build an <see cref="System.Net.Http.HttpMethod"/>.
+    ///     Represents a builder which is able to build an <see cref="HttpMethod"/>.
     /// </summary>
     /// <seealso cref="HttpRequestMessageBuilder"/>
     /// <seealso cref="HttpMethodBuilderExtensions"/>

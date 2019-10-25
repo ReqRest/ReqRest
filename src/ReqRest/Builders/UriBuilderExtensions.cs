@@ -133,6 +133,9 @@
         /// <summary>
         ///     Sets the <see cref="UriBuilder.Fragment"/> property to the specified
         ///     <paramref name="fragment"/> and returns the same builder instance.
+        ///     
+        ///     Be aware that the fragment identifier (<c>"#"</c>) is automatically added to the
+        ///     beginning of the fragment by .NET's <see cref="UriBuilder"/> class.
         /// </summary>
         /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
         /// <param name="builder">The builder.</param>
@@ -158,7 +161,8 @@
         ///     If the existing path starts with multiple slashes, or if the <paramref name="segment"/> 
         ///     starts with multiple slashes, one slash is removed, but the rest are kept.
         ///     
-        ///     One additional slash gets added between the two parts in any case.
+        ///     If <paramref name="segment"/> is <see langword="null"/> or empty, this method
+        ///     does not change the builder's current path.
         /// </summary>
         /// <typeparam name="T">The <see cref="UriBuilder"/> type.</typeparam>
         /// <param name="builder">The builder.</param>
@@ -175,7 +179,7 @@
 
             if (string.IsNullOrEmpty(segment))
             {
-                return builder.SetPath($"{path}/");
+                return builder;
             }
             else
             {
@@ -298,7 +302,9 @@
         public static T AppendQueryParameter<T>(this T builder, IEnumerable<KeyValuePair<string?, string?>>? parameters)
             where T : UriBuilder
         {
-            if (parameters != null)
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+
+            if (!(parameters is null))
             {
                 foreach (var param in parameters)
                 {
@@ -342,6 +348,8 @@
         public static T AppendQueryParameter<T>(this T builder, string? key, string? value)
             where T : UriBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+
             if (string.IsNullOrEmpty(key) && string.IsNullOrEmpty(value))
             {
                 return builder;

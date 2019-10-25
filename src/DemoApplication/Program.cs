@@ -1,10 +1,9 @@
 ﻿namespace DemoApplication
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using DemoApplication.Api;
-    using DemoApplication.Api.Todos;
+    using ReqRest.Builders;
     using static System.Console;
 
     public static class Program
@@ -36,8 +35,8 @@
             //
             // With the deserialized resource, we, as a user, can now interact with the result
             // returned by the API - without having to worry about anything like status codes!
-
-            if (getAllTodosResource.TryGetValue(out IEnumerable<TodoItem> todos))
+            new HttpRequestMessageBuilder().SetHeader("Foo", "Bar");
+            if (getAllTodosResource.TryGetValue(out var todos))
             {
                 WriteLine($"Fetched {todos.Count()} todos!");
 

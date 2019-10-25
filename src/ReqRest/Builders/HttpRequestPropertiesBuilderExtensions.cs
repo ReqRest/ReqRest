@@ -84,6 +84,8 @@
         [DebuggerStepThrough]
         public static T RemoveProperty<T>(this T builder, params string?[]? names) where T : IHttpRequestPropertiesBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
+
             if (names is null)
             {
                 return builder;
@@ -93,7 +95,7 @@
             {
                 foreach (var name in names)
                 {
-                    if (name != null)
+                    if (!(name is null))
                     {
                         p.Remove(name);
                     }

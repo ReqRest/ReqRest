@@ -5,10 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Text;
-    using ReqRest.Resources;
-    using ReqRest.Internal;
     using ReqRest.Serializers;
 
     /// <summary>
@@ -57,6 +54,7 @@
         public static T SetFormUrlEncodedContent<T>(
             this T builder, IEnumerable<(string Key, string Value)> content) where T : IHttpContentBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = content ?? throw new ArgumentNullException(nameof(content));
             return builder.SetFormUrlEncodedContent(
                 content.Select(x => new KeyValuePair<string, string>(x.Key, x.Value))
@@ -100,6 +98,7 @@
         public static T SetFormUrlEncodedContent<T>(
             this T builder, IEnumerable<KeyValuePair<string, string>> content) where T : IHttpContentBuilder
         {
+            _ = builder ?? throw new ArgumentNullException(nameof(builder));
             _ = content ?? throw new ArgumentNullException(nameof(content));
             return builder.SetContent(new FormUrlEncodedContent(content));
         }
@@ -235,7 +234,7 @@
             // Don't call the SetContent(object, Type) overload on purpose.
             // We have the extension method for a generic serialize, so we should use it.
             // If the behavior ever changes, only the extension method will have to be updated.
-            var httpContent = serializer.Serialize<TContent>(content, encoding);
+            var httpContent = serializer.Serialize(content, encoding);
             return builder.SetContent(httpContent);
         }
 
@@ -311,202 +310,6 @@
         [DebuggerStepThrough]
         public static T SetContent<T>(this T builder, HttpContent? content) where T : IHttpContentBuilder =>
             builder.Configure(builder => builder.Content = content);
-
-        #endregion
-
-        #region SetContentType
-
-        /// <summary>
-        ///     Sets the <c>Content-Type</c> header of the <see cref="HttpContentHeaders"/>
-        ///     which are being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="mediaType">
-        ///     The media-type of the <c>Content-Type</c> header.
-        /// </param>
-        /// <param name="charSet">
-        ///     The character set of the <c>Content-Type</c> header.
-        ///     This can be <see langword="null"/>.
-        /// </param>
-        /// <param name="parameters">
-        ///     The media-type header value parameters of the <c>Content-Type</c> header.
-        ///     This can be <see langword="null"/>.
-        /// </param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T SetContentType<T>(
-            this T builder,
-            string mediaType,
-            string? charSet = null,
-            IEnumerable<NameValueHeaderValue>? parameters = null) where T : IHttpContentBuilder
-        {
-            _ = mediaType ?? throw new ArgumentNullException(nameof(mediaType));
-
-            var header = new MediaTypeHeaderValue(mediaType)
-            {
-                CharSet = charSet
-            };
-
-            // It sucks that the parameters cannot be set directly. This only leaves enumeration.
-            if (parameters != null)
-            {
-                foreach (var param in parameters)
-                {
-                    header.Parameters.Add(param);
-                }
-            }
-
-            return builder.SetContentType(header);
-        }
-
-        /// <summary>
-        ///     Sets the <c>Content-Type</c> header of the <see cref="HttpContentHeaders"/>
-        ///     which are being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="contentType">The value for the <c>Content-Type</c> header.</param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T SetContentType<T>(this T builder, MediaTypeHeaderValue? contentType) where T : IHttpContentBuilder =>
-            builder.ConfigureContentHeaders(headers => headers.ContentType = contentType);
-
-        #endregion
-
-        #region Headers
-
-        /// <summary>
-        ///     Adds the specified header without any value to the <see cref="HttpContent.Headers"/>
-        ///     of the HTTP content which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="name">
-        ///     The name of the header.
-        /// </param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="name"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T AddContentHeader<T>(this T builder, string name) where T : IHttpContentBuilder =>
-            builder.AddContentHeader(name, value: null);
-
-        /// <summary>
-        ///     Adds the specified header and its value to the <see cref="HttpContent.Headers"/>
-        ///     of the HTTP content which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="name">
-        ///     The name of the header.
-        /// </param>
-        /// <param name="value">
-        ///     The content/value of the header.
-        ///     This can be <see langword="null"/>.
-        /// </param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="name"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T AddContentHeader<T>(this T builder, string name, string? value) where T : IHttpContentBuilder =>
-            builder.ConfigureContentHeaders(headers => headers.Add(
-                name ?? throw new ArgumentNullException(nameof(name)),
-                value
-            ));
-
-        /// <summary>
-        ///     Adds the specified header and its values to the <see cref="HttpContent.Headers"/>
-        ///     of the HTTP content which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="name">
-        ///     The name of the header.
-        /// </param>
-        /// <param name="values">
-        ///     The content/values of the header.
-        ///     This can be <see langword="null"/>.
-        /// </param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="name"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T AddContentHeader<T>(this T builder, string name, IEnumerable<string?>? values) where T : IHttpContentBuilder =>
-            builder.ConfigureContentHeaders(headers => headers.AddWithUnknownValueCount(name, values));
-
-        /// <summary>
-        ///     Removes the headers with the specified names from the <see cref="HttpContent.Headers"/>
-        ///     of the HTTP content which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="names">The names of the headers to be removed.</param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T RemoveContentHeader<T>(this T builder, params string?[]? names) where T : IHttpContentBuilder =>
-            builder.ConfigureContentHeaders(headers => headers.Remove(names));
-
-        /// <summary>
-        ///     Removes all headers from the <see cref="HttpContent.Headers"/> of the HTTP content
-        ///     which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T ClearContentHeaders<T>(this T builder) where T : IHttpContentBuilder =>
-            builder.ConfigureContentHeaders(headers => headers.Clear());
-
-        /// <summary>
-        ///     Executes the specified <paramref name="configureHeaders"/> function to modify the
-        ///     <see cref="HttpContent.Headers"/> of the HTTP content which is being built.
-        /// </summary>
-        /// <typeparam name="T">The type of the builder.</typeparam>
-        /// <param name="builder">The builder.</param>
-        /// <param name="configureHeaders">
-        ///     A function which receives the <see cref="HttpContent.Headers"/> object.
-        ///     The function can then modify the headers as desired.
-        /// </param>
-        /// <returns>The specified <paramref name="builder"/>.</returns>
-        /// <exception cref="ArgumentNullException">
-        ///     * <paramref name="builder"/>
-        ///     * <paramref name="configureHeaders"/>
-        /// </exception>
-        [DebuggerStepThrough]
-        public static T ConfigureContentHeaders<T>(
-            this T builder, Action<HttpContentHeaders> configureHeaders) where T : IHttpContentBuilder
-        {
-            _ = configureHeaders ?? throw new ArgumentNullException(nameof(configureHeaders));
-            return builder.Configure(builder =>
-            {
-                // There may not always be an HttpContent. There is nothing we can/should do. Fail here.
-                if (builder.Content is null)
-                {
-                    throw new InvalidOperationException(ExceptionStrings.HttpContentBuilderExtensions_NoHttpContentHeaders());
-                }
-
-                configureHeaders(builder.Content.Headers);
-            });
-        }
 
         #endregion
 

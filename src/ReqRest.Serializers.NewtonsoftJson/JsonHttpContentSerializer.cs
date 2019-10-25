@@ -27,7 +27,7 @@
         /// <summary>
         ///     Gets a factory function returning the <see cref="Default"/> value.
         /// </summary>
-        internal static Func<JsonHttpContentSerializer> DefaultFactory { get; } = () => Default;
+        internal static Func<JsonHttpContentSerializer> DefaultProvider { get; } = () => Default;
 
         /// <summary>
         ///     Gets a default <see cref="JsonHttpContentSerializer"/> instance which is used
@@ -100,9 +100,9 @@
 
         /// <inheritdoc/>
         protected override async Task<object?> DeserializeAsyncCore(
-            HttpContent httpContent, Type contentType, CancellationToken cancellationToken)
+            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
         {
-            var json = await httpContent.ReadAsStringAsync().ConfigureAwait(false);
+            var json = httpContent is null ? "" : await httpContent.ReadAsStringAsync().ConfigureAwait(false);
             using var stringReader = new StringReader(json);
             using var jsonReader = new JsonTextReader(stringReader);
             return ActualJsonSerializer.Deserialize(jsonReader, contentType);

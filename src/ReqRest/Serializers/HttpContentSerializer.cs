@@ -43,10 +43,10 @@
         ///     the user.
         ///     If not overridden, this is <see cref="Encoding.UTF8"/>.
         /// </summary>
-        protected virtual Encoding DefaultEncoding => Encoding.UTF8;
+        protected internal virtual Encoding DefaultEncoding => Encoding.UTF8;
 
         /// <inheritdoc/>
-        public virtual HttpContent? Serialize(object? content, Type? contentType, Encoding? encoding)
+        public HttpContent? Serialize(object? content, Type? contentType, Encoding? encoding)
         {
             contentType = GetAndVerifyContentType(content, contentType);
 
@@ -54,9 +54,14 @@
             {
                 return null;
             }
-            else
+
+            try
             {
-                return SerializeDefault(content, contentType, encoding);
+                return SerializeCore(content, contentType, encoding ?? DefaultEncoding);
+            }
+            catch (Exception ex) when (!(ex is HttpContentSerializationException))
+            {
+                throw new HttpContentSerializationException(null, ex);
             }
         }
 
@@ -64,7 +69,7 @@
         {
             // If both types are given, ensure that they match. Otherwise serialization will be problematic.
             var actualContentType = content?.GetType();
-            if (actualContentType != null && contentType != null && !contentType.IsAssignableFrom(actualContentType))
+            if (!(actualContentType is null) && !(contentType is null) && !contentType.IsAssignableFrom(actualContentType))
             {
                 throw new ArgumentException(
                     ExceptionStrings.HttpContentSerializer_ContentTypeDoesNotMatchActualType(contentType, actualContentType),
@@ -74,18 +79,6 @@
 
             // The contentType is optional. In that case, try to get the type on our own.
             return contentType ?? actualContentType;
-        }
-
-        private HttpContent? SerializeDefault(object? content, Type? contentType, Encoding? encoding)
-        {
-            try
-            {
-                return SerializeCore(content, contentType, encoding ?? DefaultEncoding);
-            }
-            catch (Exception ex) when (!(ex is HttpContentSerializationException))
-            {
-                throw new HttpContentSerializationException(null, ex);
-            }
         }
 
         /// <summary>
@@ -115,10 +108,10 @@
         ///     A new <see cref="HttpContent"/> instance which holds the serialized <paramref name="content"/>
         ///     or <see langword="null"/>.
         /// </returns>
-        protected abstract HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding);
+        protected internal abstract HttpContent? SerializeCore(object? content, Type? contentType, Encoding encoding);
 
         /// <inheritdoc/>
-        public virtual async Task<object?> DeserializeAsync(
+        public async Task<object?> DeserializeAsync(
             HttpContent? httpContent,
             Type contentType,
             CancellationToken cancellationToken = default)
@@ -129,24 +122,7 @@
             {
                 return new NoContent();
             }
-            else
-            {
-                return await DeserializeDefaultAsync(httpContent, contentType, cancellationToken).ConfigureAwait(false);
-            }
-        }
 
-        private async Task<object?> DeserializeDefaultAsync(
-            HttpContent? httpContent, Type contentType, CancellationToken cancellationToken)
-        {
-            // We are not expecting NoContent at this point. This means that an empty HttpContent
-            // (i.e. null) should not be legal.
-            if (httpContent is null)
-            {
-                throw new HttpContentSerializationException(
-                    ExceptionStrings.HttpContentSerializer_HttpContentIsNullButShouldNotBeNoContent(contentType)
-                );
-            }
-            
             try
             {
                 return await DeserializeAsyncCore(httpContent, contentType, cancellationToken).ConfigureAwait(false);
@@ -165,6 +141,7 @@
         /// </summary>
         /// <param name="httpContent">
         ///     An <see cref="HttpContent"/> instance from which the content should be serialized.
+        ///     This can be <see langword="null"/>.
         /// </param>
         /// <param name="contentType">
         ///     The target type of the object which is supposed to be deserialized.
@@ -175,8 +152,8 @@
         /// <returns>
         ///     An object of type <paramref name="contentType"/>.
         /// </returns>
-        protected abstract Task<object?> DeserializeAsyncCore(
-            HttpContent httpContent,
+        protected internal abstract Task<object?> DeserializeAsyncCore(
+            HttpContent? httpContent,
             Type contentType,
             CancellationToken cancellationToken
         );
